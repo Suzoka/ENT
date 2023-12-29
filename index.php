@@ -22,7 +22,7 @@ switch ($page) {
             if (checkConnectionUsr($_POST['identifiant'], $_POST['mdp'])) {
                 echo "Connexion réussie";
             } else {
-                echo "Erreur de connexion";
+                header('Location: ./connexion?error=usr!1');
             }
         } else {
             header('Location: ./connexion?error=usr!0');
@@ -33,7 +33,7 @@ switch ($page) {
             if (checkConnectionProf($_POST['identifiant'], $_POST['mdp'])) {
                 echo "Connexion réussie";
             } else {
-                echo "Erreur de connexion";
+                header('Location: ./connexion?error=prof!1');
             }
         } else {
             header('Location: ./connexion?error=prof!0');
