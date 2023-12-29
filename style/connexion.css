@@ -1,0 +1,115 @@
+body {
+    background-image: url(../img/univ.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.flexbox {
+    display: flex;
+    gap: 5%;
+    justify-content: center;
+}
+
+h1 {
+    color: white;
+    font-size: 2.75rem;
+    text-align: center;
+}
+
+.card {
+    background-color: #F1FAFF;
+    max-width: 500px;
+    height: 500px;
+    border-radius: 40px;
+    padding: 25px 38px;
+}
+
+.card h2 {
+    margin-left: -10px;
+    font-size: 2rem;
+    margin-top: 10px;
+}
+
+.card p {
+    font-size: 1.25rem;
+    margin-left: 10px;
+}
+
+.card button {
+    display: block;
+    background-color: #1B4965;
+    width: 230px;
+    height: 45px;
+    border-radius: 40px;
+    color: white;
+    font-size: 1.5rem;
+    margin-top: 55px;
+    margin-left: auto;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.formulaire {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #F1FAFF;
+    border-radius : 40px;
+    width: 750px;
+    height: 360px;
+    padding: 25px 35px;
+}
+
+.formulaire h2 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.formulaire p {
+    font-size: 1.5rem;
+    margin: 0;
+    margin-top: -5px;
+    margin-bottom: 30px;
+}
+
+.champ {
+    margin-top: 15px;
+}
+
+.formulaire label {
+    position: absolute;
+    display: inline-block;
+    font-size: 1rem;
+    transform: translate(-530px, 12px);
+    z-index: 3;
+    color: #2e2e2e;
+    cursor: text;
+    transition: all 0.3s ease;
+}
+
+.champ input[type="text"], .champ input[type="password"]{
+    background-color: #ffffff;
+    width: 550px;
+    height: 45px;
+    border-radius: 40px;
+    outline: 0;
+    padding-left: 25px;
+    font-size: 1.2rem;
+    border: 1px solid #2e2e2e;
+}
+
+.champ input:focus~label,
+.champ input:valid~label {
+    transform: translate(-530px, -20px);
+    color: #000000;
+}
+
+@media screen and (max-width: 1060px) {
+    .flexbox {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+}
