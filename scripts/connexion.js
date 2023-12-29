@@ -1,3 +1,5 @@
+const url = new URL(document.location.href);
+
 document.querySelectorAll('.card button').forEach((button, i) => {
     button.addEventListener('click', () => {
         document.querySelector('.flexbox').style.display = "none";
@@ -13,3 +15,14 @@ document.querySelectorAll('.backButton').forEach(button => {
         document.querySelector('.flexbox').style.display = "flex";
     });
 });
+
+if (url.searchParams.get('error')) {
+    if (url.searchParams.get('error').split('!')[0] === 'usr') {
+        document.querySelector('.flexbox').style.display = "none";
+        document.querySelector('#popup0').style.display = "block";
+    }
+    if (url.searchParams.get('error').split('!')[0] === 'prof') {
+        document.querySelector('.flexbox').style.display = "none";
+        document.querySelector('#popup1').style.display = "block";
+    }
+}

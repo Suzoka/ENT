@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('./scripts/script.php');
+include('./scripts/script.php');
 
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -15,14 +15,36 @@ if (!isset($segments[2])) {
 
 switch ($page) {
     case 'connexion':
-        require './vues/connexion.php';
+        include './vues/connexion.php';
+        break;
+    case 'checkConnectionUsr':
+        if (isset($_POST['identifiant']) && isset($_POST['mdp'])) {
+            if (checkConnectionUsr($_POST['identifiant'], $_POST['mdp'])) {
+                echo "Connexion réussie";
+            } else {
+                echo "Erreur de connexion";
+            }
+        } else {
+            header('Location: ./connexion?error=usr!0');
+        }
+        break;
+    case 'checkConnectionProf':
+        if (isset($_POST['identifiant']) && isset($_POST['mdp'])) {
+            if (checkConnectionProf($_POST['identifiant'], $_POST['mdp'])) {
+                echo "Connexion réussie";
+            } else {
+                echo "Erreur de connexion";
+            }
+        } else {
+            header('Location: ./connexion?error=prof!0');
+        }
         break;
     case 'accueil':
-        require './vues/accueil.php';
+        include './vues/accueil.php';
         break;
     default:
         // TODO : if user is connected, redirect to accueil.php, else redirect to connexion.php, 404 error ?
-        require './vues/connexion.php';
+        include './vues/connexion.php';
         break;
 }
 ?>

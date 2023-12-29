@@ -37,6 +37,19 @@
     <div id="popup0" class="formulaire">
         <h2>Authentification espace étudiant</h2>
         <p>Renseignez votre identifiant et votre mot de passe</p>
+        <?php
+        if (isset($_GET["error"])) {
+            echo "<p class='erreur'> Erreur : ";
+            if ($_GET["error"] == "usr!0") {
+                echo "Il se peut que votre session ai expirée";
+            } else if ($_GET["error"] == "usr!1") {
+                echo "Identifiant ou mot de passe incorrect";
+            } else {
+                echo "Erreur inconnue";
+            }
+            echo "</p>";
+        }
+        ?>
         <form action="./checkConnectionUsr" method="POST">
             <div class="champ">
                 <input type="text" name="identifiant" id="identifiantUsr" required>
@@ -63,6 +76,19 @@
     <div id="popup1" class="formulaire">
         <h2>Authentification espace professeur</h2>
         <p>Renseignez votre identifiant et votre mot de passe</p>
+        <?php
+        if (isset($_GET["error"])) {
+            echo "<p class='erreur'> Erreur : ";
+            if ($_GET["error"] == "prof!0") {
+                echo "Il se peut que votre session ai expirée";
+            } else if ($_GET["error"] == "prof!1") {
+                echo "Identifiant ou mot de passe incorrect";
+            } else {
+                echo "Erreur inconnue";
+            }
+            echo "</p>";
+        }
+        ?>
         <form action="./checkConnectionProf" method="POST">
             <div class="champ">
                 <input type="text" name="identifiant" id="identifiantProf" required>

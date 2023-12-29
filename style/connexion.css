@@ -81,7 +81,7 @@ h2::after {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #F1FAFF;
-    border-radius : 40px;
+    border-radius: 40px;
     width: 750px;
     height: 360px;
     padding: 25px 35px;
@@ -114,7 +114,8 @@ h2::after {
     transition: all 0.3s ease;
 }
 
-.champ input[type="text"], .champ input[type="password"]{
+.champ input[type="text"],
+.champ input[type="password"] {
     background-color: #ffffff;
     width: 550px;
     height: 45px;
@@ -129,6 +130,13 @@ h2::after {
 .champ input:valid~label {
     transform: translate(-530px, -20px);
     color: #000000;
+}
+
+p.erreur {
+    color: #ff0000;
+    margin: 0;
+    font-size: 0.95rem;
+    margin-top: -30px;
 }
 
 @media screen and (max-width: 1060px) {
