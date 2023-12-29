@@ -1,20 +1,20 @@
-create table if not exists `etudiant` (
-    `id` int(11) primary key not null auto_increment,
-    `username` varchar(255) not null,
+create table if not exists `etudiants` (
+    `id` int primary key not null auto_increment,
+    `username` varchar(250) not null unique,
     `password` varchar(255) not null,
-    `email` varchar(255) not null,
+    `email` varchar(250) not null unique,
     `prenom` varchar(255) not null,
     `nom` varchar(255) not null,
     `date_naissance` date not null,
-    `numEtud` int(11) not null,
+    `numEtud` int not null unique,
     `statut` text not null
 );
 
 create table if not exists `enseignants` (
-    `id` int(11) primary key not null auto_increment,
-    `username` varchar(255) not null,
+    `id` int primary key not null auto_increment,
+    `username` varchar(250) not null unique,
     `password` varchar(255) not null,
-    `email` varchar(255) not null,
+    `email` varchar(250) not null unique,
     `prenom` varchar(255) not null,
     `nom` varchar(255) not null,
     `date_naissance` date not null,

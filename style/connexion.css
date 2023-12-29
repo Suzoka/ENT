@@ -137,6 +137,7 @@ p.erreur {
     margin: 0;
     font-size: 0.95rem;
     margin-top: -30px;
+    margin-bottom: 20px;
 }
 
 @media screen and (max-width: 1060px) {
