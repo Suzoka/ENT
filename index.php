@@ -13,38 +13,55 @@ if (!isset($segments[2])) {
     $page = $segments[2];
 }
 
-switch ($page) {
-    case 'connexion':
-        include './vues/connexion.php';
-        break;
-    case 'checkConnectionUsr':
-        if (isset($_POST['identifiant']) && isset($_POST['mdp'])) {
-            if (checkConnectionUsr($_POST['identifiant'], $_POST['mdp'])) {
-                echo "Connexion réussie";
+if (isset($_SESSION['login'])) {
+    $image = getImage($_SESSION['login'], $_SESSION['profil']);
+    $identite = getIdentite($_SESSION['login'], $_SESSION['profil']);
+    $classes = getClasses($_SESSION['login']);
+    switch ($page) {
+        case 'accueil':
+            include './vues/accueil.php';
+            break;
+        case 'deconnexion':
+            deconection();
+            header('Location: ./connexion');
+            break;
+        case 'messagerie':
+            include './vues/messagerie.php';
+            break;
+        default:
+            include './vues/accueil.php';
+            break;
+    }
+} else {
+    switch ($page) {
+        case 'connexion':
+            include './vues/connexion.php';
+            break;
+        case 'checkConnectionUsr':
+            if (isset($_POST['identifiant']) && isset($_POST['mdp'])) {
+                if (checkConnectionUsr($_POST['identifiant'], $_POST['mdp'])) {
+                    header('Location: ./accueil');
+                } else {
+                    header('Location: ./connexion?error=usr!1');
+                }
             } else {
-                header('Location: ./connexion?error=usr!1');
+                header('Location: ./connexion?error=usr!0');
             }
-        } else {
-            header('Location: ./connexion?error=usr!0');
-        }
-        break;
-    case 'checkConnectionProf':
-        if (isset($_POST['identifiant']) && isset($_POST['mdp'])) {
-            if (checkConnectionProf($_POST['identifiant'], $_POST['mdp'])) {
-                echo "Connexion réussie";
+            break;
+        case 'checkConnectionProf':
+            if (isset($_POST['identifiant']) && isset($_POST['mdp'])) {
+                if (checkConnectionProf($_POST['identifiant'], $_POST['mdp'])) {
+                    header('Location: ./espaceProf');
+                } else {
+                    header('Location: ./connexion?error=prof!1');
+                }
             } else {
-                header('Location: ./connexion?error=prof!1');
+                header('Location: ./connexion?error=prof!0');
             }
-        } else {
-            header('Location: ./connexion?error=prof!0');
-        }
-        break;
-    case 'accueil':
-        include './vues/accueil.php';
-        break;
-    default:
-        // TODO : if user is connected, redirect to accueil.php, else redirect to connexion.php, 404 error ?
-        include './vues/connexion.php';
-        break;
+            break;
+        default:
+            include './vues/connexion.php';
+            break;
+    }
 }
 ?>

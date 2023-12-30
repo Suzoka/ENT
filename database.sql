@@ -20,3 +20,20 @@ create table if not exists `enseignants` (
     `date_naissance` date not null,
     `statut` text not null
 );
+
+create table if not exists `groupes` (
+    `id_groupe` int primary key not null auto_increment,
+    `nom_groupe` varchar(255) not null,
+    `ext_id_classe` int not null
+);
+
+create table if not exists `classes` (
+    `id_classe` int primary key not null auto_increment,
+    `nom_classe` varchar(255) not null
+);
+
+create table if not exists `promotions` (
+    `id_promo` int primary key not null auto_increment,
+    `ext_id_groupe` int not null,
+    `ext_id_usr` int not null
+);
