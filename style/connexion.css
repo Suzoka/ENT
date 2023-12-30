@@ -10,7 +10,7 @@ body {
     gap: 5%;
     justify-content: center;
     position: fixed;
-    top: 50%;
+    top: 57.5%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -36,7 +36,7 @@ h1 {
 
 .card h2 {
     margin-left: -10px;
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-top: 10px;
 }
 
@@ -44,7 +44,7 @@ h2::after {
     content: url("data:image/svg+xml; base64, PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc3MScgaGVpZ2h0PSc3MScgdmlld0JveD0nMCAwIDcxIDcxJyBmaWxsPSdub25lJz48cGF0aCBkPSdNMzUuNSA4Ljg3NUwyLjk1ODM3IDI2LjYyNUwxNC43OTE3IDMzLjA3NDJWNTAuODI0MkwzNS41IDYyLjEyNUw1Ni4yMDg0IDUwLjgyNDJWMzMuMDc0Mkw2Mi4xMjUgMjkuODQ5NlY1MC4yOTE3SDY4LjA0MTdWMjYuNjI1TDM1LjUgOC44NzVaTTU1LjY3NTkgMjYuNjI1TDM1LjUgMzcuNjNMMTUuMzI0MiAyNi42MjVMMzUuNSAxNS42Mkw1NS42NzU5IDI2LjYyNVpNNTAuMjkxNyA0Ny4zMzMzTDM1LjUgNTUuMzhMMjAuNzA4NCA0Ny4zMzMzVjM2LjI5ODdMMzUuNSA0NC4zNzVMNTAuMjkxNyAzNi4yOTg3VjQ3LjMzMzNaJyBmaWxsPScjMUI0OTY1Jy8+PC9zdmc+");
     position: absolute;
     top: 15px;
-    right: 60px;
+    right: 40px;
 }
 
 .card p {
@@ -60,7 +60,7 @@ h2::after {
     border-radius: 40px;
     color: white;
     font-size: 1.5rem;
-    margin-top: 55px;
+    margin-top: 40px;
     margin-left: auto;
     margin-right: 15px;
     cursor: pointer;
@@ -128,7 +128,7 @@ h2::after {
 
 .champ input:focus~label,
 .champ input:valid~label {
-    transform: translate(-530px, -20px);
+    transform: translate(-530px, -22px);
     color: #000000;
 }
 

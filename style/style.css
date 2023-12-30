@@ -6,6 +6,47 @@
 
 body {
     margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src:url('../font/Inter-Regular.woff2') format('woff2'),
+        url('../font/Inter-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src:url('../font/Inter-Bold.woff2') format('woff2'),
+        url('../font/Inter-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src:url('../font/Inter-Medium.woff2') format('woff2'),
+        url('../font/Inter-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src:url('../font/Inter-SemiBold.woff2') format('woff2'),
+        url('../font/Inter-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src:url('../font/Inter-Italic.woff2') format('woff2'),
+        url('../font/Inter-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
 }
 
 .sr-only {
@@ -19,4 +60,77 @@ body {
     position: absolute !important;
     width: 1px !important;
     white-space: nowrap !important;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3rem;
+    background-color: #1B4965;
+    height: 7rem;
+}
+
+header nav a:not(.logout) {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+header nav a.logo {
+    margin-right: auto;
+    margin-left: 1.3rem;
+}
+
+header nav a.logo img {
+    width: 3.875rem;
+    filter: saturate(0) invert(1) brightness(100);
+}
+
+header nav div.text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 0.5rem;
+}
+
+header nav div.text p {
+    color: #fff;
+    margin: 0;
+}
+
+header nav div.text p:first-of-type {
+    font-size: 1.6rem;
+}
+
+header nav div.text p:last-of-type {
+    font-size: 1.25rem;
+}
+
+header nav a.logo div.text p:first-of-type {
+    font-weight: 700;
+}
+
+header nav a.logo div.text p:last-of-type {
+    font-weight: 600;
+}
+
+header nav a.user div.text p:first-of-type {
+    font-weight: 500;
+}
+
+header nav a.user img {
+    width: 4.25rem;    
+}
+
+header nav a.logout {
+    margin-right: 1.75rem;
+    width: 3.125rem;
 }

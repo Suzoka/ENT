@@ -10,7 +10,7 @@
 </head>
 
 <body>
-
+    <?php require './vues/components/header.php'; ?>
     <h1>Connectez vous !</h1>
 
     <div class="flexbox">
