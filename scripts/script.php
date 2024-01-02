@@ -4,7 +4,7 @@ include './scripts/database.php';
 function checkConnectionUsr($login, $mdp)
 {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM `etudiants` where username=:username");
+    $stmt = $db->prepare("SELECT * FROM `utilisateurs` where username=:username && role=1");
     $stmt->bindValue(':username', $login, PDO::PARAM_STR);
     $stmt->execute();
     $count = $stmt->rowCount();
@@ -12,7 +12,6 @@ function checkConnectionUsr($login, $mdp)
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if (password_verify($mdp, $result["password"])) {
             $_SESSION['login'] = $result["id"];
-            $_SESSION['profil'] = "usr";
             return true;
         } else {
             return false;
@@ -25,7 +24,7 @@ function checkConnectionUsr($login, $mdp)
 function checkConnectionProf($login, $mdp)
 {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM `enseignants` where username=:username");
+    $stmt = $db->prepare("SELECT * FROM `utilisateurs` where username=:username && role=2");
     $stmt->bindValue(':username', $login, PDO::PARAM_STR);
     $stmt->execute();
     $count = $stmt->rowCount();
@@ -33,7 +32,6 @@ function checkConnectionProf($login, $mdp)
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if (password_verify($mdp, $result["password"])) {
             $_SESSION['login'] = $result["id"];
-            $_SESSION['profil'] = "prof";
             return true;
         } else {
             return false;
@@ -48,44 +46,19 @@ function deconection()
     session_destroy();
 }
 
-function getImage($id, $profil)
+function getImage($id)
 {
-    if ($profil == "usr") {
-        return getImageUsr($id);
-    } else {
-        return getImageProf($id);
-    }
-}
-
-function getImageUsr($id)
-{
-    if (file_exists("../img/pdp/usr/pdp$id.png")) {
-        return "../img/pdp/usr/pdp$id.png";
+    if (file_exists("../img/pdp/pdp$id.png")) {
+        return "../img/pdp/pdp$id.png";
     } else {
         return "../img/pdp/default.png";
     }
 }
 
-function getImageProf($id)
-{
-    if (file_exists("../img/pdp/prof/pdp$id.png")) {
-        return "../img/pdp/prof/pdp$id.png";
-    } else {
-        return "../img/pdp/default.png";
-    }
-}
-
-function getIdentite($id, $profil)
+function getIdentite($id)
 {
     global $db;
-    if ($_SESSION['profil'] == "usr") {
-        $stmt = $db->prepare("SELECT * FROM `etudiants` where id=:id");
-    } else if ($_SESSION['profil'] == "prof") {
-        $stmt = $db->prepare("SELECT * FROM `enseignants` where id=:id");
-    }
-    else{
-        return "Erreur";
-    }
+    $stmt = $db->prepare("SELECT * FROM `utilisateurs` where id=:id");
     $stmt->bindValue(':id', $id, PDO::PARAM_STR);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -110,6 +83,40 @@ function getClasses($id)
             }
         }
         return $classes;
+    }
+}
+
+function sendMessage($from, $to, $message)
+{
+    global $db;
+    $stmt = $db->prepare("INSERT INTO `messages` (`ext_id_sender`, `ext_id_receiver`, `message`, `date`) VALUES (:from, :to, :message, NOW())");
+    $stmt->bindValue(':from', $from, PDO::PARAM_INT);
+    $stmt->bindValue(':to', $to, PDO::PARAM_INT);
+    $stmt->bindValue(':message', $message, PDO::PARAM_STR);
+    $stmt->execute();
+    return true;
+}
+
+function getCurrentConversation($id, $to)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM `messages` where (ext_id_sender=:id && ext_id_receiver=:to) || (ext_id_sender=:to && ext_id_receiver=:id) order by date");
+    $stmt->bindValue(':to', $to, PDO::PARAM_INT);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function getLastConversation($id) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM `messages` where ext_id_sender=:id || ext_id_receiver=:id order by date desc limit 1");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($result["ext_id_sender"] == $id) {
+        return $result["ext_id_receiver"];
+    } else {
+        return $result["ext_id_sender"];
     }
 }
 ?>

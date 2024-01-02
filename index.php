@@ -14,8 +14,8 @@ if (!isset($segments[2])) {
 }
 
 if (isset($_SESSION['login'])) {
-    $image = getImage($_SESSION['login'], $_SESSION['profil']);
-    $identite = getIdentite($_SESSION['login'], $_SESSION['profil']);
+    $image = getImage($_SESSION['login']);
+    $identite = getIdentite($_SESSION['login']);
     $classes = getClasses($_SESSION['login']);
     switch ($page) {
         case 'accueil':
@@ -26,7 +26,27 @@ if (isset($_SESSION['login'])) {
             header('Location: ./connexion');
             break;
         case 'messagerie':
+            if (isset($_GET["to"])) {
+                $to = $_GET["to"];
+            } else {
+                $to = getLastConversation($_SESSION["login"]);
+            }
+            $imageReceiver = getImage($to);
+            $identiteReceiver = getIdentite($to);
+            $classesReceiver = getClasses($to);
+            $conversation = getCurrentConversation($_SESSION["login"], $to)->fetchAll(PDO::FETCH_ASSOC);
             include './vues/messagerie.php';
+            break;
+        case 'sendMessage':
+            if (isset($_POST["message"]) && isset($_GET["to"])) {
+                if (sendMessage($_SESSION["login"], $_GET["to"], $_POST["message"])){
+                    header("Location: ./messagerie?to={$_GET["to"]}");
+                } else {
+                    header('Location: ./messagerie?error=true');
+                }
+            } else {
+                header('Location: ./messagerie?error=true');
+            }
             break;
         default:
             include './vues/accueil.php';
