@@ -1,4 +1,5 @@
 <!-- //TODO : Scroller tout en bas de la conversation, pour voir les derniers messages en premier -->
+<!-- //TODO : rapprocher les messagees d'un même destinataire, et ne pas répéter la pdp -->
 
 <!DOCTYPE html>
 <html lang="fr">
