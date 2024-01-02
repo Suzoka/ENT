@@ -14,8 +14,8 @@ if (!isset($segments[2])) {
 }
 
 if (isset($_SESSION['login'])) {
-    $image = getImage($_SESSION['login'], $_SESSION['profil']);
-    $identite = getIdentite($_SESSION['login'], $_SESSION['profil']);
+    $image = getImage($_SESSION['login']);
+    $identite = getIdentite($_SESSION['login']);
     $classes = getClasses($_SESSION['login']);
     switch ($page) {
         case 'accueil':
