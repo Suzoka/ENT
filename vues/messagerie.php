@@ -1,3 +1,5 @@
+<!-- //TODO : Scroller tout en bas de la conversation, pour voir les derniers messages en premier -->
+
 <!DOCTYPE html>
 <html lang="fr">
 
