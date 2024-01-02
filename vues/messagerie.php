@@ -30,12 +30,15 @@
                 </div>
             </div>
             <form action="./sendMessage?to=<?php echo $to;?>" method="POST">
-                <input type="text" name="message" id="message" placeholder="Envoyer un chat" required>
+                <textarea name="message" id="message" placeholder="Envoyer un chat" required></textarea>
                 <input type="submit" value="Envoyer">
             </form>
         </div>
         <div class="contacts"></div>
     </section>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script> -->
+    <script src="../scripts/messagerie.js" defer></script>
 </body>
 
 </html>
