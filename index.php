@@ -32,13 +32,15 @@ if (isset($_SESSION['login'])) {
                 $to = getLastConversation($_SESSION["login"]);
             }
             $imageReceiver = getImage($to);
+            $identiteReceiver = getIdentite($to);
+            $classesReceiver = getClasses($to);
             $conversation = getCurrentConversation($_SESSION["login"], $to)->fetchAll(PDO::FETCH_ASSOC);
             include './vues/messagerie.php';
             break;
         case 'sendMessage':
             if (isset($_POST["message"]) && isset($_GET["to"])) {
                 if (sendMessage($_SESSION["login"], $_GET["to"], $_POST["message"])){
-                    header('Location: ./messagerie');
+                    header("Location: ./messagerie?to={$_GET["to"]}");
                 } else {
                     header('Location: ./messagerie?error=true');
                 }
