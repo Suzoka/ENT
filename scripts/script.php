@@ -85,4 +85,38 @@ function getClasses($id)
         return $classes;
     }
 }
+
+function sendMessage($from, $to, $message)
+{
+    global $db;
+    $stmt = $db->prepare("INSERT INTO `messages` (`ext_id_sender`, `ext_id_receiver`, `message`, `date`) VALUES (:from, :to, :message, NOW())");
+    $stmt->bindValue(':from', $from, PDO::PARAM_INT);
+    $stmt->bindValue(':to', $to, PDO::PARAM_INT);
+    $stmt->bindValue(':message', $message, PDO::PARAM_STR);
+    $stmt->execute();
+    return true;
+}
+
+function getCurrentConversation($id, $to)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM `messages` where (ext_id_sender=:id && ext_id_receiver=:to) || (ext_id_sender=:to && ext_id_receiver=:id) order by date");
+    $stmt->bindValue(':to', $to, PDO::PARAM_INT);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function getLastConversation($id) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM `messages` where ext_id_sender=:id || ext_id_receiver=:id order by date desc limit 1");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($result["ext_id_sender"] == $id) {
+        return $result["ext_id_receiver"];
+    } else {
+        return $result["ext_id_sender"];
+    }
+}
 ?>

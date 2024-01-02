@@ -10,9 +10,13 @@
 </head>
 
 <body>
-    <?php require './vues/components/header.php';?>
+    <?php require './vues/components/header.php'; ?>
     <br><br><br>
     messagerie
+    <form action="./sendMessage?to=<?php echo $to;?>" method="POST">
+        <input type="text" name="message" id="message" required>
+        <input type="submit" value="Envoyer">
+    </form>
 </body>
 
 </html>
