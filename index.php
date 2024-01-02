@@ -31,6 +31,7 @@ if (isset($_SESSION['login'])) {
             } else {
                 $to = getLastConversation($_SESSION["login"]);
             }
+            $imageReceiver = getImage($to);
             $conversation = getCurrentConversation($_SESSION["login"], $to)->fetchAll(PDO::FETCH_ASSOC);
             include './vues/messagerie.php';
             break;
