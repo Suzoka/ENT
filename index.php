@@ -1,5 +1,6 @@
 <?php
 session_start();
+include ('./scripts/database.php');
 include('./scripts/script.php');
 
 

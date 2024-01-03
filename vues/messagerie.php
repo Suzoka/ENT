@@ -46,7 +46,7 @@
                     ?>
                 </div>
             </div>
-            <form action="./sendMessage?to=<?php echo $to; ?>" method="POST">
+            <form action="./sendMessage?to=<?php echo $to; ?>" method="POST" class="msg">
                 <textarea name="message" id="message" placeholder="Envoyer un chat" required></textarea>
                 <label for="send" class="sr-only">Envoyer</label>
                 <input type="submit" value="" id="send">
@@ -54,6 +54,10 @@
         </div>
         <div class="side">
             <div class="contacts customScroll">
+                <form class="recherche">
+                    <input type="search" list="usr" name="recherche">
+                </form>
+                <datalist id="usr" class="usr"></datalist>
                 <?php
                 foreach ($historique as $contact) { ?>
                     <a href="./messagerie?to=<?php echo $contact["other_user_id"]; ?>"

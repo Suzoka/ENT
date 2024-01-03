@@ -131,7 +131,7 @@ form {
     gap: 0.8rem;
 }
 
-form textarea {
+form.msg textarea {
     border: none;
     border-radius: 2.5rem;
     width: 100%;
@@ -144,12 +144,12 @@ form textarea {
     resize: none;
 }
 
-form textarea::placeholder {
+form.msg textarea::placeholder {
     color: #FFF;
     opacity: 0.4;
 }
 
-form input[type=submit] {
+form.msg input[type=submit] {
     background-color: #1B4965;
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' fill='none'><path d='M51.9098 30H25.139M7.5 20.0001H13.75M10 30H13.75M11.25 40H13.75M24.9038 31.224L22.675 38.6215C21.8313 41.422 21.4094 42.8223 21.7684 43.6583C22.08 44.3843 22.7164 44.9203 23.4848 45.1038C24.3698 45.3153 25.6778 44.6613 28.2938 43.3533L47.8445 33.5778C50.1475 32.4263 51.2992 31.8505 51.6687 31.0713C51.9902 30.3933 51.9902 29.6068 51.6687 28.9288C51.2992 28.1495 50.1475 27.5738 47.8445 26.4223L28.267 16.6336C25.6582 15.3292 24.3539 14.677 23.4697 14.8876C22.702 15.0704 22.0657 15.605 21.7532 16.3296C21.3933 17.1642 21.8107 18.5615 22.6455 21.3562L24.9065 28.9253C25.0343 29.3528 25.098 29.5665 25.1233 29.7843C25.1458 29.9775 25.1455 30.1725 25.1225 30.3658C25.0967 30.5835 25.0325 30.797 24.9038 31.224Z' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
     background-repeat: no-repeat;
@@ -211,4 +211,15 @@ form input[type=submit] {
 .contact p {
     margin: 0;
     color: #545454;
+}
+
+form.recherche input{
+    width: 95%;
+    height: 2rem;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 1.25rem;
+    border-radius: 150px;
+    border: 1px solid #1B4965;
+    padding-left: 1rem;
 }
