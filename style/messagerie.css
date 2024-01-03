@@ -6,7 +6,7 @@ body {
 
 .gridMessages {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
     gap: 1.3rem;
     padding: 0 1.3rem;

@@ -13,19 +13,28 @@
     <?php require './vues/components/header.php'; ?>
     <section class="gridMessages">
         <div class="flexMessages">
-            <div class="receiverInfos"><div><img src="<?php echo $imageReceiver; ?>" alt=""><h1><?php echo $identiteReceiver ?></h1></div><p><?php echo $classesReceiver; ?></p></div>
+            <div class="receiverInfos">
+                <div><img src="<?php echo $imageReceiver; ?>" alt="">
+                    <h1>
+                        <?php echo $identiteReceiver ?>
+                    </h1>
+                </div>
+                <p>
+                    <?php echo $classesReceiver; ?>
+                </p>
+            </div>
             <div class="conversation">
                 <div class="messages customScroll">
                     <?php
                     foreach ($conversation as $i => $message) {
                         if ($message["ext_id_sender"] == $_SESSION["login"]) {
-                            if ($i==0 || $conversation[$i - 1]["ext_id_sender"] != $_SESSION["login"]){
-                            echo "<div class='message moi first' style='--img: url($image)'>";
+                            if ($i == 0 || $conversation[$i - 1]["ext_id_sender"] != $_SESSION["login"]) {
+                                echo "<div class='message moi first' style='--img: url($image)'>";
                             } else {
                                 echo "<div class='message moi' style='--img: url($image)'>";
                             }
                         } else {
-                            if ($i == 0 || $conversation[$i - 1]["ext_id_sender"] != $to){
+                            if ($i == 0 || $conversation[$i - 1]["ext_id_sender"] != $to) {
                                 echo "<div class='message first' style='--img: url($imageReceiver);'>";
                             } else {
                                 echo "<div class='message' style='--img: url($imageReceiver);'>";
@@ -37,7 +46,7 @@
                     ?>
                 </div>
             </div>
-            <form action="./sendMessage?to=<?php echo $to;?>" method="POST">
+            <form action="./sendMessage?to=<?php echo $to; ?>" method="POST">
                 <textarea name="message" id="message" placeholder="Envoyer un chat" required></textarea>
                 <label for="send" class="sr-only">Envoyer</label>
                 <input type="submit" value="" id="send">
@@ -47,11 +56,18 @@
             <div class="contacts customScroll">
                 <?php
                 foreach ($historique as $contact) { ?>
-                    <a href="./messagerie?to=<?php echo $contact["other_user_id"]; ?>" class="contact <?php if($contact["other_user_id"] == $to) {echo "current";} ?>">
-                        <img src="<?php echo getImage($contact["other_user_id"]); ?>" alt="">
+                    <a href="./messagerie?to=<?php echo $contact["other_user_id"]; ?>"
+                        class="contact <?php if ($contact["other_user_id"] == $to) {
+                            echo "current\" aria-current=\"page";
+                        } ?>">
+                        <img src=" <?php echo getImage($contact["other_user_id"]); ?>" alt="">
                         <div>
-                            <h2><?php echo getIdentite($contact["other_user_id"]); ?></h2>
-                            <p><?php echo $contact["message"]; ?></p>
+                            <h2>
+                                <?php echo getIdentite($contact["other_user_id"]); ?>
+                            </h2>
+                            <p>
+                                <?php echo $contact["message"]; ?>
+                            </p>
                         </div>
                     </a>
                 <?php } ?>

@@ -33,5 +33,5 @@ create table if not exists `messages` (
     `ext_id_sender` int not null,
     `ext_id_receiver` int not null,
     `message` text not null,
-    `date` datetime not null    
+    `date` datetime not null
 );

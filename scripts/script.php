@@ -122,7 +122,7 @@ function getLastConversation($id) {
 
 function getAllConversation($id) {
     global $db;
-    $stmt = $db->prepare("SELECT CASE WHEN ext_id_sender = :id THEN ext_id_receiver ELSE ext_id_sender END AS other_user_id, MAX(date) as last_message_date, MAX(message) as message FROM (SELECT * FROM messages WHERE ext_id_sender = :id UNION ALL SELECT * FROM messages WHERE ext_id_receiver = :id) AS requete GROUP BY other_user_id ORDER BY last_message_date DESC;");
+    $stmt = $db->prepare("SELECT other_user_id, date, message FROM (SELECT CASE WHEN ext_id_sender = :id THEN ext_id_receiver ELSE ext_id_sender END AS other_user_id, MAX(date) as max_date FROM (SELECT * FROM messages WHERE ext_id_sender = :id UNION ALL SELECT * FROM messages WHERE ext_id_receiver = :id) AS subquery GROUP BY other_user_id) AS lasts_messages inner JOIN messages ON messages.date = lasts_messages.max_date && ((messages.ext_id_sender = :id && messages.ext_id_receiver = lasts_messages.other_user_id)||(messages.ext_id_receiver = :id && messages.ext_id_sender = lasts_messages.other_user_id)) ORDER BY date DESC;");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt;
