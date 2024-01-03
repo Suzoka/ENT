@@ -1,6 +1,3 @@
-<!-- //TODO : Scroller tout en bas de la conversation, pour voir les derniers messages en premier -->
-<!-- //TODO : rapprocher les messagees d'un même destinataire, et ne pas répéter la pdp -->
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -20,11 +17,19 @@
             <div class="conversation">
                 <div class="messages customScroll">
                     <?php
-                    foreach ($conversation as $message) {
+                    foreach ($conversation as $i => $message) {
                         if ($message["ext_id_sender"] == $_SESSION["login"]) {
-                            echo "<div class='message moi' style='--img: url($image)'>";
+                            if ($conversation[$i - 1]["ext_id_sender"] != $_SESSION["login"]){
+                            echo "<div class='message moi first' style='--img: url($image)'>";
+                            } else {
+                                echo "<div class='message moi' style='--img: url($image)'>";
+                            }
                         } else {
-                            echo "<div class='message' style='--img: url($imageReceiver);'>";
+                            if ($i == 0 || $conversation[$i - 1]["ext_id_sender"] != $to){
+                                echo "<div class='message first' style='--img: url($imageReceiver);'>";
+                            } else {
+                                echo "<div class='message' style='--img: url($imageReceiver);'>";
+                            }
                         }
                         echo "<p>" . $message["message"] . "</p>";
                         echo "</div>";
@@ -40,7 +45,7 @@
         <div class="contacts"></div>
     </section>
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>
     <script src="../scripts/messagerie.js" defer></script>
 </body>
 

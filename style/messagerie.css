@@ -68,7 +68,7 @@ body {
     margin-right: 1rem;
     height: 100%;
     width: 100%;
-    padding: 2rem 1.75rem 0rem 2rem;
+    padding: 0rem 1.75rem 1rem 2rem;
 }
 
 .customScroll::-webkit-scrollbar
@@ -91,7 +91,7 @@ body {
     width: fit-content;
     max-width: 70%;
     margin-left: 2.75rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.3rem;
     position: relative;
 }
 
@@ -101,7 +101,7 @@ body {
     word-break: break-word;
 }
 
-.message::before {
+.message.first::before {
     content: "";
     position: absolute;
     background-image: var(--img);
@@ -118,9 +118,13 @@ body {
     margin-right: 2.75rem;
 }
 
-.moi::before {
+.moi.first::before {
     left: auto;
     right: -3.75rem;
+}
+
+.first {
+    margin-top: 2.5rem;
 }
 
 form {
