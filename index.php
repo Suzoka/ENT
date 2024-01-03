@@ -35,6 +35,7 @@ if (isset($_SESSION['login'])) {
             $identiteReceiver = getIdentite($to);
             $classesReceiver = getClasses($to);
             $conversation = getCurrentConversation($_SESSION["login"], $to)->fetchAll(PDO::FETCH_ASSOC);
+            $historique = getAllConversation($_SESSION["login"])->fetchAll(PDO::FETCH_ASSOC);
             include './vues/messagerie.php';
             break;
         case 'sendMessage':

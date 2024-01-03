@@ -119,4 +119,12 @@ function getLastConversation($id) {
         return $result["ext_id_sender"];
     }
 }
+
+function getAllConversation($id) {
+    global $db;
+    $stmt = $db->prepare("SELECT CASE WHEN ext_id_sender = :id THEN ext_id_receiver ELSE ext_id_sender END AS other_user_id, MAX(date) as last_message_date, MAX(message) as message FROM (SELECT * FROM messages WHERE ext_id_sender = :id UNION ALL SELECT * FROM messages WHERE ext_id_receiver = :id) AS requete GROUP BY other_user_id ORDER BY last_message_date DESC;");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
 ?>

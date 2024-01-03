@@ -19,7 +19,7 @@
                     <?php
                     foreach ($conversation as $i => $message) {
                         if ($message["ext_id_sender"] == $_SESSION["login"]) {
-                            if ($conversation[$i - 1]["ext_id_sender"] != $_SESSION["login"]){
+                            if ($i==0 || $conversation[$i - 1]["ext_id_sender"] != $_SESSION["login"]){
                             echo "<div class='message moi first' style='--img: url($image)'>";
                             } else {
                                 echo "<div class='message moi' style='--img: url($image)'>";
@@ -39,10 +39,24 @@
             </div>
             <form action="./sendMessage?to=<?php echo $to;?>" method="POST">
                 <textarea name="message" id="message" placeholder="Envoyer un chat" required></textarea>
-                <input type="submit" value="Envoyer">
+                <label for="send" class="sr-only">Envoyer</label>
+                <input type="submit" value="" id="send">
             </form>
         </div>
-        <div class="contacts"></div>
+        <div class="side">
+            <div class="contacts customScroll">
+                <?php
+                foreach ($historique as $contact) { ?>
+                    <a href="./messagerie?to=<?php echo $contact["other_user_id"]; ?>" class="contact <?php if($contact["other_user_id"] == $to) {echo "current";} ?>">
+                        <img src="<?php echo getImage($contact["other_user_id"]); ?>" alt="">
+                        <div>
+                            <h2><?php echo getIdentite($contact["other_user_id"]); ?></h2>
+                            <p><?php echo $contact["message"]; ?></p>
+                        </div>
+                    </a>
+                <?php } ?>
+            </div>
+        </div>
     </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>

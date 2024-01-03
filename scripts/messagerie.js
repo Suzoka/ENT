@@ -7,3 +7,10 @@ autosize(document.querySelectorAll('form textarea'));
 
 const messageBox = document.querySelector('.messages');
 messageBox.scrollTop = messageBox.scrollHeight;
+
+document.addEventListener('keyup', function (event) {
+    console.log(event.key);
+    if (event.key === 'Enter' && !event.shiftKey) {
+        document.querySelector('form').submit();
+    }
+});
