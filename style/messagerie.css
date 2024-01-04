@@ -221,5 +221,48 @@ form.recherche input{
     margin-bottom: 1.25rem;
     border-radius: 150px;
     border: 1px solid #1B4965;
-    padding-left: 1rem;
+    padding-left: 2.1rem;
+}
+
+form.recherche{
+    position: relative;
+}
+
+form.recherche::before {
+    content: "";
+    background-image: url("data:image/svg+xml; base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNScgaGVpZ2h0PScxNScgdmlld0JveD0nMCAwIDE1IDE1JyBmaWxsPSdub25lJz48cGF0aCBkPSdNMTMuMTQxNyAxNC42MjVMOC4xNTQxNyA5LjYzNzVDNy43NTgzMyA5Ljk1NDE3IDcuMzAzMTIgMTAuMjA0OSA2Ljc4ODU0IDEwLjM4OTZDNi4yNzM5NiAxMC41NzQzIDUuNzI2MzkgMTAuNjY2NyA1LjE0NTgzIDEwLjY2NjdDMy43MDc2NCAxMC42NjY3IDIuNDkwNTggMTAuMTY4NCAxLjQ5NDY3IDkuMTcyQzAuNDk4NzUgOC4xNzU1NiAwLjAwMDUyNzc3OCA2Ljk1ODUgMCA1LjUyMDgzQzAgNC4wODI2NCAwLjQ5ODIyMiAyLjg2NTU4IDEuNDk0NjcgMS44Njk2N0MyLjQ5MTExIDAuODczNzUgMy43MDgxNyAwLjM3NTUyOCA1LjE0NTgzIDAuMzc1QzYuNTg0MDMgMC4zNzUgNy44MDEzNSAwLjg3MzIyMiA4Ljc5Nzc5IDEuODY5NjdDOS43OTQyNCAyLjg2NjExIDEwLjI5MjIgNC4wODMxNyAxMC4yOTE3IDUuNTIwODNDMTAuMjkxNyA2LjEwMTM5IDEwLjE5OTMgNi42NDg5NiAxMC4wMTQ2IDcuMTYzNTRDOS44Mjk4NiA3LjY3ODEyIDkuNTc5MTcgOC4xMzMzMyA5LjI2MjUgOC41MjkxN0wxNC4yNSAxMy41MTY3TDEzLjE0MTcgMTQuNjI1Wk01LjE0NTgzIDkuMDgzMzNDNi4xMzU0MiA5LjA4MzMzIDYuOTc2NjkgOC43MzcxMSA3LjY2OTY3IDguMDQ0NjdDOC4zNjI2NCA3LjM1MjIyIDguNzA4ODYgNi41MTA5NCA4LjcwODMzIDUuNTIwODNDOC43MDgzMyA0LjUzMTI1IDguMzYyMTEgMy42OTAyNCA3LjY2OTY3IDIuOTk3NzlDNi45NzcyMiAyLjMwNTM1IDYuMTM1OTQgMS45NTg4NiA1LjE0NTgzIDEuOTU4MzNDNC4xNTYyNSAxLjk1ODMzIDMuMzE1MjQgMi4zMDQ4MiAyLjYyMjc5IDIuOTk3NzlDMS45MzAzNSAzLjY5MDc2IDEuNTgzODYgNC41MzE3OCAxLjU4MzMzIDUuNTIwODNDMS41ODMzMyA2LjUxMDQyIDEuOTI5ODIgNy4zNTE2OSAyLjYyMjc5IDguMDQ0NjdDMy4zMTU3NiA4LjczNzY0IDQuMTU2NzggOS4wODM4NiA1LjE0NTgzIDkuMDgzMzNaJyBmaWxsPScjQUVBRUFFJy8+PC9zdmc+");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    display: block;
+    z-index: 5;
+    top: 3px;
+    left: 1rem;
+    cursor: text;
+}
+
+.erreur {
+    display: none;
+    position: fixed;
+    background-color: #000000;
+    color: red;
+    border-radius: 150px;
+    padding: 0.25rem 0.5rem;
+    z-index: 999999999;
+    left: 69%;
+}
+
+.erreur::before{
+    content: "";
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #000000;
+    position: absolute;
+    bottom: -0.6rem;
+    left: 1.5rem;
 }

@@ -1,5 +1,3 @@
-<!--//TODO Message d'erreur et sélécteur personalisé, pour éviter les chevauchements -->
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -57,6 +55,7 @@
         <div class="side">
             <div class="contacts customScroll">
                 <form class="recherche">
+                    <p class="erreur">Ceci est un message d'erreur</p>
                     <input type="search" list="usr" name="recherche">
                 </form>
                 <datalist id="usr" class="usr"></datalist>
