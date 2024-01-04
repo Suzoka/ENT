@@ -181,6 +181,11 @@ form.msg input[type=submit] {
     border-radius: 150px;
 }
 
+.contact div{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
 .contact h2 {
     margin: 0;
     font-size: 1.25rem;
@@ -191,6 +196,9 @@ form.msg input[type=submit] {
 .contact p {
     margin: 0;
     color: #545454;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 form.recherche input{

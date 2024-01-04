@@ -1,3 +1,5 @@
+<!-- //TODO : Afficher les coefficients -->
+
 <!DOCTYPE html>
 <html lang="fr">
 
