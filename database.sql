@@ -35,3 +35,40 @@ create table if not exists `messages` (
     `message` text not null,
     `date` datetime not null
 );
+
+create table if not exists `notes` (
+    `id_note` int primary key not null auto_increment,
+    `valeur` float not null,
+    `ext_id_student` int not null,
+    `ext_id_devoir` int not null
+);
+
+create table if not exists `devoirs` (
+    `id_devoir` int primary key not null auto_increment,
+    `nom_devoir` varchar(255) not null,
+    `ext_id_module` int not null,
+    `ext_id_prof` int not null,
+    `coef_devoir` float not null
+);
+
+create table if not exists `modules` (
+    `id_module` int primary key not null auto_increment,
+    `nom_module` varchar(255) not null
+);
+
+create table if not exists `jury` (
+    `ext_id_prof` int not null,
+    `ext_id_module` int not null
+);
+
+create table if not exists `coef_modules` (
+    `ext_id_module` int not null,
+    `ext_id_competence` int not null,
+    `coef_module` float not null
+);
+
+create table if not exists `competences` (
+    `id_competence` int primary key not null auto_increment,
+    `nom_competence` varchar(255) not null,
+    `ext_id_classe` int not null
+);

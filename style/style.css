@@ -134,3 +134,27 @@ header nav a.logout {
     margin-right: 1.75rem;
     width: 3.125rem;
 }
+
+.customScroll::-webkit-scrollbar {
+    width: 6px;
+    background-color: #00000000;
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #a7a7a7;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 1.3rem;
+    padding: 0 1.3rem;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1440px;
+    margin-right: auto;
+    margin-left: auto;
+}

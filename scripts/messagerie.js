@@ -3,6 +3,7 @@
 //     this.style.height = (this.scrollHeight+0.45) + 'px';
 // });
 const search = document.querySelector('form.recherche input');
+const error = document.querySelector('.erreur');
 
 autosize(document.querySelectorAll('form textarea'));
 searchZone();
@@ -27,12 +28,11 @@ document.querySelector('form.msg textarea').addEventListener('keydown', function
 search.addEventListener('input', searchZone);
 document.querySelector('form.recherche').addEventListener('submit', function (event) {
     event.preventDefault();
-    search.setCustomValidity('Veuillez sélectionner un utilisateur dans la liste.');
-    search.reportValidity();
-    setTimeout(function () {
-        search.setCustomValidity('');
-    }, 3000);
-    searchZone();
+
+    error.innerHTML = "Veuillez sélectionner un utilisateur dans la liste.";
+    error.style.display = 'block';
+
+    // searchZone();
 });
 
 function searchZone() {
@@ -41,13 +41,10 @@ function searchZone() {
             const liste = document.querySelector('datalist.usr');
             liste.innerHTML = '';
             if (users.length == 0) {
-                search.setCustomValidity('Aucun utilisateur trouvé.');
-                search.reportValidity();
+                error.innerHTML = "Aucun utilisateur trouvé.";
+                error.style.display = 'block';
+                error.style.bottom = 'calc(100vh - ' + search.getBoundingClientRect().top + 'px)';
             }
-            else {
-                setTimeout(function () {
-                    search.setCustomValidity('');
-                }, 3000);            }
             users.forEach(function (user) {
                 liste.innerHTML += "<option value=\"" + user.identite + "\">"
                 if (search.value == user.identite) {
@@ -57,3 +54,16 @@ function searchZone() {
         });
     });
 };
+
+document.querySelector('form.recherche').addEventListener('click', function () {
+    document.querySelector('form.recherche input').focus();
+});
+
+
+setInterval(function () {
+    if (error.style.display == 'block') {
+        setTimeout(function () {
+            error.style.display = 'none';
+        }, 5000);
+    }
+}, 6000);
