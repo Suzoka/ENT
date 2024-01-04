@@ -135,4 +135,44 @@ function getUsers($recherche)
     $stmt->execute();
     return $stmt;
 }
+
+function getCompetences($id)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM `competences` co inner join `classes` cl on co.ext_id_classe = cl.id_classe inner join `groupes` gr on gr.ext_id_classe = cl.id_classe inner join `promotions` pr on pr.ext_id_groupe = gr.id_groupe where pr.ext_id_usr=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function getMoyenneComp($id, $student){
+    global $db;
+    $stmt = $db->prepare("SELECT * from `modules` m inner join `coef_modules` cm on m.id_module = cm.ext_id_module inner join `competences` c on cm.ext_id_competence = c.id_competence where c.id_competence=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $moyenne = 0;
+    $diviseur = 0;
+    foreach ($result as $module) {
+        $moyenne += getMoyenneMod($module["id_module"], $student)*$module["coef_module"];
+        $diviseur += 20*$module["coef_module"];
+    }
+    return (($moyenne/$diviseur)*20);
+}
+
+function getMoyenneMod($id, $student){
+    global $db;
+    $stmt = $db->prepare("SELECT * from `notes` n inner join `devoirs` d on n.ext_id_devoir = d.id_devoir inner join `modules` m on d.ext_id_module = m.id_module where m.id_module=:id && n.ext_id_student=:student");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':student', $student, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $moyenne = 0;
+    $diviseur = 0;
+    foreach ($result as $note) {
+        $moyenne += $note["valeur"]*$note["coef_devoir"];
+        $diviseur += 20*$note["coef_devoir"];
+    }
+    return (($moyenne/$diviseur)*20);
+}
 ?>

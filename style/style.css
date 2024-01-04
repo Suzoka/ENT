@@ -134,3 +134,14 @@ header nav a.logout {
     margin-right: 1.75rem;
     width: 3.125rem;
 }
+
+.customScroll::-webkit-scrollbar {
+    width: 6px;
+    background-color: #00000000;
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #a7a7a7;
+}

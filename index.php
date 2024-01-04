@@ -50,6 +50,10 @@ if (isset($_SESSION['login'])) {
                 header('Location: ./messagerie?error=true');
             }
             break;
+        case 'notes':
+            $competences = getCompetences($_SESSION["login"])->fetchAll(PDO::FETCH_ASSOC);
+            include './vues/notes.php';
+            break;
         default:
             include './vues/accueil.php';
             break;

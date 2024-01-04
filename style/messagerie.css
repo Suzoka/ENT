@@ -71,17 +71,6 @@ body {
     padding: 0rem 1.75rem 1rem 2rem;
 }
 
-.customScroll::-webkit-scrollbar {
-    width: 6px;
-    background-color: #00000000;
-}
-
-.customScroll::-webkit-scrollbar-thumb {
-    border-radius: 6px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-    background-color: #a7a7a7;
-}
-
 .message {
     border: solid 1px #000b3e;
     border-radius: 0.625rem;
@@ -240,7 +229,7 @@ form.recherche::before {
     display: block;
     z-index: 5;
     top: 3px;
-    left: 1rem;
+    left: 4%;
     cursor: text;
 }
 
