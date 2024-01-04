@@ -106,7 +106,8 @@ function getCurrentConversation($id, $to)
     return $stmt;
 }
 
-function getLastConversation($id) {
+function getLastConversation($id)
+{
     global $db;
     $stmt = $db->prepare("SELECT * FROM `messages` where ext_id_sender=:id || ext_id_receiver=:id order by date desc limit 1");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -119,7 +120,8 @@ function getLastConversation($id) {
     }
 }
 
-function getAllConversation($id) {
+function getAllConversation($id)
+{
     global $db;
     $stmt = $db->prepare("SELECT other_user_id, date, message FROM (SELECT CASE WHEN ext_id_sender = :id THEN ext_id_receiver ELSE ext_id_sender END AS other_user_id, MAX(date) as max_date FROM (SELECT * FROM messages WHERE ext_id_sender = :id UNION ALL SELECT * FROM messages WHERE ext_id_receiver = :id) AS subquery GROUP BY other_user_id) AS lasts_messages inner JOIN messages ON messages.date = lasts_messages.max_date && ((messages.ext_id_sender = :id && messages.ext_id_receiver = lasts_messages.other_user_id)||(messages.ext_id_receiver = :id && messages.ext_id_sender = lasts_messages.other_user_id)) ORDER BY date DESC;");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -131,7 +133,7 @@ function getUsers($recherche)
 {
     global $db;
     $stmt = $db->prepare("SELECT concat(prenom, ' ', nom) AS identite, id FROM `utilisateurs` where concat(prenom, ' ', nom) like :recherche;");
-    $stmt->bindValue(':recherche', "%".$recherche."%", PDO::PARAM_STR);
+    $stmt->bindValue(':recherche', "%" . $recherche . "%", PDO::PARAM_STR);
     $stmt->execute();
     return $stmt;
 }
@@ -145,7 +147,8 @@ function getCompetences($id)
     return $stmt;
 }
 
-function getMoyenneComp($id, $student){
+function getMoyenneComp($id, $student)
+{
     global $db;
     $stmt = $db->prepare("SELECT * from `modules` m inner join `coef_modules` cm on m.id_module = cm.ext_id_module inner join `competences` c on cm.ext_id_competence = c.id_competence where c.id_competence=:id");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -154,13 +157,14 @@ function getMoyenneComp($id, $student){
     $moyenne = 0;
     $diviseur = 0;
     foreach ($result as $module) {
-        $moyenne += getMoyenneMod($module["id_module"], $student)*$module["coef_module"];
-        $diviseur += 20*$module["coef_module"];
+        $moyenne += getMoyenneMod($module["id_module"], $student) * $module["coef_module"];
+        $diviseur += 20 * $module["coef_module"];
     }
-    return (($moyenne/$diviseur)*20);
+    return (($moyenne / $diviseur) * 20);
 }
 
-function getMoyenneMod($id, $student){
+function getMoyenneMod($id, $student)
+{
     global $db;
     $stmt = $db->prepare("SELECT * from `notes` n inner join `devoirs` d on n.ext_id_devoir = d.id_devoir inner join `modules` m on d.ext_id_module = m.id_module where m.id_module=:id && n.ext_id_student=:student");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -170,9 +174,38 @@ function getMoyenneMod($id, $student){
     $moyenne = 0;
     $diviseur = 0;
     foreach ($result as $note) {
-        $moyenne += $note["valeur"]*$note["coef_devoir"];
-        $diviseur += 20*$note["coef_devoir"];
+        $moyenne += $note["valeur"] * $note["coef_devoir"];
+        $diviseur += 20 * $note["coef_devoir"];
     }
-    return (($moyenne/$diviseur)*20);
+    return (($moyenne / $diviseur) * 20);
+}
+
+function getAllModsOfComp($id)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * from `modules` m inner join `coef_modules` cm on m.id_module = cm.ext_id_module where cm.ext_id_competence=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function formatNote($note)
+{
+    $formatedNote = round($note, 2);
+    if ($note < 10) {
+        return ("0" . number_format($formatedNote, 2, ',', ''));
+    } else {
+        return (number_format($formatedNote, 2, ',', ''));
+    }
+}
+
+function getAllDevoirsOfMod($id, $student)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * from `devoirs` d inner join `notes` n on d.id_devoir = n.ext_id_devoir where d.ext_id_module=:id && n.ext_id_student=:student");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':student', $student, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
 }
 ?>

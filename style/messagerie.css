@@ -4,15 +4,6 @@ body {
     min-height: 100vh;
 }
 
-.gridMessages {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr;
-    gap: 1.3rem;
-    padding: 0 1.3rem;
-    flex-grow: 1;
-}
-
 .flexMessages {
     display: flex;
     flex-direction: column;

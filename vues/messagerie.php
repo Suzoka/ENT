@@ -11,7 +11,7 @@
 
 <body>
     <?php require './vues/components/header.php'; ?>
-    <section class="gridMessages">
+    <section class="grid">
         <div class="flexMessages">
             <div class="receiverInfos">
                 <div><img src="<?php echo $imageReceiver; ?>" alt="">
