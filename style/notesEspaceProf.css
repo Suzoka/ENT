@@ -3,7 +3,7 @@
     height: calc(100vh - 7rem);
 }
 
-.boutons {
+.dynamic {
     display: flex;
     justify-content: space-evenly;
     align-items: stretch;
@@ -11,7 +11,7 @@
     gap: 1.5rem;
 }
 
-.boutons button {
+.dynamic button {
     background-color: white;
     border: 1px solid #1B4965;
     padding: 0.5rem;
@@ -24,7 +24,7 @@
     transition: all 0.5s ease;
 }
 
-.boutons button:hover, .boutons button:focus {
+.dynamic button:hover, .dynamic button:focus {
     background-color: #1B4965;
     color: white;
 }
@@ -47,4 +47,49 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 2.5rem;
+}
+
+.filAriane button {
+    background-color: transparent;
+    border: none;
+    color: black;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100000000;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000da;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    flex-direction: column;
+    color: white; 
+}
+
+.modification {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.modification button {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 150px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' fill='none'><path d='M7.5 7.5L15 15M15 15L25 25M15 15V45C15 49.1423 18.3579 52.5 22.5 52.5H37.5C41.6423 52.5 45 49.1423 45 45M15 15H10M25 25L35 35M25 25V42.5M45 45L35 35M45 45L52.5 52.5M35 35V42.5M45 15V30.9765M45 15H40M45 15H50M40 15L38.6395 10.9188C37.959 8.87715 36.0483 7.5 33.8963 7.5H26.1037C24.856 7.5 23.6893 7.96297 22.7965 8.75M40 15H29.0333' stroke='black' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1.75rem;
+    width: 2rem;
+    height: 2rem;
 }

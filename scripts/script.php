@@ -239,10 +239,43 @@ function getAllModOfClasseWhereTeacherIsJury($id, $classe) {
 
 function apiDevoirOfModForTeacher($id, $module) {
     global $db;
-    $stmt = $db->prepare("select * from `devoirs` d inner join `modules` mo on d.ext_id_module = mo.id_module inner join `jury` ju on mo.id_module = ju.ext_id_module where ju.ext_id_prof=:id && mo.id_module=:module");
+    $stmt = $db->prepare("select * from `devoirs` d inner join `modules` mo on d.ext_id_module = mo.id_module inner join `jury` ju on mo.id_module = ju.ext_id_module where ju.ext_id_prof=:id && mo.id_module=:module && d.ext_id_prof=:id");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->bindValue(':module', $module, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt;
+}
+
+function getNotesOfWork($devoir, $classe) {
+    global $db;
+    $stmt = $db->prepare("select * from `utilisateurs` u INNER JOIN `promotions` p on u.id = p.ext_id_usr INNER JOIN `groupes` g on p.ext_id_groupe = g.id_groupe INNER JOIN `classes` c ON c.id_classe = g.ext_id_classe left join `notes` n on n.ext_id_student = u.id && n.ext_id_devoir = :devoir WHERE c.id_classe = :classe && u.role = 1 ORDER BY u.nom, u.prenom");
+    $stmt->bindValue(':devoir', $devoir, PDO::PARAM_INT);
+    $stmt->bindValue(':classe', $classe, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function updateNotes($devoir, $modifs) {
+    global $db;
+    foreach ($modifs as $modification) {
+        $stmt = $db->prepare("select * from `notes` where ext_id_student=:student && ext_id_devoir=:devoir");
+        $stmt->bindValue(':student', $modification->id, PDO::PARAM_INT);
+        $stmt->bindValue(':devoir', $devoir, PDO::PARAM_INT);
+        $stmt->execute();
+        if ($stmt->rowCount()>0){
+            $stmt = $db->prepare("update `notes` set valeur=:valeur where ext_id_student=:student && ext_id_devoir=:devoir");
+            $stmt->bindValue(':student', $modification->id, PDO::PARAM_INT);
+            $stmt->bindValue(':devoir', $devoir, PDO::PARAM_INT);
+            $stmt->bindValue(':valeur', $modification->new_valeur, PDO::PARAM_INT);
+            $stmt->execute();
+        } else {
+            $stmt = $db->prepare("insert into `notes` (ext_id_student, ext_id_devoir, valeur) values (:student, :devoir, :valeur)");
+            $stmt->bindValue(':student', $modification->id, PDO::PARAM_INT);
+            $stmt->bindValue(':devoir', $devoir, PDO::PARAM_INT);
+            $stmt->bindValue(':valeur', $modification->new_valeur, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+    }
+    return true;
 }
 ?>

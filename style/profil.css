@@ -1,4 +1,4 @@
 .profil {
-    overflow-y: hidden;
+    overflow-y: scroll;
     height: calc(100vh - 7rem);
 }
