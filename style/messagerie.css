@@ -181,6 +181,11 @@ form.msg input[type=submit] {
     border-radius: 150px;
 }
 
+.contact div{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
 .contact h2 {
     margin: 0;
     font-size: 1.25rem;
@@ -191,6 +196,9 @@ form.msg input[type=submit] {
 .contact p {
     margin: 0;
     color: #545454;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 form.recherche input{
@@ -245,4 +253,15 @@ form.recherche::before {
     position: absolute;
     bottom: -0.6rem;
     left: 1.5rem;
+}
+
+.newConv {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 30%;
+}
+
+form [disabled="disabled"] {
+    cursor: not-allowed!important;
+    background-color: #515151!important;
 }

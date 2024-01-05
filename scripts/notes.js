@@ -8,7 +8,7 @@ document.querySelectorAll('button.developMod').forEach(function (button) {
         }
         else {
             this.classList.add('developed');
-            this.parentNode.style.marginBottom = '0.2rem';
+            this.parentNode.style.marginBottom = '0.4rem';
             data.style.height = data.scrollHeight+'px';
         }
     });

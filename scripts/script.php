@@ -113,6 +113,9 @@ function getLastConversation($id)
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($result == null) {
+        return null;
+    }
     if ($result["ext_id_sender"] == $id) {
         return $result["ext_id_receiver"];
     } else {
@@ -132,7 +135,7 @@ function getAllConversation($id)
 function getUsers($recherche)
 {
     global $db;
-    $stmt = $db->prepare("SELECT concat(prenom, ' ', nom) AS identite, id FROM `utilisateurs` where concat(prenom, ' ', nom) like :recherche;");
+    $stmt = $db->prepare("SELECT concat(prenom, ' ', nom) AS identite, id FROM `utilisateurs` where concat(prenom, ' ', nom) like :recherche order by concat(prenom, ' ', nom) limit 5;");
     $stmt->bindValue(':recherche', "%" . $recherche . "%", PDO::PARAM_STR);
     $stmt->execute();
     return $stmt;
@@ -205,6 +208,40 @@ function getAllDevoirsOfMod($id, $student)
     $stmt = $db->prepare("SELECT * from `devoirs` d inner join `notes` n on d.id_devoir = n.ext_id_devoir where d.ext_id_module=:id && n.ext_id_student=:student");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->bindValue(':student', $student, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function getRole($id) {
+    global $db;
+    $stmt = $db->prepare("select role from `utilisateurs` where id=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function getAllClassOfTeacher($id) {
+    global $db;
+    $stmt = $db->prepare("select * from `classes` cl inner join `competences` co on cl.id_classe = co.ext_id_classe inner join `coef_modules` cm on co.id_competence = cm.ext_id_competence inner join `modules` mo on cm.ext_id_module = mo.id_module inner join `jury` ju on mo.id_module = ju.ext_id_module where ju.ext_id_prof=:id GROUP BY cl.id_classe;");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function getAllModOfClasseWhereTeacherIsJury($id, $classe) {
+    global $db;
+    $stmt = $db->prepare("select * from `modules` mo inner join `jury` ju on mo.id_module = ju.ext_id_module inner join `coef_modules` cm on mo.id_module = cm.ext_id_module inner join `competences` co on cm.ext_id_competence = co.id_competence inner join `classes` cl on co.ext_id_classe = cl.id_classe where ju.ext_id_prof=:id && cl.id_classe=:classe GROUP BY mo.id_module;");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':classe', $classe, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function apiDevoirOfModForTeacher($id, $module) {
+    global $db;
+    $stmt = $db->prepare("select * from `devoirs` d inner join `modules` mo on d.ext_id_module = mo.id_module inner join `jury` ju on mo.id_module = ju.ext_id_module where ju.ext_id_prof=:id && mo.id_module=:module");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':module', $module, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt;
 }

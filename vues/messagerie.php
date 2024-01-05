@@ -1,3 +1,5 @@
+<!-- // TODO : Messages non lus (ajouter un booléen à la DB et compter le nombre de non lus, à l'ouverture de la conversation changer le booléen) -->
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -14,7 +16,9 @@
     <section class="grid">
         <div class="flexMessages">
             <div class="receiverInfos">
-                <div><img src="<?php echo $imageReceiver; ?>" alt="">
+                <div>
+                    <?php if ($to != null) { ?><img src="<?php echo $imageReceiver; ?>" alt="">
+                    <?php } ?>
                     <h1>
                         <?php echo $identiteReceiver ?>
                     </h1>
@@ -26,6 +30,9 @@
             <div class="conversation">
                 <div class="messages customScroll">
                     <?php
+                    if ($to == null) {
+                        echo "<p class='newConv'>Pour créer une conversation, recherchez votre destinataire dans la barre à droite</p>";
+                    }
                     foreach ($conversation as $i => $message) {
                         if ($message["ext_id_sender"] == $_SESSION["login"]) {
                             if ($i == 0 || $conversation[$i - 1]["ext_id_sender"] != $_SESSION["login"]) {
@@ -47,16 +54,20 @@
                 </div>
             </div>
             <form action="./sendMessage?to=<?php echo $to; ?>" method="POST" class="msg">
-                <textarea name="message" id="message" placeholder="Envoyer un chat" required></textarea>
+                <textarea name="message" id="message" placeholder="Envoyer un chat" required <?php if ($to == null) {
+                    echo 'disabled="disabled"';
+                } ?>></textarea>
                 <label for="send" class="sr-only">Envoyer</label>
-                <input type="submit" value="" id="send">
+                <input type="submit" value="" id="send" <?php if ($to == null) {
+                    echo 'disabled="disabled"';
+                } ?>>
             </form>
         </div>
         <div class="side">
             <div class="contacts customScroll">
                 <form class="recherche">
                     <p class="erreur">Ceci est un message d'erreur</p>
-                    <input type="search" list="usr" name="recherche">
+                    <input type="search" list="usr" name="recherche" placeholder="Rechercher/créer une conversation">
                 </form>
                 <datalist id="usr" class="usr"></datalist>
                 <?php

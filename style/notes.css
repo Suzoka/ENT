@@ -1,13 +1,6 @@
 .bulletin {
     overflow-y: scroll;
-    height: calc(100vh - 7rem - 10px);
-    margin-top: 10px;
-}
-
-h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-top: 20px;
+    height: calc(100vh - 7rem);
 }
 
 .competence {
@@ -28,7 +21,7 @@ h1 {
     width: fit-content;
 }
 
-.competence .title p {
+.competence .title>p {
     margin: 0;
     border: 1px solid #1B4965;
     padding: 0.05rem 1.2rem;
@@ -60,7 +53,9 @@ div.competence>.title:first-of-type {
 }
 
 .developMod {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 90%;
     height: 2.5rem;
     text-align: left;
@@ -70,6 +65,7 @@ div.competence>.title:first-of-type {
     border: 1px solid #1B4965;
     border-radius: 0.5rem;
     cursor: pointer;
+    padding-right: 2.5rem;
 }
 
 .developMod h3 {
@@ -101,26 +97,41 @@ div.competence>.title:first-of-type {
     margin-bottom: 0.75rem;
 }
 
-.title h4 {
-    font-size: 1rem;
-    font-weight: 400;
+.title .devoirInfos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 0;
     background-color: white;
     width: 75%;
     padding: 0.2rem 0.5rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.4rem;
     margin-left: auto;
     border-radius: 0.3rem;
     border: 1px solid #1B4965;
 }
 
-.title.noteDevoir p {
+.devoirInfos>* {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
+}
+
+.title.noteDevoir>p {
     max-width: 80px;
     margin-left: 20px;
+}
+
+p.moyenneMod {
+    max-width: 100px;
 }
 
 .devoirs {
     overflow: hidden;
     height: 0;
     transition: height 1s ease;
+}
+
+.coef {
+    font-style: italic;
 }
