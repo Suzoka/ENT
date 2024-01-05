@@ -15,6 +15,7 @@
         <div class="panel customScroll" id="prof<?php echo $_SESSION["login"]; ?>">
             <div class="title">
                 <button class="back"><p class="sr-only">Retour en arrière</p></button>
+                <div class="filAriane"></div>
                 <h1>Sélection de la classe</h1>
             </div>
             <div class="boutons">

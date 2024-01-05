@@ -2,7 +2,9 @@ const id_prof = document.querySelector('.panel').getAttribute('id').replace("pro
 const titre = document.querySelector('.panel h1');
 const boutons = document.querySelector('.boutons');
 const backButton = document.querySelector('button.back');
+const filAriane = document.querySelector('.filAriane');
 let page;
+
 displayPage1();
 
 backButton.addEventListener('click', back);
