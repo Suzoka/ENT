@@ -28,7 +28,7 @@ h1 {
     width: fit-content;
 }
 
-.competence .title p {
+.competence .title>p {
     margin: 0;
     border: 1px solid #1B4965;
     padding: 0.05rem 1.2rem;
@@ -101,9 +101,10 @@ div.competence>.title:first-of-type {
     margin-bottom: 0.75rem;
 }
 
-.title h4 {
-    font-size: 1rem;
-    font-weight: 400;
+.title .devoirInfos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 0;
     background-color: white;
     width: 75%;
@@ -114,7 +115,13 @@ div.competence>.title:first-of-type {
     border: 1px solid #1B4965;
 }
 
-.title.noteDevoir p {
+.devoirInfos>* {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
+}
+
+.title.noteDevoir>p {
     max-width: 80px;
     margin-left: 20px;
 }
@@ -123,4 +130,8 @@ div.competence>.title:first-of-type {
     overflow: hidden;
     height: 0;
     transition: height 1s ease;
+}
+
+.coef {
+    font-style: italic;
 }
