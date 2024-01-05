@@ -84,6 +84,9 @@ if (isset($_SESSION['login'])) {
                     break;
             }
             break;
+        case 'profil':
+            include './vues/profil.php';
+            break;
     }
 } else {
     switch ($page) {
