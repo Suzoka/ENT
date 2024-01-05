@@ -60,7 +60,9 @@ div.competence>.title:first-of-type {
 }
 
 .developMod {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 90%;
     height: 2.5rem;
     text-align: left;
@@ -70,6 +72,7 @@ div.competence>.title:first-of-type {
     border: 1px solid #1B4965;
     border-radius: 0.5rem;
     cursor: pointer;
+    padding-right: 2.5rem;
 }
 
 .developMod h3 {
