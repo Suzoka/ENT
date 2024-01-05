@@ -8,7 +8,7 @@ create table if not exists `etudiants` (
     `date_naissance` date not null,
     `numEtud` int unique,
     `statut` text not null,
-    `role` int not null,
+    `role` int not null
 );
 
 create table if not exists `groupes` (
