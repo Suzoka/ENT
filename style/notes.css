@@ -1,7 +1,6 @@
 .bulletin {
     overflow-y: scroll;
-    height: calc(100vh - 7rem - 10px);
-    margin-top: 10px;
+    height: calc(100vh - 7rem);
 }
 
 h1 {
@@ -112,7 +111,7 @@ div.competence>.title:first-of-type {
     background-color: white;
     width: 75%;
     padding: 0.2rem 0.5rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.4rem;
     margin-left: auto;
     border-radius: 0.3rem;
     border: 1px solid #1B4965;
@@ -127,6 +126,10 @@ div.competence>.title:first-of-type {
 .title.noteDevoir>p {
     max-width: 80px;
     margin-left: 20px;
+}
+
+p.moyenneMod {
+    max-width: 100px;
 }
 
 .devoirs {

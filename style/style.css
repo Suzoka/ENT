@@ -67,6 +67,7 @@ header {
     top: 0;
     left: 0;
     z-index: 1000;
+    background-color: #1B4965;
 }
 
 header nav {
@@ -74,8 +75,10 @@ header nav {
     align-items: center;
     justify-content: flex-end;
     gap: 3rem;
-    background-color: #1B4965;
     height: 7rem;
+    max-width: 1440px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 header nav a:not(.logout) {

@@ -113,6 +113,9 @@ function getLastConversation($id)
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($result == null) {
+        return null;
+    }
     if ($result["ext_id_sender"] == $id) {
         return $result["ext_id_receiver"];
     } else {
@@ -132,7 +135,7 @@ function getAllConversation($id)
 function getUsers($recherche)
 {
     global $db;
-    $stmt = $db->prepare("SELECT concat(prenom, ' ', nom) AS identite, id FROM `utilisateurs` where concat(prenom, ' ', nom) like :recherche;");
+    $stmt = $db->prepare("SELECT concat(prenom, ' ', nom) AS identite, id FROM `utilisateurs` where concat(prenom, ' ', nom) like :recherche order by concat(prenom, ' ', nom) limit 5;");
     $stmt->bindValue(':recherche', "%" . $recherche . "%", PDO::PARAM_STR);
     $stmt->execute();
     return $stmt;
@@ -205,6 +208,14 @@ function getAllDevoirsOfMod($id, $student)
     $stmt = $db->prepare("SELECT * from `devoirs` d inner join `notes` n on d.id_devoir = n.ext_id_devoir where d.ext_id_module=:id && n.ext_id_student=:student");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->bindValue(':student', $student, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function getRole($id) {
+    global $db;
+    $stmt = $db->prepare("select role from `utilisateurs` where id=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt;
 }
