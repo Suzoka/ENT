@@ -161,3 +161,8 @@ header nav a.logout {
     margin-right: auto;
     margin-left: auto;
 }
+
+.grid h1 {
+    font-size: 2.5rem;
+    margin-top: 30px;
+}

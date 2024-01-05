@@ -3,12 +3,6 @@
     height: calc(100vh - 7rem);
 }
 
-h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-top: 20px;
-}
-
 .competence {
     width: 90%;
     margin-right: auto;

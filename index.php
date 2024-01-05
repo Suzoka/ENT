@@ -18,11 +18,13 @@ if (isset($_SESSION['login'])) {
     $image = getImage($_SESSION['login']);
     $identite = getIdentite($_SESSION['login']);
     $classes = getClasses($_SESSION['login']);
+    $role = getRole($_SESSION['login'])->fetchColumn();
     switch ($page) {
         case 'accueil':
         default:
-            switch (getRole($_SESSION['login'])->fetchColumn()) {
+            switch ($role) {
                 case 1:
+                default:
                     include './vues/espaceEtudiant.php';
                     break;
                 case 2:
@@ -30,9 +32,6 @@ if (isset($_SESSION['login'])) {
                     break;
                 case 3:
                     include './vues/espaceAdmin.php';
-                    break;
-                default:
-                    include './vues/espaceEtudiant.php';
                     break;
             }
             break;
@@ -71,8 +70,19 @@ if (isset($_SESSION['login'])) {
             }
             break;
         case 'notes':
-            $competences = getCompetences($_SESSION["login"])->fetchAll(PDO::FETCH_ASSOC);
-            include './vues/notes.php';
+            switch ($role) {
+                case 1:
+                default:
+                    $competences = getCompetences($_SESSION["login"])->fetchAll(PDO::FETCH_ASSOC);
+                    include './vues/notes.php';
+                    break;
+                case 2:
+                    include './vues/notesEspaceProf.php';
+                    break;
+                case 3:
+                    include './vues/notesEspaceAdmin.php';
+                    break;
+            }
             break;
     }
 } else {
