@@ -182,7 +182,7 @@ function back() {
             break;
         case 2:
             displayPage1();
-            filAriane.removeChild(filAriane.lastChild);
+            filAriane.innerHTML = "";
             break;
         case 3:
             displayPage2(backButton.getAttribute('id')[backButton.getAttribute('id').length - 1]);
