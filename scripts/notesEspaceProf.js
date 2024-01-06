@@ -8,8 +8,10 @@ let page;
 let ariane = 0;
 let modifs = [];
 let erreur = false;
+let coef = 0;
 
 displayPage1();
+technicalNewDevoirForm();
 
 backButton.addEventListener('click', back);
 
@@ -69,6 +71,13 @@ function technicalPage2(id_classe) {
 }
 
 function displayPage3(id_module) {
+    let nouveauDevoir = document.createElement('button');
+    nouveauDevoir.innerHTML = "Nouveau devoir";
+    nouveauDevoir.classList.add('newDevoir');
+    document.querySelector('.title').appendChild(nouveauDevoir);
+    document.querySelector('.title .newDevoir').addEventListener('click', function () {
+        document.querySelector('.newDevoirForm').style.display = 'flex';
+    });
     fetch('../scripts/apiDevoirOfModForTeacher.php?login=' + id_prof + "&module=" + id_module).then(function (response) {
         response.json().then(function (devoirs) {
             titre.innerHTML = "Sélection du devoir";
@@ -84,25 +93,33 @@ function displayPage3(id_module) {
 }
 
 function technicalPage3(id_module) {
+    titre.classList.add('mod' + id_module);
     page = 3;
     document.querySelectorAll('.dynamic button').forEach(function (button) {
         button.addEventListener('click', function () {
             backButton.setAttribute('id', backButton.getAttribute('id') + id_module);
             filAriane.innerHTML += "<button id=\"goto" + id_module + "\">Devoir</button> \>";
             filArianeTechnical();
-            displayPage4(button.getAttribute('id'));
+            displayPage4(button.getAttribute('id'), button.innerHTML);
         });
     });
 }
 
-function displayPage4(id_devoir) {
+async function displayPage4(id_devoir, nom_devoir) {
+    coef = await getCoefDevoir(id_devoir);
+    document.querySelector('.title .newDevoir').remove();
+    titre.classList.remove(titre.classList[0]);
     fetch('../scripts/apiNotesOfWork.php?classe=' + backButton.getAttribute('id')[4] + "&devoir=" + id_devoir).then(function (response) {
         response.json().then(function (notes) {
             page = 4;
+            titre.innerHTML = nom_devoir;
+            let coefDevoir = document.createElement('p');
+            coefDevoir.innerHTML = "Coefficient <input type='number' value='" + coef + "'>";
+            document.querySelector('.title').appendChild(coefDevoir);
             dynamic.innerHTML = "";
             dynamic.innerHTML += "<div class='notes'><table id='" + id_devoir + "'><thead><tr><th>N°étudiant</th><th>Nom</th><th>Prénom</th><th>Note</th></tr></thead><tbody><tbody></table></div>";
             notes.forEach(function (note) {
-                document.querySelector("table tbody").innerHTML += "<tr><td>" + note.numEtud + "</td><th>" + note.nom + "</th><td>" + note.prenom + "</td><td><input type='text' value='" + (note.valeur != null ? note.valeur : "") + "' id='usr" + note.id + "'></td></tr>";
+                document.querySelector("table tbody").innerHTML += "<tr><td>" + note.numEtud + "</td><th>" + note.nom + "</th><td>" + note.prenom + "</td><td><input type='number' value='" + (note.valeur != null ? note.valeur : "") + "' id='usr" + note.id + "'></td></tr>";
             });
             dynamic.innerHTML += "<p class='erreur'>Aucune valeur n'a été modifiée</p><button class='save'>Enregistrer</button>";
             setTimeout(function () {
@@ -135,10 +152,13 @@ function technicalPage4(notes) {
 
 function getModifs(notes) {
     modifs = [];
+    if (document.querySelector('.title input').value != coef) {
+        modifs.push({ type: 1, devoir: document.querySelector('table').getAttribute('id'), old_coef: coef, new_coef: document.querySelector('.title input').value });
+    }
     document.querySelectorAll('table input').forEach(function (input, i) {
         let test = notes[i].valeur == null ? "" : notes[i].valeur;
         if (input.value.replaceAll(",", ".") != test) {
-            modifs.push({ id: notes[i].id, nom: notes[i].nom, prenom: notes[i].prenom, old_valeur: notes[i].valeur, new_valeur: input.value.replaceAll(",", ".") })
+            modifs.push({ type: 2, id: notes[i].id, nom: notes[i].nom, prenom: notes[i].prenom, old_valeur: notes[i].valeur, new_valeur: input.value.replaceAll(",", ".") != "" ? input.value.replaceAll(",", ".") : null })
         }
     });
 };
@@ -150,7 +170,20 @@ function affichePopup() {
     }
     popup.style.display = 'flex';
     modifs.forEach(function (modif) {
-        document.querySelector('.popup .modifs').innerHTML += "<div class='modification'><p>" + modif.nom + " " + modif.prenom + " : " + modif.old_valeur + " -> " + modif.new_valeur + "</p><button class='cancel' id='cancel" + modif.id + "'><p class='sr-only'>Annuler cette modification</p></button></div>";
+        if (modif.type == 1) {
+            document.querySelector('.popup .modifs').innerHTML += "<div class='modification'><p>Coefficient : " + modif.old_coef + " -> " + modif.new_coef + "</p><button class='cancelCoef'><p class='sr-only'>Annuler cette modification</p></button></div>";
+        }
+        if (modif.type == 2) {
+            document.querySelector('.popup .modifs').innerHTML += "<div class='modification'><p>" + modif.nom + " " + modif.prenom + " : " + modif.old_valeur + " -> " + modif.new_valeur + "</p><button class='cancel' id='cancel" + modif.id + "'><p class='sr-only'>Annuler cette modification</p></button></div>";
+        }
+    });
+    document.querySelectorAll('.cancelCoef').forEach(function (button) {
+        button.addEventListener('click', function () {
+            document.querySelector('.title input').value = modifs[0].old_coef;
+            modifs.splice(0, 1);
+            document.querySelector('.popup .modifs').innerHTML = '';
+            affichePopup();
+        });
     });
     document.querySelectorAll('.popup .cancel').forEach(function (button, i) {
         button.addEventListener('click', function () {
@@ -178,6 +211,7 @@ document.querySelector('.popup .confirm').addEventListener('click', function () 
     }).then(function (response) {
         response.json().then(function (result) {
             if (result == 'ok') {
+                document.querySelector('.title>p').remove();
                 displayPage4(document.querySelector('table').getAttribute('id'));
             }
             else {
@@ -199,10 +233,13 @@ function back() {
         case 3:
             displayPage2(backButton.getAttribute('id')[backButton.getAttribute('id').length - 1]);
             backButton.setAttribute('id', backButton.getAttribute('id').slice(0, -1));
+            document.querySelector('.title .newDevoir').remove();
+            titre.classList.remove(titre.classList[0]);
             break;
         case 4:
             displayPage3(backButton.getAttribute('id')[backButton.getAttribute('id').length - 1]);
             backButton.setAttribute('id', backButton.getAttribute('id').slice(0, -1));
+            document.querySelector('.title>p').remove();
             filAriane.removeChild(filAriane.lastChild);
             filAriane.removeChild(filAriane.lastChild);
             break;
@@ -215,14 +252,20 @@ function filArianeTechnical() {
             case "Classe":
                 button.addEventListener('click', function () {
                     displayPage1();
+                    try { document.querySelector('.title>p').remove(); } catch (e) { }
+                    try { document.querySelector('.title .newDevoir').remove(); } catch (e) { }
+                    titre.classList.remove(titre.classList[0]);
                     filAriane.innerHTML = "";
-                    ariane = -1
+                    ariane = -1;
                 });
                 break;
             case "Module":
                 button.addEventListener('click', function () {
                     displayPage2(button.getAttribute('id').replace("goto", ""));
-                    ariane = 0
+                    try { document.querySelector('.title>p').remove(); } catch (e) { }
+                    try { document.querySelector('.title .newDevoir').remove(); } catch (e) { }
+                    titre.classList.remove(titre.classList[0]);
+                    ariane = 0;
                 });
                 break;
             case "Devoir":
@@ -230,10 +273,73 @@ function filArianeTechnical() {
                     displayPage3(button.getAttribute('id').replace("goto", ""));
                     filAriane.removeChild(filAriane.lastChild);
                     filAriane.removeChild(filAriane.lastChild);
-                    ariane = 1
+                    try { document.querySelector('.title>p').remove(); } catch (e) { }
+                    ariane = 1;
                 });
                 break;
         }
         ariane++;
+    });
+}
+
+async function getCoefDevoir(id_devoir) {
+    const response = await fetch('../scripts/apiCoefDevoir.php?devoir=' + id_devoir);
+    const result = await response.json();
+    return result;
+}
+
+function technicalNewDevoirForm() {
+    document.querySelectorAll('.newDevoirForm input').forEach(function (input) {
+        input.addEventListener('input', function () {
+            this.style.border = "1px solid #ced4da";
+            this.setCustomValidity("");
+        });
+    });
+    document.querySelector('.newDevoirForm').addEventListener('click', function (e) {
+        if (e.target.classList.contains('newDevoirForm')) {
+            document.querySelector('.newDevoirForm').style.display = 'none';
+        }
+    });
+    document.querySelectorAll('.newDevoirForm button').forEach(function (button) {
+        button.addEventListener('click', function (e) {
+            if (e.target.classList.contains('cancel')) {
+                document.querySelector('.newDevoirForm').style.display = 'none';
+            }
+            else {
+                if (document.querySelector('.newDevoirForm input#nom').value != "" && document.querySelector('.newDevoirForm input#coef').value != "") {
+                    const newDevoir = {
+                        nom: document.querySelector('.newDevoirForm input#nom').value,
+                        coef: document.querySelector('.newDevoirForm input#coef').value,
+                        module: titre.classList[0].replace("mod", ""),
+                        prof: id_prof
+                    };
+
+                    fetch('../scripts/apiNewDevoir.php', {
+                        method: 'POST',
+                        body: JSON.stringify(newDevoir)
+                    }).then(function (response) {
+                        response.json().then(function (result) {
+                            if (result == 'ok') {
+                                document.querySelector('.newDevoirForm').style.display = 'none';
+                                displayPage3(titre.classList[0].replace("mod", ""));
+                                titre.classList.remove(titre.classList[0]);
+                            }
+                            else {
+                                alert("Une erreur est survenue lors de l'enregistrement des modifications.");
+                            }
+                        });
+                    });
+                }
+                else {
+                    document.querySelectorAll('.newDevoirForm input').forEach(function (input) {
+                        if (input.value == "") {
+                            input.style.border = "1px solid red";
+                            input.setCustomValidity("Ce champ est obligatoire");
+                            input.reportValidity();
+                        }
+                    });
+                }
+            }
+        });
     });
 }
