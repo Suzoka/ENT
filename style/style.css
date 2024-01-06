@@ -183,6 +183,12 @@ header nav a.logout {
 .character img{
     width: 13vw;
 }
+.character p{
+    font-style: italic;
+}
+.class{
+    font-weight: bold;
+}
 .youu{
     position: relative;
     top: -15px;
