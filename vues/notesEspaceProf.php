@@ -35,6 +35,15 @@
         </div>
     </div>
 
+    <div class="newDevoirForm">
+        <div class="contenuFormulaire">
+            <h2>Création d'un nouveau devoir</h2>
+            <div><label for="nom">Nom du devoir : </label><input type="text" id="nom"></div>
+            <div><label for="coef">Coefficient : </label><input type="number" id="coef"></div>
+            <div><button class="cancel">Annuler</button><button class="confirmNewDevoir">Créer le devoir</button></div>
+        </div>
+    </div>
+
     <script src="../scripts/notesEspaceProf.js" defer></script>
 </body>
 
