@@ -7,6 +7,7 @@ const popup = document.querySelector('.popup');
 let page;
 let ariane = 0;
 let modifs = [];
+let erreur = false;
 
 displayPage1();
 
@@ -101,9 +102,9 @@ function displayPage4(id_devoir) {
             dynamic.innerHTML = "";
             dynamic.innerHTML += "<div class='notes'><table id='" + id_devoir + "'><thead><tr><th>N°étudiant</th><th>Nom</th><th>Prénom</th><th>Note</th></tr></thead><tbody><tbody></table></div>";
             notes.forEach(function (note) {
-                document.querySelector("table tbody").innerHTML += "<tr><td>" + note.numEtud + "</td><td>" + note.nom + "</td><td>" + note.prenom + "</td><td><input type='text' value='" + (note.valeur != null ? note.valeur : "") + "' id='usr" + note.id + "'></td></tr>";
+                document.querySelector("table tbody").innerHTML += "<tr><td>" + note.numEtud + "</td><th>" + note.nom + "</th><td>" + note.prenom + "</td><td><input type='text' value='" + (note.valeur != null ? note.valeur : "") + "' id='usr" + note.id + "'></td></tr>";
             });
-            dynamic.innerHTML += "<button id='save'>Enregistrer</button>";
+            dynamic.innerHTML += "<p class='erreur'>Aucune valeur n'a été modifiée</p><button class='save'>Enregistrer</button>";
             setTimeout(function () {
                 technicalPage4(notes);
             }, 100);
@@ -112,10 +113,22 @@ function displayPage4(id_devoir) {
 }
 
 function technicalPage4(notes) {
-    document.querySelector('#save').addEventListener('click', function () {
+    document.querySelector('.save').addEventListener('click', function () {
         getModifs(notes);
         if (modifs.length > 0) {
             affichePopup();
+        }
+        else {
+            document.querySelector('.erreur').style.display = 'block';
+            document.querySelector('.save').style.marginLeft = '0'
+            if (!erreur) {
+                setTimeout(function () {
+                    document.querySelector('.erreur').style.display = 'none';
+                    document.querySelector('.save').style.marginLeft = 'auto'
+                    erreur = false;
+                }, 3000);
+                erreur = true;
+            }
         }
     });
 };
@@ -141,7 +154,7 @@ function affichePopup() {
     });
     document.querySelectorAll('.popup .cancel').forEach(function (button, i) {
         button.addEventListener('click', function () {
-            document.querySelector('table input#usr'+button.getAttribute('id').replace('cancel', '')).value = modifs[i].old_valeur;
+            document.querySelector('table input#usr' + button.getAttribute('id').replace('cancel', '')).value = modifs[i].old_valeur;
             modifs.splice(i, 1);
             document.querySelector('.popup .modifs').innerHTML = '';
             affichePopup();
@@ -159,7 +172,7 @@ document.querySelector('.popup .cancelAll').addEventListener('click', function (
 document.querySelector('.popup .confirm').addEventListener('click', function () {
     popup.style.display = 'none';
     document.querySelector('.popup .modifs').innerHTML = '';
-    fetch('../scripts/apiUpdateNotes.php?devoir='+document.querySelector('table').getAttribute('id'), {
+    fetch('../scripts/apiUpdateNotes.php?devoir=' + document.querySelector('table').getAttribute('id'), {
         method: 'POST',
         body: JSON.stringify(modifs)
     }).then(function (response) {
@@ -168,8 +181,7 @@ document.querySelector('.popup .confirm').addEventListener('click', function () 
                 displayPage4(document.querySelector('table').getAttribute('id'));
             }
             else {
-                // alert("Une erreur est survenue lors de l'enregistrement des modifications.");
-                console.log(result);
+                alert("Une erreur est survenue lors de l'enregistrement des modifications.");
             }
         });
     });
