@@ -237,7 +237,11 @@ textarea {
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
 
+.selfBoutons {
+    justify-content: flex-start;
+    gap: 1rem;
 }
 
 @media screen and (max-width: 940px) {

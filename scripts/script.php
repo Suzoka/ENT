@@ -415,4 +415,21 @@ function createProjet($id, $infos, $picture) {
     move_uploaded_file($picture["tmp_name"], "./img/projets/projet$idProjet.png");
     return true;
 }
+
+function resetMdp($id, $oldMdp, $newMdp) {
+    global $db;
+    $stmt = $db->prepare("select * from `utilisateurs` where id=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (password_verify($oldMdp, $result["password"])) {
+        $stmt = $db->prepare("update `utilisateurs` set password=:password where id=:id");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':password', password_hash($newMdp, PASSWORD_DEFAULT), PDO::PARAM_STR);
+        $stmt->execute();
+        return true;
+    } else {
+        return false;
+    }
+}
 ?>

@@ -43,9 +43,12 @@
                 <?php } ?>
             </div>
             <?php if (isset($_SESSION["login"]) && $targetedUser == $_SESSION["login"]) { ?>
-                <a class="bouton" href="../scripts/downloadCS"
-                    download="Certificat de scolaritée <?php echo $identite; ?>.txt">Telecharger mes certificat de
-                    scolaritée</a>
+                <div class="boutons selfBoutons">
+                    <a class="bouton" href="../scripts/downloadCS"
+                        download="Certificat de scolaritée <?php echo $identite; ?>.txt">Telecharger mon certificat de
+                        scolaritée</a>
+                    <a class="bouton" href="./resetPassword">Réinitialiser mon mot de passe</a>
+                </div>
             <?php } ?>
             <div class="contenu">
                 <div class="zone moi customScroll">

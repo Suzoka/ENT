@@ -113,6 +113,24 @@ if (isset($_SESSION['login'])) {
                 header('Location: ./profil');
             }
             break;
+        case 'resetPassword':
+            include './vues/resetPassword.php';
+            break;
+        case 'resetMdpAction':
+            if (isset($_POST["oldMdp"]) && isset($_POST["newMdp"]) && isset($_POST["newMdp2"])) {
+                if ($_POST["newMdp"] == $_POST["newMdp2"]) {
+                    if (resetMdp($_SESSION["login"], $_POST["oldMdp"], $_POST["newMdp"])) {
+                        header('Location: ./profil');
+                    } else {
+                        header('Location: ./resetPassword?error=3');
+                    }
+                } else {
+                    header('Location: ./resetPassword?error=2');
+                }
+            } else {
+                header('Location: ./resetPassword?error=1');
+            }
+            break;
     }
 } else {
     switch ($page) {
