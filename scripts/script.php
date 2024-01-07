@@ -212,7 +212,8 @@ function getAllDevoirsOfMod($id, $student)
     return $stmt;
 }
 
-function getRole($id) {
+function getRole($id)
+{
     global $db;
     $stmt = $db->prepare("select role from `utilisateurs` where id=:id");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -220,7 +221,8 @@ function getRole($id) {
     return $stmt;
 }
 
-function getAllClassOfTeacher($id) {
+function getAllClassOfTeacher($id)
+{
     global $db;
     $stmt = $db->prepare("select * from `classes` cl inner join `competences` co on cl.id_classe = co.ext_id_classe inner join `coef_modules` cm on co.id_competence = cm.ext_id_competence inner join `modules` mo on cm.ext_id_module = mo.id_module inner join `jury` ju on mo.id_module = ju.ext_id_module where ju.ext_id_prof=:id GROUP BY cl.id_classe;");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -228,7 +230,8 @@ function getAllClassOfTeacher($id) {
     return $stmt;
 }
 
-function getAllModOfClasseWhereTeacherIsJury($id, $classe) {
+function getAllModOfClasseWhereTeacherIsJury($id, $classe)
+{
     global $db;
     $stmt = $db->prepare("select * from `modules` mo inner join `jury` ju on mo.id_module = ju.ext_id_module inner join `coef_modules` cm on mo.id_module = cm.ext_id_module inner join `competences` co on cm.ext_id_competence = co.id_competence inner join `classes` cl on co.ext_id_classe = cl.id_classe where ju.ext_id_prof=:id && cl.id_classe=:classe GROUP BY mo.id_module;");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -237,12 +240,76 @@ function getAllModOfClasseWhereTeacherIsJury($id, $classe) {
     return $stmt;
 }
 
-function apiDevoirOfModForTeacher($id, $module) {
+function apiDevoirOfModForTeacher($id, $module)
+{
     global $db;
-    $stmt = $db->prepare("select * from `devoirs` d inner join `modules` mo on d.ext_id_module = mo.id_module inner join `jury` ju on mo.id_module = ju.ext_id_module where ju.ext_id_prof=:id && mo.id_module=:module");
+    $stmt = $db->prepare("select * from `devoirs` d inner join `modules` mo on d.ext_id_module = mo.id_module inner join `jury` ju on mo.id_module = ju.ext_id_module where ju.ext_id_prof=:id && mo.id_module=:module && d.ext_id_prof=:id");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->bindValue(':module', $module, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt;
+}
+
+function getNotesOfWork($devoir, $classe)
+{
+    global $db;
+    $stmt = $db->prepare("select * from `utilisateurs` u INNER JOIN `promotions` p on u.id = p.ext_id_usr INNER JOIN `groupes` g on p.ext_id_groupe = g.id_groupe INNER JOIN `classes` c ON c.id_classe = g.ext_id_classe left join `notes` n on n.ext_id_student = u.id && n.ext_id_devoir = :devoir WHERE c.id_classe = :classe && u.role = 1 ORDER BY u.nom, u.prenom");
+    $stmt->bindValue(':devoir', $devoir, PDO::PARAM_INT);
+    $stmt->bindValue(':classe', $classe, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function updateNotes($devoir, $modifs)
+{
+    global $db;
+    foreach ($modifs as $modification) {
+        if ($modification->type == 1) {
+            $stmt = $db->prepare("update `devoirs` set coef_devoir=:coef where id_devoir=:devoir");
+            $stmt->bindValue(':coef', $modification->new_coef, PDO::PARAM_INT);
+            $stmt->bindValue(':devoir', $devoir, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+        if ($modification->type == 2) {
+            $stmt = $db->prepare("select * from `notes` where ext_id_student=:student && ext_id_devoir=:devoir");
+            $stmt->bindValue(':student', $modification->id, PDO::PARAM_INT);
+            $stmt->bindValue(':devoir', $devoir, PDO::PARAM_INT);
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                $stmt = $db->prepare("update `notes` set valeur=:valeur where ext_id_student=:student && ext_id_devoir=:devoir");
+                $stmt->bindValue(':student', $modification->id, PDO::PARAM_INT);
+                $stmt->bindValue(':devoir', $devoir, PDO::PARAM_INT);
+                $stmt->bindValue(':valeur', $modification->new_valeur, PDO::PARAM_INT);
+                $stmt->execute();
+            } else {
+                $stmt = $db->prepare("insert into `notes` (ext_id_student, ext_id_devoir, valeur) values (:student, :devoir, :valeur)");
+                $stmt->bindValue(':student', $modification->id, PDO::PARAM_INT);
+                $stmt->bindValue(':devoir', $devoir, PDO::PARAM_INT);
+                $stmt->bindValue(':valeur', $modification->new_valeur, PDO::PARAM_INT);
+                $stmt->execute();
+            }
+        }
+    }
+    return true;
+}
+
+function getCoefDevoir($id_devoir)
+{
+    global $db;
+    $stmt = $db->prepare("select coef_devoir from `devoirs` where id_devoir=:id_devoir");
+    $stmt->bindValue(':id_devoir', $id_devoir, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function createDevoir($nouveauDevoir) {
+    global $db;
+    $stmt = $db->prepare("insert into `devoirs` (nom_devoir, coef_devoir, ext_id_module, ext_id_prof) values (:nom_devoir, :coef_devoir, :ext_id_module, :ext_id_prof)");
+    $stmt->bindValue(':nom_devoir', $nouveauDevoir->nom, PDO::PARAM_STR);
+    $stmt->bindValue(':coef_devoir', $nouveauDevoir->coef, PDO::PARAM_INT);
+    $stmt->bindValue(':ext_id_module', $nouveauDevoir->module, PDO::PARAM_INT);
+    $stmt->bindValue(':ext_id_prof', $nouveauDevoir->prof, PDO::PARAM_INT);
+    $stmt->execute();
+    return true;
 }
 ?>

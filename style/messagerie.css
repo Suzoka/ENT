@@ -233,13 +233,6 @@ form.recherche::before {
 }
 
 .erreur {
-    display: none;
-    position: fixed;
-    background-color: #000000;
-    color: red;
-    border-radius: 150px;
-    padding: 0.25rem 0.5rem;
-    z-index: 999999999;
     left: 69%;
 }
 
