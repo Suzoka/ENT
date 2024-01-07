@@ -159,9 +159,18 @@ function getMoyenneComp($id, $student)
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $moyenne = 0;
     $diviseur = 0;
+    $testNull = null;
     foreach ($result as $module) {
-        $moyenne += getMoyenneMod($module["id_module"], $student) * $module["coef_module"];
+        $moyenneMod = getMoyenneMod($module["id_module"], $student);
+        $testNull+= $moyenneMod;
+        if ($moyenneMod == null) {
+            continue;
+        }
+        $moyenne += $moyenneMod * $module["coef_module"];
         $diviseur += 20 * $module["coef_module"];
+    }
+    if ($testNull == 0) {
+        return "NN";
     }
     return (($moyenne / $diviseur) * 20);
 }
@@ -173,14 +182,18 @@ function getMoyenneMod($id, $student)
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->bindValue(':student', $student, PDO::PARAM_INT);
     $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $moyenne = 0;
-    $diviseur = 0;
-    foreach ($result as $note) {
-        $moyenne += $note["valeur"] * $note["coef_devoir"];
-        $diviseur += 20 * $note["coef_devoir"];
+    if ($stmt->rowCount() == 0) {
+        return null;
+    } else {
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $moyenne = 0;
+        $diviseur = 0;
+        foreach ($result as $note) {
+            $moyenne += $note["valeur"] * $note["coef_devoir"];
+            $diviseur += 20 * $note["coef_devoir"];
+        }
+        return (($moyenne / $diviseur) * 20);
     }
-    return (($moyenne / $diviseur) * 20);
 }
 
 function getAllModsOfComp($id)
@@ -302,7 +315,8 @@ function getCoefDevoir($id_devoir)
     return $stmt;
 }
 
-function createDevoir($nouveauDevoir) {
+function createDevoir($nouveauDevoir)
+{
     global $db;
     $stmt = $db->prepare("insert into `devoirs` (nom_devoir, coef_devoir, ext_id_module, ext_id_prof) values (:nom_devoir, :coef_devoir, :ext_id_module, :ext_id_prof)");
     $stmt->bindValue(':nom_devoir', $nouveauDevoir->nom, PDO::PARAM_STR);

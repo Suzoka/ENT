@@ -24,7 +24,7 @@
                             <?php echo $comp["nom_competence"]; ?>
                         </h2>
                         <p class="moyenneComp">
-                            <?php echo formatNote(getMoyenneComp($comp["id_competence"], $_SESSION["login"])); ?>
+                            <?php echo getMoyenneComp($comp["id_competence"], $_SESSION["login"]) != "NN" ? formatNote(getMoyenneComp($comp["id_competence"], $_SESSION["login"])) : "NN"; ?>
                         </p>
                     </div>
                     <div class="notes">
@@ -40,7 +40,8 @@
                                     </p>
                                 </button>
                                 <p class="moyenneMod">
-                                    <?php echo formatNote(getMoyenneMod($mod["id_module"], $_SESSION["login"])); ?>
+                                    <?php $moyenneMod = getMoyenneMod($mod["id_module"], $_SESSION["login"]);
+                                    echo $moyenneMod == null ? "NN" : formatNote($moyenneMod); ?>
                                 </p>
                             </div>
                             <div class="devoirs data<?php echo $comp["id_competence"] . $mod["id_module"]; ?>">
