@@ -24,7 +24,9 @@
                 <div class="youu">
                     <div class="text">
                         <h1>
-                            <?php echo getIdentite($targetedUser); ?>&nbsp;<span><?php echo $userInfo["numEtud"]; ?></span>
+                            <?php echo getIdentite($targetedUser); ?>&nbsp;<span>
+                                <?php echo $userInfo["numEtud"]; ?>
+                            </span>
                         </h1>
                     </div>
                     <p>
@@ -41,7 +43,9 @@
                 <?php } ?>
             </div>
             <?php if (isset($_SESSION["login"]) && $targetedUser == $_SESSION["login"]) { ?>
-                <a class="bouton" href="../scripts/downloadCS" download="Certificat de scolaritée <?php echo $identite; ?>.txt">Telecharger mes certificat de scolaritée</a>
+                <a class="bouton" href="../scripts/downloadCS"
+                    download="Certificat de scolaritée <?php echo $identite; ?>.txt">Telecharger mes certificat de
+                    scolaritée</a>
             <?php } ?>
             <div class="contenu">
                 <div class="zone moi customScroll">
@@ -49,7 +53,10 @@
                     <p>
                         <?php echo $userInfo["description"] == null ? "<i>L'utilisateur n'a mis aucune description.</i>" : $userInfo["description"]; ?>
                     </p>
-                    <?php if (file_exists("./docs/cv/cv" . $userInfo["id"] . ".pdf")) { ?><a class="bouton" href="../scripts/downloadCV.php?file=<?php echo "cv".$userInfo["id"] ?>" download="CV <?php echo getIdentite($targetedUser); ?>.pdf">Telecharger le Cv</a><?php } ?>
+                    <?php if (file_exists("./docs/cv/cv" . $userInfo["id"] . ".pdf")) { ?><a class="bouton"
+                            href="../scripts/downloadCV.php?file=<?php echo "cv" . $userInfo["id"] ?>"
+                            download="CV <?php echo getIdentite($targetedUser); ?>.pdf">Telecharger le Cv</a>
+                    <?php } ?>
                 </div>
                 <div class="zone projets ">
                     <div class="headerProjet">
@@ -61,18 +68,57 @@
                         <?php } ?>
                     </div>
                     <div class="projets-list customScroll">
-                        <div class="projet"></div>
-                        <div class="projet"></div>
-                        <div class="projet"></div>
-                        <div class="projet"></div>
-                        <div class="projet"></div>
-                        <!-- <?php echo "" ?> -->
+                        <?php
+                        $projets = getProjets($targetedUser);
+                        if ($projets->rowCount() == 0) {
+                            echo "<br><i>L'utilisateur n'a pas encore ajouté de projet.</i>";
+                        } else {
+                            foreach ($projets->fetchAll(PDO::FETCH_ASSOC) as $projet) { ?>
+                                <div class="projet">
+                                    <img src="../img/projets/projet<?php echo $projet["id_projet"]; ?>.png" alt="">
+                                    <div class="textes">
+                                        <h3>
+                                            <?php echo $projet["nom_projet"]; ?>
+                                        </h3>
+                                        <p>
+                                            <?php echo getThemes($projet["id_projet"]) ?>
+                                        </p>
+                                    </div>
+                                    <a href="<?php echo $projet["lien_projet"]; ?>" target="_blank" class="bouton">Voir le
+                                        projet</a>
+                                </div>
+                            <?php }
+                        } ?>
                     </div>
                 </div>
             </div>
         </div>
         <?php if (isset($_SESSION["login"])) { ?>
         </section>
+    <?php } ?>
+
+    <?php
+    if (isset($_SESSION["login"]) && $targetedUser == $_SESSION["login"]) { ?>
+        <div class="newProjetForm">
+            <form class="contenuFormulaire" method="POST" action="./createProject" enctype="multipart/form-data">
+                <h2>Ajout d'un nouveau projet</h2>
+                <br>
+                <div><label for="nom">Nom du projet : </label><input type="text" id="nom" name="nom" require></div>
+                <br>
+                <div><label for="lien">Lien du projet : </label><input type="text" id="lien" name="lien" require></div>
+                <br>
+                <div><label for="theme">Thème du projet : </label><input type="text" id="themes" name="themes"></div>
+                <p>Veuillez séparer les différents thèmes par un ";"</p>
+                <br>
+                <div><label for="picture">Image du projet : </label><input type="file" id="picture" name="picture"
+                        accept="image/png, image/jpeg" require></div>
+                <br>
+                <div class="boutons"><button class="cancel">Annuler</button><input type="submit" class="confirmNewProjet"
+                        value="Créer le projet"></div>
+            </form>
+        </div>
+
+        <script src="../scripts/profil.js" defer></script>
     <?php } ?>
 </body>
 

@@ -105,6 +105,14 @@ if (isset($_SESSION['login'])) {
                 header('Location: ./editProfil');
             }
             break;
+        case 'createProject':
+            if (isset($_POST["nom"]) && isset($_POST["lien"]) && isset($_FILES["picture"])) {
+                createProjet($_SESSION["login"], $_POST, $_FILES["picture"]);
+                header('Location: ./profil');
+            } else {
+                header('Location: ./profil');
+            }
+            break;
     }
 } else {
     switch ($page) {

@@ -336,16 +336,17 @@ function getUser($id)
     return $stmt;
 }
 
-function updateProfil($id, $modifs, $files) {
+function updateProfil($id, $modifs, $files)
+{
     var_dump($files);
     global $db;
-    if ($files["image"]["name"]!='' && !empty($files)) {
+    if ($files["image"]["name"] != '' && !empty($files)) {
         if (file_exists("../img/pdp/pdp$id.png")) {
             unlink("../img/pdp/pdp$id.png");
         }
         move_uploaded_file($files["image"]["tmp_name"], "./img/pdp/pdp$id.png");
     }
-    if ($files["CV"]["name"]!='' && !empty($files)) {
+    if ($files["CV"]["name"] != '' && !empty($files)) {
         if (file_exists("./docs/cv/cv$id.pdf")) {
             unlink("./docs/cv/cv$id.pdf");
         }
@@ -356,6 +357,62 @@ function updateProfil($id, $modifs, $files) {
     $stmt->bindValue(':description', $modifs["description"], PDO::PARAM_STR);
     $stmt->bindValue(':statut', $modifs["statut"], PDO::PARAM_STR);
     $stmt->execute();
+    return true;
+}
+
+function getProjets($id)
+{
+    global $db;
+    $stmt = $db->prepare("select * from `projets` where ext_id_user=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function getThemes($id)
+{
+    global $db;
+    $stmt = $db->prepare("select * from `themes` where ext_id_projet=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    if ($stmt->rowCount() == 0) {
+        return "";
+    }
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $themes = "";
+    foreach ($result as $key => $row) {
+        $themes .= $row["nom_theme"];
+        if ($key != sizeof($result) - 1) {
+            $themes .= "; ";
+        }
+    }
+    return $themes;
+}
+
+function createProjet($id, $infos, $picture) {
+    global $db;
+    $stmt = $db->prepare("insert into `projets` (nom_projet, lien_projet, ext_id_user) values (:nom_projet, :lien_projet, :ext_id_user)");
+    $stmt->bindValue(':nom_projet', $infos["nom"], PDO::PARAM_STR);
+    $stmt->bindValue(':lien_projet', $infos["lien"], PDO::PARAM_STR);
+    $stmt->bindValue(':ext_id_user', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $idProjet = $db->lastInsertId();
+    if (isset($infos["themes"]) && !empty($infos["themes"])) {
+        $themes = explode(";", $infos["themes"]);
+        $stmt = $db->prepare("insert into `themes` (nom_theme, ext_id_projet) values (:nom_theme, :ext_id_projet)");
+        foreach ($themes as $theme) {
+            if ($theme == "") {
+                continue;
+            }
+            $stmt->bindValue(':nom_theme', $theme, PDO::PARAM_STR);
+            $stmt->bindValue(':ext_id_projet', $idProjet, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+    }
+    if (file_exists("./img/projets/projet$idProjet.png")) {
+        unlink("./img/projets/projet$idProjet.png");
+    }
+    move_uploaded_file($picture["tmp_name"], "./img/projets/projet$idProjet.png");
     return true;
 }
 ?>
