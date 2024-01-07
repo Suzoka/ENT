@@ -1,7 +1,4 @@
 <?php
-error_reporting(E_ALL); 
-ini_set('display_errors', 1);
-
 if (isset($_GET['file'])) {
     $filename = basename($_GET['file']);
     $file = '../docs/cv/'.$filename.'.pdf';
@@ -12,7 +9,7 @@ if (isset($_GET['file'])) {
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
         header('Content-Length: ' . filesize($file));
-        var_dump(readfile($file));
+        readfile($file);
         exit;
     }
 }

@@ -41,7 +41,7 @@
                 <?php } ?>
             </div>
             <?php if (isset($_SESSION["login"]) && $targetedUser == $_SESSION["login"]) { ?>
-                <a class="bouton" href="#">Telecharger mes certificat de scolaritée</a>
+                <a class="bouton" href="../scripts/downloadCS" download="Certificat de scolaritée <?php echo $identite; ?>.txt">Telecharger mes certificat de scolaritée</a>
             <?php } ?>
             <div class="contenu">
                 <div class="zone moi customScroll">
@@ -49,7 +49,7 @@
                     <p>
                         <?php echo $userInfo["description"] == null ? "<i>L'utilisateur n'a mis aucune description.</i>" : $userInfo["description"]; ?>
                     </p>
-                    <?php if (file_exists("./docs/cv/cv" . $userInfo["id"] . ".pdf")) { ?><a class="bouton" href="../scripts/download.php?file=<?php echo "cv".$userInfo["id"] ?>" download="CV <?php echo getIdentite($targetedUser); ?>.pdf">Telecharger le Cv</a><?php } ?>
+                    <?php if (file_exists("./docs/cv/cv" . $userInfo["id"] . ".pdf")) { ?><a class="bouton" href="../scripts/downloadCV.php?file=<?php echo "cv".$userInfo["id"] ?>" download="CV <?php echo getIdentite($targetedUser); ?>.pdf">Telecharger le Cv</a><?php } ?>
                 </div>
                 <div class="zone projets ">
                     <div class="headerProjet">
