@@ -4,35 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil étudiants</title>
+    <title>Profil de
+        <?php echo getIdentite($targetedUser); ?>
+    </title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/profil.css">
 </head>
 
-<body>
+<body <?php if (!isset($_SESSION["login"])) {
+    echo "class='fullscreen'";
+} ?>>
     <?php require './vues/components/header.php'; ?>
-    <section class="grid">
+    <?php if (isset($_SESSION["login"])) { ?>
+        <section class="grid">
+        <?php } ?>
         <div class="profil customScroll">
             <div class="character">
-                <img src="<?php echo $image ?>" alt="">
+                <img src="<?php echo getImage($targetedUser); ?>" alt="">
                 <div class="youu">
                     <div class="text">
-                        <h1><?php echo $identite ?></h1>
-                        <p><?php echo "num etud" ?></p>
+                        <h1>
+                            <?php echo getIdentite($targetedUser); ?>&nbsp;<span><?php echo $userInfo["numEtud"]; ?></span>
+                        </h1>
                     </div>
-                    <p><?php echo $classes; ?></p>
-                    <p><?php echo "statut quand je saurrais comment l'appeller mdrrr" ?></p>
+                    <p>
+                        <?php echo getClasses($targetedUser); ?>
+                    </p>
+                    <p>
+                        <?php echo $userInfo["statut"] ?>
+                    </p>
                 </div>
+                <?php if (isset($_SESSION["login"]) && $targetedUser == $_SESSION["login"]) { ?>
+                    <a class="edit" id="edit" href="./editProfil">
+                        <p class="sr-only">Modifier mon profil</p>
+                    </a>
+                <?php } ?>
             </div>
-            <a class="bouton" href="#">telecharger mes certificat de scolaritée</a>
+            <?php if (isset($_SESSION["login"]) && $targetedUser == $_SESSION["login"]) { ?>
+                <a class="bouton" href="#">Telecharger mes certificat de scolaritée</a>
+            <?php } ?>
             <div class="contenu">
-                <div class="zone moi">
-                    <h2>A propos de moi</h2>
-                    <p><?php echo "texte a recupe avec php j'imagine" ?></p>
-                    <a class="bouton" href="#">telecharger mon Cv</a>
+                <div class="zone moi customScroll">
+                    <h2>À propos de moi</h2>
+                    <p>
+                        <?php echo $userInfo["description"] == null ? "<i>L'utilisateur n'a mis aucune description.</i>" : $userInfo["description"]; ?>
+                    </p>
+                    <?php if (file_exists("./docs/cv/cv" . $userInfo["id"] . ".pdf")) { ?><a class="bouton" href="../scripts/download.php?file=<?php echo "cv".$userInfo["id"] ?>" download="CV <?php echo getIdentite($targetedUser); ?>.pdf">Telecharger le Cv</a><?php } ?>
                 </div>
                 <div class="zone projets ">
-                    <h2>mes projets</h2>
+                    <div class="headerProjet">
+                        <h2>Mes projets</h2>
+                        <?php if (isset($_SESSION["login"]) && $targetedUser == $_SESSION["login"]) { ?>
+                            <button class="newProjet" id="newProjet">
+                                <p class="sr-only">Ajouter un nouveau projet</p>
+                            </button>
+                        <?php } ?>
+                    </div>
                     <div class="projets-list customScroll">
                         <div class="projet"></div>
                         <div class="projet"></div>
@@ -44,7 +71,9 @@
                 </div>
             </div>
         </div>
-    </section>
+        <?php if (isset($_SESSION["login"])) { ?>
+        </section>
+    <?php } ?>
 </body>
 
 </html>

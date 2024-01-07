@@ -130,7 +130,10 @@ header nav a.user div.text p:first-of-type {
 }
 
 header nav a.user img {
-    width: 4.25rem;    
+    width: 4.25rem;
+    height: 4.25rem;  
+    border-radius: 300px;  
+    object-fit: cover;
 }
 
 header nav a.logout {
@@ -151,7 +154,7 @@ header nav a.logout {
 
 .grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 1fr;
     grid-template-rows: 1fr;
     gap: 1.3rem;
     padding: 0 1.3rem;

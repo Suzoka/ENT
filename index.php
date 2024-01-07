@@ -85,7 +85,25 @@ if (isset($_SESSION['login'])) {
             }
             break;
         case 'profil':
+            if (isset($_GET["user"])) {
+                $targetedUser = $_GET["user"];
+            } else {
+                $targetedUser = $_SESSION["login"];
+            }
+            $userInfo = getUser($targetedUser)->fetch(PDO::FETCH_ASSOC);
             include './vues/profil.php';
+            break;
+        case 'editProfil':
+            $userInfo = getUser($_SESSION["login"])->fetch(PDO::FETCH_ASSOC);
+            include './vues/editProfil.php';
+            break;
+        case 'updateProfil':
+            if (isset($_POST) && !empty($_POST) && isset($_FILES)) {
+                updateProfil($_SESSION["login"], $_POST, $_FILES);
+                header('Location: ./profil');
+            } else {
+                header('Location: ./editProfil');
+            }
             break;
     }
 } else {
@@ -114,6 +132,15 @@ if (isset($_SESSION['login'])) {
             } else {
                 header('Location: ./connexion?error=prof!0');
             }
+            break;
+        case 'profil':
+            if (isset($_GET["user"])) {
+                $targetedUser = $_GET["user"];
+            } else {
+                header('Location: ./connexion');
+            }
+            $userInfo = getUser($targetedUser)->fetch(PDO::FETCH_ASSOC);
+            include './vues/profil.php';
             break;
         default:
             include './vues/connexion.php';

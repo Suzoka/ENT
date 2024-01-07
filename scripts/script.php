@@ -47,7 +47,7 @@ function deconection()
 
 function getImage($id)
 {
-    if (file_exists("../img/pdp/pdp$id.png")) {
+    if (file_exists("./img/pdp/pdp$id.png")) {
         return "../img/pdp/pdp$id.png";
     } else {
         return "../img/pdp/default.png";
@@ -57,7 +57,7 @@ function getImage($id)
 function getIdentite($id)
 {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM `utilisateurs` where id=:id");
+    $stmt = $db->prepare("SELECT prenom, nom FROM `utilisateurs` where id=:id");
     $stmt->bindValue(':id', $id, PDO::PARAM_STR);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -162,7 +162,7 @@ function getMoyenneComp($id, $student)
     $testNull = null;
     foreach ($result as $module) {
         $moyenneMod = getMoyenneMod($module["id_module"], $student);
-        $testNull+= $moyenneMod;
+        $testNull += $moyenneMod;
         if ($moyenneMod == null) {
             continue;
         }
@@ -323,6 +323,38 @@ function createDevoir($nouveauDevoir)
     $stmt->bindValue(':coef_devoir', $nouveauDevoir->coef, PDO::PARAM_INT);
     $stmt->bindValue(':ext_id_module', $nouveauDevoir->module, PDO::PARAM_INT);
     $stmt->bindValue(':ext_id_prof', $nouveauDevoir->prof, PDO::PARAM_INT);
+    $stmt->execute();
+    return true;
+}
+
+function getUser($id)
+{
+    global $db;
+    $stmt = $db->prepare("select * from `utilisateurs` where id=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function updateProfil($id, $modifs, $files) {
+    var_dump($files);
+    global $db;
+    if ($files["image"]["name"]!='' && !empty($files)) {
+        if (file_exists("../img/pdp/pdp$id.png")) {
+            unlink("../img/pdp/pdp$id.png");
+        }
+        move_uploaded_file($files["image"]["tmp_name"], "./img/pdp/pdp$id.png");
+    }
+    if ($files["CV"]["name"]!='' && !empty($files)) {
+        if (file_exists("./docs/cv/cv$id.pdf")) {
+            unlink("./docs/cv/cv$id.pdf");
+        }
+        move_uploaded_file($files["CV"]["tmp_name"], "./docs/cv/cv$id.pdf");
+    }
+    $stmt = $db->prepare("update `utilisateurs` set description=:description, statut=:statut where id=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':description', $modifs["description"], PDO::PARAM_STR);
+    $stmt->bindValue(':statut', $modifs["statut"], PDO::PARAM_STR);
     $stmt->execute();
     return true;
 }
