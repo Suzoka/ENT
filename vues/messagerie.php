@@ -16,13 +16,13 @@
     <section class="grid">
         <div class="flexMessages">
             <div class="receiverInfos">
-                <div>
+                <a href="./profil?user=<?php echo $to; ?>">
                     <?php if ($to != null) { ?><img src="<?php echo $imageReceiver; ?>" alt="">
                     <?php } ?>
                     <h1>
                         <?php echo $identiteReceiver ?>
                     </h1>
-                </div>
+                </a>
                 <p>
                     <?php echo $classesReceiver; ?>
                 </p>

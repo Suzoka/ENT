@@ -25,10 +25,12 @@ body {
     padding-right: 1.5rem;
 }
 
-.receiverInfos div {
+.receiverInfos a {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    text-decoration: none;
+    color: white;
 }
 
 .receiverInfos h1,
