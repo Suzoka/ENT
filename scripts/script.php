@@ -533,7 +533,8 @@ function generatePassword()
     return $mdp;
 }
 
-function deleteUser($id){
+function deleteUser($id)
+{
     global $db;
     $stmt = $db->prepare("delete from `utilisateurs` where id=:id");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -550,8 +551,8 @@ function deleteUser($id){
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt = $db->prepare("delete from `themes` where ext_id_projet=:id");
     foreach ($result as $projet) {
-        if (file_exists("./img/projets/projet".$projet["id_projet"].".png")) {
-            unlink("./img/projets/projet".$projet["id_projet"].".png");
+        if (file_exists("./img/projets/projet" . $projet["id_projet"] . ".png")) {
+            unlink("./img/projets/projet" . $projet["id_projet"] . ".png");
         }
         $stmt->bindValue(':id', $projet["id_projet"], PDO::PARAM_INT);
         $stmt->execute();
@@ -577,14 +578,117 @@ function deleteUser($id){
     $stmt = $db->prepare("delete from `jury` where ext_id_prof=:id");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
-    if (file_exists("./img/pdp/pdp".$id.".png")) {
-        unlink("./img/pdp/pdp".$id.".png");
+    if (file_exists("./img/pdp/pdp" . $id . ".png")) {
+        unlink("./img/pdp/pdp" . $id . ".png");
     }
-    if (file_exists("./docs/cv/cv".$id.".pdf")) {
-        unlink("./docs/cv/cv".$id.".pdf");
+    if (file_exists("./docs/cv/cv" . $id . ".pdf")) {
+        unlink("./docs/cv/cv" . $id . ".pdf");
     }
-    if (file_exists("./docs/cs/cs".$id.".txt")) {
-        unlink("./docs/cs/cs".$id.".txt");
+    if (file_exists("./docs/cs/cs" . $id . ".txt")) {
+        unlink("./docs/cs/cs" . $id . ".txt");
+    }
+    return true;
+}
+
+function getAllClass()
+{
+    global $db;
+    $stmt = $db->prepare("select * from `classes`");
+    $stmt->execute();
+    return $stmt;
+}
+
+function getCompOfClass($id)
+{
+    global $db;
+    $stmt = $db->prepare("select * from `competences` where ext_id_classe=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function deleteCompetence($id)
+{
+    global $db;
+    $stmt = $db->prepare("delete from `competences` where id_competence=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $stmt = $db->prepare("delete from `coef_modules` where ext_id_competence=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return "ok";
+}
+
+function createClass($nom)
+{
+    global $db;
+    $stmt = $db->prepare("insert into `classes` (nom_classe) values (:nom)");
+    $stmt->bindValue(':nom', $nom->nom, PDO::PARAM_STR);
+    $stmt->execute();
+    return true;
+}
+
+function createComp($nom)
+{
+    global $db;
+    $stmt = $db->prepare("insert into `competences` (nom_competence, ext_id_classe) values (:nom, :classe)");
+    $stmt->bindValue(':nom', $nom->nom, PDO::PARAM_STR);
+    $stmt->bindValue(':classe', $nom->id, PDO::PARAM_INT);
+    $stmt->execute();
+    return true;
+}
+
+function getAllModOfClass($id)
+{
+    global $db;
+    $stmt = $db->prepare("select * from `modules` m inner join `coef_modules` cm on cm.ext_id_module=m.id_module inner join `competences` c on c.id_competence = cm.ext_id_competence where c.ext_id_classe=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function getModuleInfo($id)
+{
+    global $db;
+    $stmt = $db->prepare("select * from `modules` m inner join `coef_modules` co on m.id_module =co.ext_id_module where m.id_module=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function updateCoefModule($modifs)
+{
+    global $db;
+    $idMod = $modifs->id;
+    foreach ($modifs->modules as $module) {
+        $stmt = $db->prepare("select * from `coef_modules` where ext_id_module=:id_module && ext_id_competence=:id_competence");
+        $stmt->bindValue(':id_module', $idMod, PDO::PARAM_INT);
+        $stmt->bindValue(':id_competence', $module->idComp, PDO::PARAM_INT);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            if ($module->coef == 0 || $module->coef == null || $module->coef == "") {
+                $stmt = $db->prepare("delete from `coef_modules` where ext_id_module=:id_module && ext_id_competence=:id_competence");
+                $stmt->bindValue(':id_module', $idMod, PDO::PARAM_INT);
+                $stmt->bindValue(':id_competence', $module->idComp, PDO::PARAM_INT);
+                $stmt->execute();
+            } else {
+                $stmt = $db->prepare("update `coef_modules` set coef_module=:coef where ext_id_module=:id_module && ext_id_competence=:id_competence");
+                $stmt->bindValue(':id_module', $idMod, PDO::PARAM_INT);
+                $stmt->bindValue(':id_competence', $module->idComp, PDO::PARAM_INT);
+                $stmt->bindValue(':coef', $module->coef, PDO::PARAM_INT);
+                $stmt->execute();
+            }
+        } else {
+            if ($module->coef == 0 || $module->coef == null || $module->coef == "") {
+                continue;
+            } else {
+                $stmt = $db->prepare("insert into `coef_modules` (ext_id_module, ext_id_competence, coef_module) values (:id_module, :id_competence, :coef)");
+                $stmt->bindValue(':id_module', $idMod, PDO::PARAM_INT);
+                $stmt->bindValue(':id_competence', $module->idComp, PDO::PARAM_INT);
+                $stmt->bindValue(':coef', $module->coef, PDO::PARAM_INT);
+                $stmt->execute();
+            }
+        }
     }
     return true;
 }
