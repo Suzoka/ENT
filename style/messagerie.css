@@ -89,6 +89,8 @@ body {
     z-index: 4;
     left: -3.75rem;
     top: -0.5rem;
+    border-radius: 300px;
+    object-fit: cover;
 }
 
 .moi {
@@ -139,6 +141,8 @@ form.msg input[type=submit] {
     border-radius: 500rem;
     width: 2.5rem;
     height: 2.5rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0);
 }
 
 .side {

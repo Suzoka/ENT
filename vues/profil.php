@@ -110,7 +110,7 @@
                 <br>
                 <div><label for="lien">Lien du projet : </label><input type="text" id="lien" name="lien" require></div>
                 <br>
-                <div><label for="theme">Thème du projet : </label><input type="text" id="themes" name="themes"></div>
+                <div><label for="themes">Thème du projet : </label><input type="text" id="themes" name="themes"></div>
                 <p>Veuillez séparer les différents thèmes par un ";"</p>
                 <br>
                 <div><label for="picture">Image du projet : </label><input type="file" id="picture" name="picture"
