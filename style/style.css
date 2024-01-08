@@ -212,7 +212,7 @@ form.recherche::before {
     display: block;
     z-index: 5;
     top: 3px;
-    left: 6px;
+    left: 15px;
     cursor: text;
 }
 

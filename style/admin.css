@@ -24,9 +24,111 @@ table a.reset {
     background-size: 1.35rem;
 }
 
-table a.delete {
+table a.delete, button.delete {
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' fill='none'><path d='M7.5 7.5L15 15M15 15L25 25M15 15V45C15 49.1423 18.3579 52.5 22.5 52.5H37.5C41.6423 52.5 45 49.1423 45 45M15 15H10M25 25L35 35M25 25V42.5M45 45L35 35M45 45L52.5 52.5M35 35V42.5M45 15V30.9765M45 15H40M45 15H50M40 15L38.6395 10.9188C37.959 8.87715 36.0483 7.5 33.8963 7.5H26.1037C24.856 7.5 23.6893 7.96297 22.7965 8.75M40 15H29.0333' stroke='black' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 1.5rem;
+}
+
+
+.dynamic, .modules {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.dynamic button, .modules button {
+    background-color: white;
+    border: 1px solid #1B4965;
+    padding: 0.5rem;
+    border-radius: 1.25rem;
+    margin-bottom: 0.5rem;
+    width: 40%;
+    min-height: 5rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.5s ease;
+}
+
+.dynamic button:hover, .dynamic button:focus, .modules button:hover, .modules button:focus {
+    background-color: #1B4965;
+    color: white;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.back {
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    background-color: #1B4965;
+    border-radius: 150px;
+    border: none;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' fill='none'><path d='M15 30H45M15 30L27.5 17.5M15 30L27.5 42.5' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 2.5rem;
+}
+
+.filAriane button {
+    background-color: transparent;
+    border: none;
+    color: black;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.title>p {
+    margin: 0;
+    width: 8rem;
+    margin-left: auto;
+}
+
+.competence, .module {
+    border: #1B4965 solid 1px;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+}
+
+.competence button, .module button {
+    border: none;
+}
+
+.competence button:hover, .competence button:focus, .module button:hover, .module button:focus {
+    background-color: unset;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100000000;
+    width: 100%;
+    height: 100%;
+    background-color: #000000da;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white; 
+    gap: 3rem;
+}
+
+.modules h2 {
+    width: 100%;
+    margin-top: 80px;
+    margin-left: 15px;
 }

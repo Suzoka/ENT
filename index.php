@@ -186,6 +186,13 @@ if (isset($_SESSION['login'])) {
                 header('Location: ./accueil');
             }
             break;
+        case 'gestionClasses':
+            if ($role == 3) {
+                include './vues/gestionClasses.php';
+            } else {
+                header('Location: ./accueil');
+            }
+            break;
     }
 } else {
     switch ($page) {
