@@ -97,6 +97,7 @@ function displayPage2(id) {
 }
 
 function displayPage3(module, idClasse) {
+    backButton.setAttribute('id', "from" + idClasse);
     page = 3;
     backButton.style.display = 'block';
     filAriane.innerHTML += "<button>Module</button> \>";
@@ -247,3 +248,23 @@ function filArianeTechnical(idClasse) {
         ariane++;
     });
 }
+
+backButton.addEventListener('click', function () {
+    switch (page) {
+        case 1:
+        default:
+            break;
+        case 2:
+            displayPage1();
+            filAriane.innerHTML = "";
+            document.querySelector('.modules').remove();
+            document.querySelector('.title .add').remove();
+            break;
+        case 3:
+            displayPage2(backButton.getAttribute('id')[backButton.getAttribute('id').length - 1]);
+            backButton.setAttribute('id', backButton.getAttribute('id').slice(0, -1));
+            document.querySelector('.title .newDevoir').remove();
+            titre.classList.remove(titre.classList[0]);
+            break;
+    }
+});
