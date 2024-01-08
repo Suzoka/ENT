@@ -131,6 +131,61 @@ if (isset($_SESSION['login'])) {
                 header('Location: ./resetPassword?error=1');
             }
             break;
+        case 'gestionUsers':
+            if ($role == 3) {
+                if (isset($_GET["user"])) {
+                    $user = getUser($_GET["user"])->fetch(PDO::FETCH_ASSOC);
+                }
+                include './vues/gestionUsers.php';
+            } else {
+                header('Location: ./accueil');
+            }
+            break;
+        case 'newUser':
+            if ($role == 3) {
+                if (isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["role"])) {
+                    if (createUser($_POST)) {
+                        echo "<a href='./gestionUsers'>Confirmer</a>";
+                    } else {
+                        header('Location: ./gestionUsers?error=true');
+                    }
+                } else {
+                    header('Location: ./gestionUsers?error=true');
+                }
+            } else {
+                header('Location: ./accueil');
+            }
+            break;
+        case 'resetAdminPassword' :
+            if ($role=3) {
+                if (isset($_GET["id"])) {
+                    if (resetAdminPassword($_GET["id"])) {
+                        echo "<a href='./gestionUsers'>Confirmer</a>";
+                    } else {
+                        header('Location: ./gestionUsers?error=true');
+                    }
+                } else {
+                    header('Location: ./gestionUsers?error=true');
+                }
+            } else {
+                header('Location: ./accueil');
+            }
+            break;
+        case 'deleteUser' :
+            if ($role=3) {
+                if (isset($_GET["id"])) {
+                    if (deleteUser($_GET["id"])) {
+                        header('Location: ./gestionUsers');
+                    } else {
+                        header('Location: ./gestionUsers?error=true');
+                    }
+                } else {
+                    header('Location: ./gestionUsers?error=true');
+                }
+            } else {
+                header('Location: ./accueil');
+            }
+            break;
     }
 } else {
     switch ($page) {
@@ -157,6 +212,17 @@ if (isset($_SESSION['login'])) {
                 }
             } else {
                 header('Location: ./connexion?error=prof!0');
+            }
+            break;
+        case 'checkConnectionAdmin':
+            if (isset($_POST['identifiant']) && isset($_POST['mdp'])) {
+                if (checkConnectionAdmin($_POST['identifiant'], $_POST['mdp'])) {
+                    header('Location: ./accueil');
+                } else {
+                    header('Location: ./connexion?error=admin!1');
+                }
+            } else {
+                header('Location: ./connexion?error=admin!0');
             }
             break;
         case 'profil':

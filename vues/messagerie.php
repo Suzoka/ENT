@@ -16,13 +16,13 @@
     <section class="grid">
         <div class="flexMessages">
             <div class="receiverInfos">
-                <div>
+                <a href="./profil?user=<?php echo $to; ?>">
                     <?php if ($to != null) { ?><img src="<?php echo $imageReceiver; ?>" alt="">
                     <?php } ?>
                     <h1>
                         <?php echo $identiteReceiver ?>
                     </h1>
-                </div>
+                </a>
                 <p>
                     <?php echo $classesReceiver; ?>
                 </p>
@@ -54,11 +54,12 @@
                 </div>
             </div>
             <form action="./sendMessage?to=<?php echo $to; ?>" method="POST" class="msg">
+                <label for="message" class="sr-only">Envoyer un chat</label>
                 <textarea name="message" id="message" placeholder="Envoyer un chat" required <?php if ($to == null) {
                     echo 'disabled="disabled"';
                 } ?>></textarea>
                 <label for="send" class="sr-only">Envoyer</label>
-                <input type="submit" value="" id="send" <?php if ($to == null) {
+                <input type="submit" value="Envoyer" id="send" <?php if ($to == null) {
                     echo 'disabled="disabled"';
                 } ?>>
             </form>
@@ -67,7 +68,8 @@
             <div class="contacts customScroll">
                 <form class="recherche">
                     <p class="erreur">Ceci est un message d'erreur</p>
-                    <input type="search" list="usr" name="recherche" placeholder="Rechercher/créer une conversation">
+                    <label for="recherche" class="sr-only">Rechercher/créer une conversation</label>
+                    <input type="search" list="usr" name="recherche" placeholder="Rechercher/créer une conversation" id="recherche">
                 </form>
                 <datalist id="usr" class="usr"></datalist>
                 <?php

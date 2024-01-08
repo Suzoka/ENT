@@ -179,3 +179,90 @@ header nav a.logout {
     padding: 0.25rem 0.5rem;
     z-index: 999999999;
 }
+
+.rouge {
+    color: red;
+}
+
+
+form.recherche input{
+    width: 95%;
+    height: 2rem;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 1.25rem;
+    border-radius: 150px;
+    border: 1px solid #1B4965;
+    padding-left: 2.1rem;
+}
+
+form.recherche{
+    position: relative;
+}
+
+form.recherche::before {
+    content: "";
+    background-image: url("data:image/svg+xml; base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNScgaGVpZ2h0PScxNScgdmlld0JveD0nMCAwIDE1IDE1JyBmaWxsPSdub25lJz48cGF0aCBkPSdNMTMuMTQxNyAxNC42MjVMOC4xNTQxNyA5LjYzNzVDNy43NTgzMyA5Ljk1NDE3IDcuMzAzMTIgMTAuMjA0OSA2Ljc4ODU0IDEwLjM4OTZDNi4yNzM5NiAxMC41NzQzIDUuNzI2MzkgMTAuNjY2NyA1LjE0NTgzIDEwLjY2NjdDMy43MDc2NCAxMC42NjY3IDIuNDkwNTggMTAuMTY4NCAxLjQ5NDY3IDkuMTcyQzAuNDk4NzUgOC4xNzU1NiAwLjAwMDUyNzc3OCA2Ljk1ODUgMCA1LjUyMDgzQzAgNC4wODI2NCAwLjQ5ODIyMiAyLjg2NTU4IDEuNDk0NjcgMS44Njk2N0MyLjQ5MTExIDAuODczNzUgMy43MDgxNyAwLjM3NTUyOCA1LjE0NTgzIDAuMzc1QzYuNTg0MDMgMC4zNzUgNy44MDEzNSAwLjg3MzIyMiA4Ljc5Nzc5IDEuODY5NjdDOS43OTQyNCAyLjg2NjExIDEwLjI5MjIgNC4wODMxNyAxMC4yOTE3IDUuNTIwODNDMTAuMjkxNyA2LjEwMTM5IDEwLjE5OTMgNi42NDg5NiAxMC4wMTQ2IDcuMTYzNTRDOS44Mjk4NiA3LjY3ODEyIDkuNTc5MTcgOC4xMzMzMyA5LjI2MjUgOC41MjkxN0wxNC4yNSAxMy41MTY3TDEzLjE0MTcgMTQuNjI1Wk01LjE0NTgzIDkuMDgzMzNDNi4xMzU0MiA5LjA4MzMzIDYuOTc2NjkgOC43MzcxMSA3LjY2OTY3IDguMDQ0NjdDOC4zNjI2NCA3LjM1MjIyIDguNzA4ODYgNi41MTA5NCA4LjcwODMzIDUuNTIwODNDOC43MDgzMyA0LjUzMTI1IDguMzYyMTEgMy42OTAyNCA3LjY2OTY3IDIuOTk3NzlDNi45NzcyMiAyLjMwNTM1IDYuMTM1OTQgMS45NTg4NiA1LjE0NTgzIDEuOTU4MzNDNC4xNTYyNSAxLjk1ODMzIDMuMzE1MjQgMi4zMDQ4MiAyLjYyMjc5IDIuOTk3NzlDMS45MzAzNSAzLjY5MDc2IDEuNTgzODYgNC41MzE3OCAxLjU4MzMzIDUuNTIwODNDMS41ODMzMyA2LjUxMDQyIDEuOTI5ODIgNy4zNTE2OSAyLjYyMjc5IDguMDQ0NjdDMy4zMTU3NiA4LjczNzY0IDQuMTU2NzggOS4wODM4NiA1LjE0NTgzIDkuMDgzMzNaJyBmaWxsPScjQUVBRUFFJy8+PC9zdmc+");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    display: block;
+    z-index: 5;
+    top: 3px;
+    left: 6px;
+    cursor: text;
+}
+
+table {
+    border-spacing: 0 8px;
+    background-color: #1B4965;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 1440px;
+    padding: 0.5rem;
+    padding-top: 0;
+}
+
+table thead tr {
+    position: relative;
+    background-color: #1B4965;
+    color: white;
+}
+
+table tbody th, table tbody td {
+    background-color: white;
+    height: 1rem;
+}
+
+table tbody tr:nth-child(odd) th, table tbody tr:nth-child(odd) td {
+    background-color: #CFEEFF;
+}
+
+table th, table td {
+    padding: 0.5rem 1rem;
+    text-align: left;
+}
+
+tbody tr td:last-child {
+    padding: 0;
+}
+
+tr td:first-child { 
+    border-bottom-left-radius: 7px;
+    border-top-left-radius: 7px;
+}
+tr td:last-child { 
+    border-bottom-right-radius: 7px; 
+    border-top-right-radius: 7px; 
+}
+
+td input {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.075);
+    border-bottom-right-radius: 7px; 
+    border-top-right-radius: 7px; 
+}

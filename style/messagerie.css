@@ -25,10 +25,12 @@ body {
     padding-right: 1.5rem;
 }
 
-.receiverInfos div {
+.receiverInfos a {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    text-decoration: none;
+    color: white;
 }
 
 .receiverInfos h1,
@@ -89,6 +91,8 @@ body {
     z-index: 4;
     left: -3.75rem;
     top: -0.5rem;
+    border-radius: 300px;
+    object-fit: cover;
 }
 
 .moi {
@@ -139,6 +143,8 @@ form.msg input[type=submit] {
     border-radius: 500rem;
     width: 2.5rem;
     height: 2.5rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0);
 }
 
 .side {
@@ -199,37 +205,6 @@ form.msg input[type=submit] {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-form.recherche input{
-    width: 95%;
-    height: 2rem;
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 1.25rem;
-    border-radius: 150px;
-    border: 1px solid #1B4965;
-    padding-left: 2.1rem;
-}
-
-form.recherche{
-    position: relative;
-}
-
-form.recherche::before {
-    content: "";
-    background-image: url("data:image/svg+xml; base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNScgaGVpZ2h0PScxNScgdmlld0JveD0nMCAwIDE1IDE1JyBmaWxsPSdub25lJz48cGF0aCBkPSdNMTMuMTQxNyAxNC42MjVMOC4xNTQxNyA5LjYzNzVDNy43NTgzMyA5Ljk1NDE3IDcuMzAzMTIgMTAuMjA0OSA2Ljc4ODU0IDEwLjM4OTZDNi4yNzM5NiAxMC41NzQzIDUuNzI2MzkgMTAuNjY2NyA1LjE0NTgzIDEwLjY2NjdDMy43MDc2NCAxMC42NjY3IDIuNDkwNTggMTAuMTY4NCAxLjQ5NDY3IDkuMTcyQzAuNDk4NzUgOC4xNzU1NiAwLjAwMDUyNzc3OCA2Ljk1ODUgMCA1LjUyMDgzQzAgNC4wODI2NCAwLjQ5ODIyMiAyLjg2NTU4IDEuNDk0NjcgMS44Njk2N0MyLjQ5MTExIDAuODczNzUgMy43MDgxNyAwLjM3NTUyOCA1LjE0NTgzIDAuMzc1QzYuNTg0MDMgMC4zNzUgNy44MDEzNSAwLjg3MzIyMiA4Ljc5Nzc5IDEuODY5NjdDOS43OTQyNCAyLjg2NjExIDEwLjI5MjIgNC4wODMxNyAxMC4yOTE3IDUuNTIwODNDMTAuMjkxNyA2LjEwMTM5IDEwLjE5OTMgNi42NDg5NiAxMC4wMTQ2IDcuMTYzNTRDOS44Mjk4NiA3LjY3ODEyIDkuNTc5MTcgOC4xMzMzMyA5LjI2MjUgOC41MjkxN0wxNC4yNSAxMy41MTY3TDEzLjE0MTcgMTQuNjI1Wk01LjE0NTgzIDkuMDgzMzNDNi4xMzU0MiA5LjA4MzMzIDYuOTc2NjkgOC43MzcxMSA3LjY2OTY3IDguMDQ0NjdDOC4zNjI2NCA3LjM1MjIyIDguNzA4ODYgNi41MTA5NCA4LjcwODMzIDUuNTIwODNDOC43MDgzMyA0LjUzMTI1IDguMzYyMTEgMy42OTAyNCA3LjY2OTY3IDIuOTk3NzlDNi45NzcyMiAyLjMwNTM1IDYuMTM1OTQgMS45NTg4NiA1LjE0NTgzIDEuOTU4MzNDNC4xNTYyNSAxLjk1ODMzIDMuMzE1MjQgMi4zMDQ4MiAyLjYyMjc5IDIuOTk3NzlDMS45MzAzNSAzLjY5MDc2IDEuNTgzODYgNC41MzE3OCAxLjU4MzMzIDUuNTIwODNDMS41ODMzMyA2LjUxMDQyIDEuOTI5ODIgNy4zNTE2OSAyLjYyMjc5IDguMDQ0NjdDMy4zMTU3NiA4LjczNzY0IDQuMTU2NzggOS4wODM4NiA1LjE0NTgzIDkuMDgzMzNaJyBmaWxsPScjQUVBRUFFJy8+PC9zdmc+");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-    width: 1.5rem;
-    height: 1.5rem;
-    position: absolute;
-    display: block;
-    z-index: 5;
-    top: 3px;
-    left: 4%;
-    cursor: text;
 }
 
 .erreur {
