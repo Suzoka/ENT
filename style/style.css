@@ -179,3 +179,7 @@ header nav a.logout {
     padding: 0.25rem 0.5rem;
     z-index: 999999999;
 }
+
+.rouge {
+    color: red;
+}

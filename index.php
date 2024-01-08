@@ -131,6 +131,28 @@ if (isset($_SESSION['login'])) {
                 header('Location: ./resetPassword?error=1');
             }
             break;
+        case 'gestionUsers':
+            if ($role == 3) {
+                include './vues/gestionUsers.php';
+            } else {
+                header('Location: ./accueil');
+            }
+            break;
+        case 'newUser':
+            if ($role == 3) {
+                if (isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["role"])) {
+                    if (createUser($_POST)) {
+                        echo "<a href='./gestionUsers'>Confirmer</a>";
+                    } else {
+                        header('Location: ./gestionUsers?error=true');
+                    }
+                } else {
+                    header('Location: ./gestionUsers?error=true');
+                }
+            } else {
+                header('Location: ./accueil');
+            }
+            break;
     }
 } else {
     switch ($page) {
@@ -157,6 +179,17 @@ if (isset($_SESSION['login'])) {
                 }
             } else {
                 header('Location: ./connexion?error=prof!0');
+            }
+            break;
+        case 'checkConnectionAdmin':
+            if (isset($_POST['identifiant']) && isset($_POST['mdp'])) {
+                if (checkConnectionAdmin($_POST['identifiant'], $_POST['mdp'])) {
+                    header('Location: ./accueil');
+                } else {
+                    header('Location: ./connexion?error=admin!1');
+                }
+            } else {
+                header('Location: ./connexion?error=admin!0');
             }
             break;
         case 'profil':

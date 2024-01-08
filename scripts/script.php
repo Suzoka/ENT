@@ -39,6 +39,27 @@ function checkConnectionProf($login, $mdp)
         return false;
     }
 }
+
+function checkConnectionAdmin($login, $mdp)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM `utilisateurs` where username=:username && role=3");
+    $stmt->bindValue(':username', $login, PDO::PARAM_STR);
+    $stmt->execute();
+    $count = $stmt->rowCount();
+    if ($count) {
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (password_verify($mdp, $result["password"])) {
+            $_SESSION['login'] = $result["id"];
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
 function deconection()
 {
     $_SESSION = array();
@@ -389,7 +410,8 @@ function getThemes($id)
     return $themes;
 }
 
-function createProjet($id, $infos, $picture) {
+function createProjet($id, $infos, $picture)
+{
     global $db;
     $stmt = $db->prepare("insert into `projets` (nom_projet, lien_projet, ext_id_user) values (:nom_projet, :lien_projet, :ext_id_user)");
     $stmt->bindValue(':nom_projet', $infos["nom"], PDO::PARAM_STR);
@@ -416,7 +438,8 @@ function createProjet($id, $infos, $picture) {
     return true;
 }
 
-function resetMdp($id, $oldMdp, $newMdp) {
+function resetMdp($id, $oldMdp, $newMdp)
+{
     global $db;
     $stmt = $db->prepare("select * from `utilisateurs` where id=:id");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -431,5 +454,64 @@ function resetMdp($id, $oldMdp, $newMdp) {
     } else {
         return false;
     }
+}
+
+function createUser($infos)
+{
+    global $db;
+    $mdpPossibilitys = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789?./!$%*+";
+    $mdp = "";
+    for ($i = 0; $i < 8; $i++) {
+        $mdp .= $mdpPossibilitys[rand(0, strlen($mdpPossibilitys) - 1)];
+    }
+    $username = $infos["prenom"] . "." . $infos["nom"];
+    $stmt = $db->prepare("select * from `utilisateurs` where username=:username");
+    $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+    $stmt->execute();
+    if ($stmt->rowCount() > 0) {
+        $stmt = $db->query("SELECT MAX(id) AS max_id FROM `utilisateurs`");
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $next_id = $row['max_id'] + 1;
+        $username .= $next_id;
+    }
+    $mail = strtolower($username)."@";
+    if ($infos["role"] == 1) {
+        $mail .= "edu.univ-eiffel.fr";
+    } else if ($infos["role"] == 2) {
+        $mail .= "univ-eiffel.fr";
+    } else if ($infos["role"] == 3) {
+        $mail .= "admin.univ-eiffel.fr";
+    }
+    $requete = "insert into `utilisateurs` (nom, prenom, username, password, email, role";
+    if (isset($infos["dateNaissance"]) && !empty($infos["dateNaissance"])) {
+        $requete .= ", date_naissance";
+    }
+    if (isset($infos["numEtudiant"]) && !empty($infos["numEtudiant"])) {
+        $requete .= ", numEtud";
+    }
+    $requete.= ") values (:nom, :prenom, :username, :password, :mail, :role";
+    if (isset($infos["dateNaissance"]) && !empty($infos["dateNaissance"])) {
+        $requete .= ", :date_naissance";
+    }
+    if (isset($infos["numEtudiant"]) && !empty($infos["numEtudiant"])) {
+        $requete .= ", :num_etudiant";
+    }
+    $requete .= ")";
+    $stmt = $db->prepare($requete);
+    $stmt->bindValue(':nom', $infos["nom"], PDO::PARAM_STR);
+    $stmt->bindValue(':prenom', $infos["prenom"], PDO::PARAM_STR);
+    $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+    $stmt->bindValue(':password', password_hash($mdp, PASSWORD_DEFAULT), PDO::PARAM_STR);
+    $stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
+    $stmt->bindValue(':role', $infos["role"], PDO::PARAM_INT);
+    if (isset($infos["dateNaissance"]) && !empty($infos["dateNaissance"])) {
+        $stmt->bindValue(':date_naissance', $infos["dateNaissance"], PDO::PARAM_STR);
+    }
+    if (isset($infos["numEtudiant"]) && !empty($infos["numEtudiant"])) {
+        $stmt->bindValue(':num_etudiant', $infos["numEtudiant"], PDO::PARAM_INT);
+    }
+    $stmt->execute();
+    echo "<p>Le compte a bien été créé. Voici le résumé des informations :</p><ul><li>Nom : " . $infos["nom"] . "</li><li>Prénom : " . $infos["prenom"] . "</li><li>Identifiant : " . $username . "</li><li>Mot de passe : " . $mdp . "</li></ul><br>";
+    return true;
 }
 ?>
