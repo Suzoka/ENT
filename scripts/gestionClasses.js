@@ -40,7 +40,7 @@ function displayPage2(id) {
     page = 2;
     backButton.style.display = 'block';
     filAriane.innerHTML = "<button>Classe</button> \>";
-    filArianeTechnical();
+    filArianeTechnical(id);
     fetch('../scripts/apiGetCompetences?id=' + id).then(function (response) {
         response.json().then(function (competences) {
             try {bandeau.removeChild(document.querySelector('.add'))}catch(e){};
@@ -100,7 +100,7 @@ function displayPage3(module, idClasse) {
     page = 3;
     backButton.style.display = 'block';
     filAriane.innerHTML += "<button>Module</button> \>";
-    filArianeTechnical();
+    filArianeTechnical(idClasse);
     bandeau.removeChild(document.querySelector('.add'));
     document.querySelector('.modules').remove();
     dynamic.innerHTML = '';
@@ -222,4 +222,28 @@ popup.addEventListener('click', function (event) {
     }
 });
 
-function filArianeTechnical() { }
+function filArianeTechnical(idClasse) {
+    filAriane.querySelectorAll('button').forEach(function (button) {
+        switch (button.innerHTML) {
+            case "Classe":
+                button.addEventListener('click', function () {
+                    try { document.querySelector('.title .add').remove(); } catch (e) { }
+                    try { document.querySelector('.modules').remove(); } catch (e) { }
+                    filAriane.innerHTML = "";
+                    displayPage1();
+                    ariane = -1;
+                });
+                break;
+            case "Module":
+                button.addEventListener('click', function () {
+                    try { document.querySelector('.title>p').remove(); } catch (e) { }
+                    try { document.querySelector('.title .newDevoir').remove(); } catch (e) { }
+                    displayPage2(idClasse);
+                    titre.classList.remove(titre.classList[0]);
+                    ariane = 0;
+                });
+                break;
+        }
+        ariane++;
+    });
+}
