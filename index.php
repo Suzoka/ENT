@@ -133,6 +133,9 @@ if (isset($_SESSION['login'])) {
             break;
         case 'gestionUsers':
             if ($role == 3) {
+                if (isset($_GET["user"])) {
+                    $user = getUser($_GET["user"])->fetch(PDO::FETCH_ASSOC);
+                }
                 include './vues/gestionUsers.php';
             } else {
                 header('Location: ./accueil');
@@ -143,6 +146,36 @@ if (isset($_SESSION['login'])) {
                 if (isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["role"])) {
                     if (createUser($_POST)) {
                         echo "<a href='./gestionUsers'>Confirmer</a>";
+                    } else {
+                        header('Location: ./gestionUsers?error=true');
+                    }
+                } else {
+                    header('Location: ./gestionUsers?error=true');
+                }
+            } else {
+                header('Location: ./accueil');
+            }
+            break;
+        case 'resetAdminPassword' :
+            if ($role=3) {
+                if (isset($_GET["id"])) {
+                    if (resetAdminPassword($_GET["id"])) {
+                        echo "<a href='./gestionUsers'>Confirmer</a>";
+                    } else {
+                        header('Location: ./gestionUsers?error=true');
+                    }
+                } else {
+                    header('Location: ./gestionUsers?error=true');
+                }
+            } else {
+                header('Location: ./accueil');
+            }
+            break;
+        case 'deleteUser' :
+            if ($role=3) {
+                if (isset($_GET["id"])) {
+                    if (deleteUser($_GET["id"])) {
+                        header('Location: ./gestionUsers');
                     } else {
                         header('Location: ./gestionUsers?error=true');
                     }
