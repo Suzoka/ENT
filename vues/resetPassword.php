@@ -14,15 +14,15 @@
     <form action="./resetMdpAction" method="POST">
         <h1>Réinitialiser le mot de passe</h1>
         <br>
-        <label for="oldMdp">Ancien mot de passe : </label>
+        <label for="oldMdp">Ancien mot de passe<span class="rouge">*</span> : </label>
         <input type="password" name="oldMdp" id="oldMdp" require>
         <br>
         <br>
-        <label for="newMdp">Nouveau mot de passe : </label>
+        <label for="newMdp">Nouveau mot de passe<span class="rouge">*</span> : </label>
         <input type="password" name="newMdp" id="newMdp" require>
         <br>
         <br>
-        <label for="newMdp2">Confirmer le nouveau mot de passe : </label>
+        <label for="newMdp2">Confirmer le nouveau mot de passe<span class="rouge">*</span> : </label>
         <input type="password" name="newMdp2" id="newMdp2" require>
         <br>
         <br>

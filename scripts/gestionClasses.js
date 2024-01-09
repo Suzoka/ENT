@@ -145,7 +145,7 @@ function formulaire(type, idFrom) {
     switch (type) {
         case "newClass":
             document.querySelector('.popup h2').innerHTML = "Création d'une nouvelle classe";
-            document.querySelector('.formulaire').innerHTML = "<label for='nom'>Nom de la classe : </label><input type='text' name='nom' id='nom' required>";
+            document.querySelector('.formulaire').innerHTML = "<label for='nom'>Nom de la classe<span class=\"rouge\">*</span> : </label><input type='text' name='nom' id='nom' required>";
             var newButton = document.createElement('button');
             newButton.classList.add('confirm');
             newButton.innerHTML = "Confirmer";
@@ -178,7 +178,7 @@ function formulaire(type, idFrom) {
             break;
         case "newComp":
             document.querySelector('.popup h2').innerHTML = "Création d'une nouvelle compétence";
-            document.querySelector('.formulaire').innerHTML = "<label for='nom'>Nom de la compétence : </label><input type='text' name='nom' id='nom' required>";
+            document.querySelector('.formulaire').innerHTML = "<label for='nom'>Nom de la compétence<span class=\"rouge\">*</span> : </label><input type='text' name='nom' id='nom' required>";
             var newButton = document.createElement('button');
             newButton.classList.add('confirm');
             newButton.innerHTML = "Confirmer";

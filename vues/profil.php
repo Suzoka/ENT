@@ -106,14 +106,14 @@
             <form class="contenuFormulaire" method="POST" action="./createProject" enctype="multipart/form-data">
                 <h2>Ajout d'un nouveau projet</h2>
                 <br>
-                <div><label for="nom">Nom du projet : </label><input type="text" id="nom" name="nom" require></div>
+                <div><label for="nom">Nom du projet<span class="rouge">*</span> : </label><input type="text" id="nom" name="nom" require></div>
                 <br>
-                <div><label for="lien">Lien du projet : </label><input type="text" id="lien" name="lien" require></div>
+                <div><label for="lien">Lien du projet<span class="rouge">*</span> : </label><input type="url" id="lien" name="lien" require></div>
                 <br>
                 <div><label for="themes">Thème du projet : </label><input type="text" id="themes" name="themes"></div>
                 <p>Veuillez séparer les différents thèmes par un ";"</p>
                 <br>
-                <div><label for="picture">Image du projet : </label><input type="file" id="picture" name="picture"
+                <div><label for="picture">Image du projet<span class="rouge">*</span> : </label><input type="file" id="picture" name="picture"
                         accept="image/png, image/jpeg" require></div>
                 <br>
                 <div class="boutons"><button class="cancel">Annuler</button><input type="submit" class="confirmNewProjet"
