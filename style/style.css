@@ -266,3 +266,7 @@ td input {
     border-bottom-right-radius: 7px; 
     border-top-right-radius: 7px; 
 }
+
+input:invalid, textarea:invalid {
+    border: 2px solid red !important;
+}
