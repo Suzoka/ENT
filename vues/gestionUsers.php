@@ -51,20 +51,20 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Date de naissance</th>
-                        <th>Numéro étudiant</th>
-                        <th>Rôle</th>
-                        <th>Reset MDP</th>
-                        <th>Supprimer</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Date de naissance</th>
+                        <th scope="col">Numéro étudiant</th>
+                        <th scope="col">Rôle</th>
+                        <th scope="col">Reset MDP</th>
+                        <th scope="col">Supprimer</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
+                        <th scope="row">
                             <input type="text" value="<?php echo $user["nom"]; ?>" name="nom" require>
-                        </td>
+                        </th>
                         <td>
                             <input type="text" value="<?php echo $user["prenom"]; ?>" name="prenom" require>
                         </td>
