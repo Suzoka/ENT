@@ -57,6 +57,10 @@
                 <div class="heure"><p class="semiinvisible">17h30</p><div class="line"></div></div>
                 <div class="heure"><p class="invisible">17h45</p><div class="line"></div></div>
                 <div class="heure"><p>18h</p><div class="line"></div></div>
+<<<<<<< Updated upstream
+=======
+                <!-- cours -->
+>>>>>>> Stashed changes
                 <div class="cours S10h00 E12h15 color4">
                     <p>nom du cours</p>
                     <span>prof</span>
@@ -66,6 +70,7 @@
             <div class="pnl vsclr"></div>
             <div class="pnl notes"></div>
         </div>
+<<<<<<< Updated upstream
         <div class="right">
             <div class="racc">
                 <div class="pnl mails-rcnt"></div>
@@ -76,6 +81,9 @@
                 <div></div>
             </div>
         </div>
+=======
+        <?php require './vues/components/sidebar.php'; ?>
+>>>>>>> Stashed changes
     </section>
 </body>
 
