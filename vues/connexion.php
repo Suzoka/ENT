@@ -7,6 +7,7 @@
     <title>Connexion</title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/connexion.css">
+    <link rel="icon" type="image/png" href="../img/logo-UGE.png">
 </head>
 
 <body>
@@ -54,12 +55,12 @@
         <form action="./checkConnectionUsr" method="POST">
             <div class="champ">
                 <input type="text" name="identifiant" id="identifiantUsr" required>
-                <label for="identifiantUsr">Identifiant</label>
+                <label for="identifiantUsr">Identifiant<span class="rouge">*</span></label>
             </div>
             <br>
             <div class="champ">
                 <input type="password" name="mdp" id="mdpUsr" required>
-                <label for="mdpUsr">Mot de passe</label>
+                <label for="mdpUsr">Mot de passe<span class="rouge">*</span></label>
             </div>
 
             <input type="submit" value="Se connecter" class="connexionButton">
@@ -93,12 +94,12 @@
         <form action="./checkConnectionProf" method="POST">
             <div class="champ">
                 <input type="text" name="identifiant" id="identifiantProf" required>
-                <label for="identifiantProf">Identifiant</label>
+                <label for="identifiantProf" >Identifiant<span class="rouge">*</span></label>
             </div>
             <br>
             <div class="champ">
                 <input type="password" name="mdp" id="mdpProf" required>
-                <label for="mdpProf">Mot de passe</label>
+                <label for="mdpProf">Mot de passe<span class="rouge">*</span></label>
             </div>
 
             <input type="submit" value="Se connecter" class="connexionButton">
@@ -132,12 +133,12 @@
         <form action="./checkConnectionAdmin" method="POST">
             <div class="champ">
                 <input type="text" name="identifiant" id="identifiantAdmin" required>
-                <label for="identifiantAdmin">Identifiant</label>
+                <label for="identifiantAdmin">Identifiant<span class="rouge">*</span></label>
             </div>
             <br>
             <div class="champ">
                 <input type="password" name="mdp" id="mdpAdmin" required>
-                <label for="mdpAdmin">Mot de passe</label>
+                <label for="mdpAdmin">Mot de passe<span class="rouge">*</span></label>
             </div>
 
             <input type="submit" value="Se connecter" class="connexionButton">

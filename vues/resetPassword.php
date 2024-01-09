@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Réinitialiser le mot de passe</title>
     <link rel="stylesheet" href="../style/style.css">
+    <link rel="icon" type="image/png" href="../img/logo-UGE.png">
 </head>
 
 <body>
@@ -14,15 +15,15 @@
     <form action="./resetMdpAction" method="POST">
         <h1>Réinitialiser le mot de passe</h1>
         <br>
-        <label for="oldMdp">Ancien mot de passe : </label>
+        <label for="oldMdp">Ancien mot de passe<span class="rouge">*</span> : </label>
         <input type="password" name="oldMdp" id="oldMdp" require>
         <br>
         <br>
-        <label for="newMdp">Nouveau mot de passe : </label>
+        <label for="newMdp">Nouveau mot de passe<span class="rouge">*</span> : </label>
         <input type="password" name="newMdp" id="newMdp" require>
         <br>
         <br>
-        <label for="newMdp2">Confirmer le nouveau mot de passe : </label>
+        <label for="newMdp2">Confirmer le nouveau mot de passe<span class="rouge">*</span> : </label>
         <input type="password" name="newMdp2" id="newMdp2" require>
         <br>
         <br>

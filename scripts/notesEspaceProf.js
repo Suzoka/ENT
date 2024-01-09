@@ -117,9 +117,9 @@ async function displayPage4(id_devoir, nom_devoir) {
             coefDevoir.innerHTML = "Coefficient <input type='number' value='" + coef + "'>";
             document.querySelector('.title').appendChild(coefDevoir);
             dynamic.innerHTML = "";
-            dynamic.innerHTML += "<div class='notes'><table id='" + id_devoir + "'><thead><tr><th>N°étudiant</th><th>Nom</th><th>Prénom</th><th>Note</th></tr></thead><tbody><tbody></table></div>";
+            dynamic.innerHTML += "<div class='notes'><table id='" + id_devoir + "'><thead><tr><th scope=\"col\">N°étudiant</th><th scope=\"col\">Nom</th><th scope=\"col\">Prénom</th><th scope=\"col\">Note</th></tr></thead><tbody><tbody></table></div>";
             notes.forEach(function (note) {
-                document.querySelector("table tbody").innerHTML += "<tr><td>" + note.numEtud + "</td><th>" + note.nom + "</th><td>" + note.prenom + "</td><td><input type='number' value='" + (note.valeur != null ? note.valeur : "") + "' id='usr" + note.id + "'></td></tr>";
+                document.querySelector("table tbody").innerHTML += "<tr><td>" + note.numEtud + "</td><th scope=\"row\">" + note.nom + "</th><td>" + note.prenom + "</td><td><input type='number' value='" + (note.valeur != null ? note.valeur : "") + "' id='usr" + note.id + "'></td></tr>";
             });
             dynamic.innerHTML += "<p class='erreur'>Aucune valeur n'a été modifiée</p><button class='save'>Enregistrer</button>";
             setTimeout(function () {

@@ -9,6 +9,7 @@
     <title>Mes notes</title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/notes.css">
+    <link rel="icon" type="image/png" href="../img/logo-UGE.png">
 </head>
 
 <body>

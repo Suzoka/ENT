@@ -5,9 +5,10 @@ create table if not exists `etudiants` (
     `email` varchar(250) not null unique,
     `prenom` varchar(255) not null,
     `nom` varchar(255) not null,
-    `date_naissance` date not null,
+    `date_naissance` date,
     `numEtud` int unique,
-    `statut` text not null,
+    `statut` text,
+    `description` text,
     `role` int not null
 );
 
