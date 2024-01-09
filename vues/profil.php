@@ -9,6 +9,7 @@
     </title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/profil.css">
+    <link rel="icon" type="image/png" href="../img/logo-UGE.png">
 </head>
 
 <body <?php if (!isset($_SESSION["login"])) {

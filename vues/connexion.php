@@ -7,6 +7,7 @@
     <title>Connexion</title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/connexion.css">
+    <link rel="icon" type="image/png" href="../img/logo-UGE.png">
 </head>
 
 <body>

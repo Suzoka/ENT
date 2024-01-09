@@ -7,6 +7,7 @@
     <title>Gestion des notes</title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/notesEspaceProf.css">
+    <link rel="icon" type="image/png" href="../img/logo-UGE.png">
 </head>
 
 <body>
