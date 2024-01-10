@@ -1,13 +1,6 @@
 .profil {
     overflow-y: scroll;
     height: calc(100vh - 7rem);
-}
-
-body {
-        background-image: linear-gradient(90deg, #d3eeff 0%,#d3eeff 64%, #ffffff 64%, #ffffff 100%);
-}
-
-.profil{
     /* background-color: aliceblue; */
     display: flex;
     flex-direction: column;
