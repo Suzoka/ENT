@@ -80,7 +80,7 @@ if (isset($_SESSION['login'])) {
                     include './vues/notesEspaceProf.php';
                     break;
                 case 3:
-                    include './vues/notesEspaceAdmin.php';
+                    header('Location: ./accueil');
                     break;
             }
             break;
@@ -189,6 +189,13 @@ if (isset($_SESSION['login'])) {
         case 'gestionClasses':
             if ($role == 3) {
                 include './vues/gestionClasses.php';
+            } else {
+                header('Location: ./accueil');
+            }
+            break;
+        case 'gestionGroupes':
+            if ($role == 3) {
+                include './vues/gestionGroupes.php';
             } else {
                 header('Location: ./accueil');
             }

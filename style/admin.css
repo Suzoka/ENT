@@ -32,7 +32,7 @@ table a.delete, button.delete {
 }
 
 
-.dynamic, .modules {
+.dynamic, .modules, .professeurs {
     display: flex;
     justify-content: space-evenly;
     align-items: stretch;
@@ -40,7 +40,7 @@ table a.delete, button.delete {
     gap: 1.5rem;
 }
 
-.dynamic button, .modules button {
+.dynamic button, .modules button, .professeurs button {
     background-color: white;
     border: 1px solid #1B4965;
     padding: 0.5rem;
@@ -53,7 +53,7 @@ table a.delete, button.delete {
     transition: all 0.5s ease;
 }
 
-.dynamic button:hover, .dynamic button:focus, .modules button:hover, .modules button:focus {
+.dynamic button:hover, .dynamic button:focus, .modules button:hover, .modules button:focus, .professeurs button:hover, .professeurs button:focus {
     background-color: #1B4965;
     color: white;
 }
@@ -93,7 +93,7 @@ table a.delete, button.delete {
     margin-left: auto;
 }
 
-.competence, .module {
+.competence, .module, .professeur, .groupe, .classeButton {
     border: #1B4965 solid 1px;
     border-radius: 1rem;
     display: flex;
@@ -103,11 +103,11 @@ table a.delete, button.delete {
     padding: 0 2rem;
 }
 
-.competence button, .module button {
+.competence button, .module button, .professeur button, .groupe button, .classeButton button {
     border: none;
 }
 
-.competence button:hover, .competence button:focus, .module button:hover, .module button:focus {
+.competence button:hover, .competence button:focus, .module button:hover, .module button:focus, .professeur button:hover, .professeur button:focus, .groupe button:hover, .groupe button:focus, .classeButton button:hover, .classeButton button:focus {
     background-color: unset;
 }
 
@@ -127,8 +127,18 @@ table a.delete, button.delete {
     gap: 3rem;
 }
 
-.modules h2 {
+.modules h2, .professeurs h2 {
     width: 100%;
     margin-top: 80px;
     margin-left: 15px;
+}
+
+div.groupe, div.classeButton {
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+div.groupe:hover, div.groupe:focus, div.classeButton:hover, div.classeButton:focus {
+    background-color: #1B4965;
+    color: white;
 }
