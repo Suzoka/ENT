@@ -491,7 +491,7 @@ function createUser($infos)
 {
     global $db;
     $mdp = generatePassword();
-    $username = $infos["prenom"] . "." . $infos["nom"];
+    $username = strtolower($infos["prenom"] . "." . $infos["nom"]);
     $stmt = $db->prepare("select * from `utilisateurs` where username=:username");
     $stmt->bindValue(':username', $username, PDO::PARAM_STR);
     $stmt->execute();
