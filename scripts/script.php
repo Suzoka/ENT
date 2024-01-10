@@ -641,7 +641,7 @@ function createComp($nom)
 function getAllModOfClass($id)
 {
     global $db;
-    $stmt = $db->prepare("select * from `modules` m inner join `coef_modules` cm on cm.ext_id_module=m.id_module inner join `competences` c on c.id_competence = cm.ext_id_competence where c.ext_id_classe=:id");
+    $stmt = $db->prepare("select * from `modules` m inner join `coef_modules` cm on cm.ext_id_module=m.id_module inner join `competences` c on c.id_competence = cm.ext_id_competence where c.ext_id_classe=:id GROUP BY m.id_module;");
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt;
@@ -689,6 +689,71 @@ function updateCoefModule($modifs)
                 $stmt->execute();
             }
         }
+    }
+    $stmt = $db->prepare("select * from `coef_modules` where ext_id_module=:id_module");
+    $stmt->bindValue(':id_module', $idMod, PDO::PARAM_INT);
+    $stmt->execute();
+    if ($stmt->rowCount() == 0) {
+        $stmt = $db->prepare("delete from `modules` where id_module=:id_module");
+        $stmt->bindValue(':id_module', $idMod, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+    return true;
+}
+
+function getAllProfsOfMod($id)
+{
+    global $db;
+    $stmt = $db->prepare("select * from `jury` j inner join `utilisateurs` u on j.ext_id_prof = u.id where j.ext_id_module=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function getAllProfs()
+{
+    global $db;
+    $stmt = $db->prepare("select * from `utilisateurs` where role=2");
+    $stmt->execute();
+    return $stmt;
+}
+
+function assignProf($infos)
+{
+    global $db;
+    $stmt = $db->prepare("insert into `jury` (ext_id_prof, ext_id_module) values (:id_prof, :id_module)");
+    $stmt->bindValue(':id_prof', $infos->idProf, PDO::PARAM_INT);
+    $stmt->bindValue(':id_module', $infos->idMod, PDO::PARAM_INT);
+    $stmt->execute();
+    return true;
+}
+
+function deleteProfOfMod($prof, $module)
+{
+    global $db;
+    $stmt = $db->prepare("delete from `jury` where ext_id_prof=:id_prof && ext_id_module=:id_module");
+    $stmt->bindValue(':id_prof', $prof, PDO::PARAM_INT);
+    $stmt->bindValue(':id_module', $module, PDO::PARAM_INT);
+    $stmt->execute();
+    return true;
+}
+
+function createMod($infos)
+{
+    global $db;
+    $stmt = $db->prepare("insert into `modules` (nom_module) values (:nom)");
+    $stmt->bindValue(':nom', $infos->nom, PDO::PARAM_STR);
+    $stmt->execute();
+    $idMod = $db->lastInsertId();
+    $stmt = $db->prepare("insert into `coef_modules` (ext_id_module, ext_id_competence, coef_module) values (:id_module, :id_competence, :coef)");
+    foreach ($infos->coefs as $coef) {
+        if ($coef->coef == 0 || $coef->coef == null || $coef->coef == "") {
+            continue;
+        }
+        $stmt->bindValue(':id_module', $idMod, PDO::PARAM_INT);
+        $stmt->bindValue(':id_competence', $coef->idComp, PDO::PARAM_INT);
+        $stmt->bindValue(':coef', $coef->coef, PDO::PARAM_INT);
+        $stmt->execute();
     }
     return true;
 }
