@@ -297,8 +297,6 @@ function filArianeTechnical(idClasse) {
             case "Classe":
                 button.addEventListener('click', function () {
                     try { document.querySelector('.title .add').remove(); } catch (e) { }
-                    try { document.querySelector('.modules').remove(); } catch (e) { }
-                    try { document.querySelector('.professeurs').remove(); } catch (e) { }
                     filAriane.innerHTML = "";
                     displayPage1();
                     ariane = -1;
@@ -306,7 +304,7 @@ function filArianeTechnical(idClasse) {
                 break;
             case "Groupe":
                 button.addEventListener('click', function () {
-                    try { document.querySelector('.title>p').remove(); } catch (e) { }
+                    try { document.querySelector('.title .add').remove(); } catch (e) { }
                     displayPage2(idClasse);
                     titre.classList.remove(titre.classList[0]);
                     ariane = 0;
@@ -317,22 +315,20 @@ function filArianeTechnical(idClasse) {
     });
 }
 
-// backButton.addEventListener('click', function () {
-//     switch (page) {
-//         case 1:
-//         default:
-//             break;
-//         case 2:
-//             displayPage1();
-//             filAriane.innerHTML = "";
-//             document.querySelector('.modules').remove();
-//             document.querySelector('.title .add').remove();
-//             break;
-//         case 3:
-//             displayPage2(backButton.getAttribute('id')[backButton.getAttribute('id').length - 1]);
-//             backButton.setAttribute('id', backButton.getAttribute('id').slice(0, -1));
-//             titre.classList.remove(titre.classList[0]);
-//             document.querySelector('.professeurs').remove();
-//             break;
-//     }
-// });
+backButton.addEventListener('click', function () {
+    switch (page) {
+        case 1:
+        default:
+            break;
+        case 2:
+            displayPage1();
+            filAriane.innerHTML = "";
+            document.querySelector('.title .add').remove();
+            break;
+        case 3:
+            displayPage2(backButton.getAttribute('id')[backButton.getAttribute('id').length - 1]);
+            backButton.setAttribute('id', backButton.getAttribute('id').slice(0, -1));
+            titre.classList.remove(titre.classList[0]);
+            break;
+    }
+});
