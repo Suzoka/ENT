@@ -180,7 +180,7 @@ function getMoyenneMod($id, $student)
         $moyenne += $note["valeur"] * $note["coef_devoir"];
         $diviseur += 20 * $note["coef_devoir"];
     }
-    return (($moyenne / $diviseur) * 20);
+    // return (($moyenne / $diviseur) * 20);
 }
 
 function getAllModsOfComp($id)

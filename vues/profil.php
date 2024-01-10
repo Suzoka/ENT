@@ -20,11 +20,7 @@
                         <h1><?php echo $identite ?></h1>
                         <p><?php echo "num etud" ?></p>
                     </div>
-<<<<<<< Updated upstream
-                    <p><?php echo $classes; ?></p>
-=======
                     <p class="class"><?php echo $classes; ?></p>
->>>>>>> Stashed changes
                     <p><?php echo "statut quand je saurrais comment l'appeller mdrrr" ?></p>
                 </div>
             </div>
@@ -48,6 +44,7 @@
                 </div>
             </div>
         </div>
+        <?php require './vues/components/sidebar.php'; ?>
     </section>
 </body>
 
