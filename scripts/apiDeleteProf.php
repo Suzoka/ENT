@@ -1,4 +1,5 @@
 <?php
+//API Pour supprimer un professeur d'un module
 include './database.php';
 include './script.php';
 

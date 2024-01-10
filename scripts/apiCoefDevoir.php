@@ -1,4 +1,5 @@
 <?php
+//API Pour récupérer le coefficient d'un devoir
 include './database.php';
 include './script.php';
 

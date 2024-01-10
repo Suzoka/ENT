@@ -1,4 +1,5 @@
 <?php
+//API Pour créer une nouvelle classe
 include './database.php';
 include './script.php';
 

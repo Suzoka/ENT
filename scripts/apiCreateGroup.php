@@ -1,4 +1,5 @@
 <?php
+//API Pour créer un nouveau groupe dans une classe
 include './database.php';
 include './script.php';
 

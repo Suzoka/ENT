@@ -12,6 +12,7 @@
 
 <body>
     <?php require './vues/components/header.php'; ?>
+    <!-- page profil, mais avec des inputs, pour pouvoir modifier les informations -->
     <form action="./updateProfil" method="POST" enctype="multipart/form-data">
         <section class="grid">
             <div class="profil customScroll">
@@ -40,17 +41,37 @@
                 <div class="contenu">
                     <div class="zone moi customScroll">
                         <h2>À propos de moi</h2>
-                        <textarea placeholder="Description" name="description"><?php echo $userInfo["description"]; ?></textarea>
+                        <textarea placeholder="Description"
+                            name="description"><?php echo $userInfo["description"]; ?></textarea>
                     </div>
                     <div class="zone projets ">
-                        <h2>Mes projets</h2>
+                        <div class="headerProjet">
+                            <h2>Mes projets</h2>
+                        </div>
                         <div class="projets-list customScroll">
-                            <div class="projet"></div>
-                            <div class="projet"></div>
-                            <div class="projet"></div>
-                            <div class="projet"></div>
-                            <div class="projet"></div>
-                            <!-- <?php echo "" ?> -->
+                            <?php
+                            //Afficher tous les projets de l'utilisateur
+                            $projets = getProjets($_SESSION["login"]);
+                            //Si l'utilisateur n'a pas de projet, afficher un message
+                            if ($projets->rowCount() == 0) {
+                                echo "<br><i>L'utilisateur n'a pas encore ajouté de projet.</i>";
+                            } else {
+                                foreach ($projets->fetchAll(PDO::FETCH_ASSOC) as $projet) { ?>
+                                    <div class="projet">
+                                        <img src="../img/projets/projet<?php echo $projet["id_projet"]; ?>.png" alt="">
+                                        <div class="textes">
+                                            <h3>
+                                                <?php echo $projet["nom_projet"]; ?>
+                                            </h3>
+                                            <p>
+                                                <?php echo getThemes($projet["id_projet"]) ?>
+                                            </p>
+                                        </div>
+                                        <a href="<?php echo $projet["lien_projet"]; ?>" target="_blank" class="bouton">Voir le
+                                            projet</a>
+                                    </div>
+                                <?php }
+                            } ?>
                         </div>
                     </div>
                 </div>

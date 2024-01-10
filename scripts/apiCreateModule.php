@@ -1,4 +1,5 @@
 <?php
+//API Pour créer un nouveau module au sein de compétences
 include './database.php';
 include './script.php';
 

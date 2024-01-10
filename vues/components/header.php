@@ -1,3 +1,4 @@
+<!-- Code du header -->
 <header>
     <nav>
         <a href="./accueil" class="logo">
@@ -7,6 +8,7 @@
                 <p>Université Gustave Eiffel</p>
             </div>
         </a>
+        <!-- Si l'utilisateur est connecté, on affiche le lien vers son profil, sa classe et le bouton de déconnexion -->
         <?php if (isset($_SESSION['login'])) { ?>
             <a href="./profil" class="user">
                 <img src="<?php echo $image ?>" alt="">

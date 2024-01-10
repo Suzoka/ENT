@@ -1,4 +1,5 @@
 <?php
+//API pour télécharger un CV posté par un utilisateur
 if (isset($_GET['file'])) {
     $filename = basename($_GET['file']);
     $file = '../docs/cv/'.$filename.'.pdf';

@@ -1,4 +1,5 @@
 <?php
+//API Pour supprimer une classe
 include './database.php';
 include './script.php';
 

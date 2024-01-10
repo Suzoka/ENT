@@ -1,4 +1,5 @@
 <?php
+//API Pour supprimer un groupe
 include './database.php';
 include './script.php';
 

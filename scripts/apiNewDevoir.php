@@ -1,4 +1,5 @@
 <?php
+//API Pour créer un nouveau devoir
 include './database.php';
 include './script.php';
 

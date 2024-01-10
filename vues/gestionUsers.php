@@ -34,6 +34,7 @@
         </select>
         <br><br>
         <input type="submit" value="Créer le compte">
+        <!-- Si une erreur est déclarée, l'afficher -->
         <?php if (isset($_GET["error"])) {
             echo "<p class='erreur'>Une erreur s'est produite</p>";
         } ?>
@@ -46,6 +47,7 @@
     </form>
     <datalist id="usr" class="usr"></datalist>
 
+    <!-- Si un utilisateur a été recherché, l'afficher dans un tableau -->
     <?php if (isset($_GET["user"])) { ?>
         <form action="./updateUser?id=<?php echo $_GET["user"] ?>" method="POST">
             <table>

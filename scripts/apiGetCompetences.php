@@ -1,4 +1,5 @@
 <?php
+//API Pour récupérer toutes les compétences assignés à une classe
 include './database.php';
 include './script.php';
 

@@ -1,4 +1,5 @@
 <?php
+//API Pour mettre à jour les coefficients entre un module et une compétence (mise à jour de coefficient, ajout de lien entre un module et une compétence, et suppression de lien entre un module et une compétence)
 include './database.php';
 include './script.php';
 

@@ -1,4 +1,5 @@
 <?php
+//API Pour récupérer toutes les informations d'un module
 include './database.php';
 include './script.php';
 

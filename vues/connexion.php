@@ -40,6 +40,7 @@
         <h2>Authentification espace étudiant</h2>
         <p>Renseignez votre identifiant et votre mot de passe</p>
         <?php
+        //Si une erreur est déclarée, l'afficher
         if (isset($_GET["error"])) {
             echo "<p class='erreur'> Erreur : ";
             if ($_GET["error"] == "usr!0") {
@@ -79,6 +80,7 @@
         <h2>Authentification espace professeur</h2>
         <p>Renseignez votre identifiant et votre mot de passe</p>
         <?php
+        //Si une erreur est déclarée, l'afficher
         if (isset($_GET["error"])) {
             echo "<p class='erreur'> Erreur : ";
             if ($_GET["error"] == "prof!0") {
@@ -119,6 +121,7 @@
         <p>Renseignez votre identifiant et votre mot de passe</p>
         <?php
         if (isset($_GET["error"])) {
+            //Si une erreur est déclarée, l'afficher
             echo "<p class='erreur'> Erreur : ";
             if ($_GET["error"] == "admin!0") {
                 echo "Il se peut que votre session ai expirée";

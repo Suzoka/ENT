@@ -1,4 +1,5 @@
 <?php
+//API Pour créer une nouvelle compétence au sein d'une classe
 include './database.php';
 include './script.php';
 

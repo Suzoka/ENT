@@ -1,4 +1,4 @@
-<!-- //TODO : Afficher les coefficients -->
+<!-- //TODO : Afficher les profs -->
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,6 +18,7 @@
         <div class="bulletin customScroll">
             <h1>Mes notes</h1>
             <?php
+            // Afficher les différentes compétences
             foreach ($competences as $comp) { ?>
                 <div class="competence">
                     <div class="title">
@@ -30,6 +31,7 @@
                     </div>
                     <div class="notes">
                         <?php
+                        // Afficher les modules de la compétence
                         foreach (getAllModsOfComp($comp["id_competence"]) as $mod) { ?>
                             <div class="title">
                                 <button class="developMod" id="<?php echo $comp["id_competence"] . $mod["id_module"] ?>">
@@ -47,6 +49,7 @@
                             </div>
                             <div class="devoirs data<?php echo $comp["id_competence"] . $mod["id_module"]; ?>">
                                 <?php
+                                // Afficher les devoirs du module
                                 foreach (getAllDevoirsOfMod($mod["id_module"], $_SESSION["login"])->fetchAll(PDO::FETCH_ASSOC) as $devoir) { ?>
                                     <div class="title noteDevoir">
                                         <div class="devoirInfos">

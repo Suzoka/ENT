@@ -1,4 +1,5 @@
 <?php
+//API Pour récupérer tout les professeurs assignés à un module
 include './database.php';
 include './script.php';
 

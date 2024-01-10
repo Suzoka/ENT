@@ -15,8 +15,9 @@
 <body <?php if (!isset($_SESSION["login"])) {
     echo "class='fullscreen'";
 } ?>>
-    <?php require './vues/components/header.php'; ?>
-    <?php if (isset($_SESSION["login"])) { ?>
+    <?php require './vues/components/header.php';
+    //Si l'utilisateur est connecté, afficher le contenu en grid, sinon, afficher en plein écran
+    if (isset($_SESSION["login"])) { ?>
         <section class="grid">
         <?php } ?>
         <div class="profil customScroll">
@@ -37,12 +38,14 @@
                         <?php echo $userInfo["statut"] ?>
                     </p>
                 </div>
+                <!-- Si l'utilisateur connecté est sur son propre profil, afficher le bouton de modification -->
                 <?php if (isset($_SESSION["login"]) && $targetedUser == $_SESSION["login"]) { ?>
                     <a class="edit" id="edit" href="./editProfil">
                         <p class="sr-only">Modifier mon profil</p>
                     </a>
                 <?php } ?>
             </div>
+            <!-- Si l'utilisateur connecté est sur son propre profil, afficher le bouton pour télécharger les certificats de scolarité -->
             <?php if (isset($_SESSION["login"]) && $targetedUser == $_SESSION["login"]) { ?>
                 <div class="boutons selfBoutons">
                     <a class="bouton" href="../scripts/downloadCS"
@@ -57,6 +60,7 @@
                     <p>
                         <?php echo $userInfo["description"] == null ? "<i>L'utilisateur n'a mis aucune description.</i>" : $userInfo["description"]; ?>
                     </p>
+                    <!-- Si le CV de l'utilisateur à été uploader, afficher le bouton de téléchargement -->
                     <?php if (file_exists("./docs/cv/cv" . $userInfo["id"] . ".pdf")) { ?><a class="bouton"
                             href="../scripts/downloadCV.php?file=<?php echo "cv" . $userInfo["id"] ?>"
                             download="CV <?php echo getIdentite($targetedUser); ?>.pdf">Telecharger le Cv</a>
@@ -65,6 +69,7 @@
                 <div class="zone projets ">
                     <div class="headerProjet">
                         <h2>Mes projets</h2>
+                        <!-- Si l'utilisateur connecté est sur son propre profil, afficher le bouton d'ajout de projet -->
                         <?php if (isset($_SESSION["login"]) && $targetedUser == $_SESSION["login"]) { ?>
                             <button class="newProjet" id="newProjet">
                                 <p class="sr-only">Ajouter un nouveau projet</p>
@@ -73,7 +78,9 @@
                     </div>
                     <div class="projets-list customScroll">
                         <?php
+                        //Afficher tous les projets de l'utilisateur
                         $projets = getProjets($targetedUser);
+                        //Si l'utilisateur n'a pas de projet, afficher un message
                         if ($projets->rowCount() == 0) {
                             echo "<br><i>L'utilisateur n'a pas encore ajouté de projet.</i>";
                         } else {
@@ -102,20 +109,23 @@
     <?php } ?>
 
     <?php
+    //Si l'utilisateur connecté est sur son propre profil, insérer dans le DOM le formulaire d'ajout de projet
     if (isset($_SESSION["login"]) && $targetedUser == $_SESSION["login"]) { ?>
         <div class="newProjetForm">
             <form class="contenuFormulaire" method="POST" action="./createProject" enctype="multipart/form-data">
                 <h2>Ajout d'un nouveau projet</h2>
                 <br>
-                <div><label for="nom">Nom du projet<span class="rouge">*</span> : </label><input type="text" id="nom" name="nom" require></div>
+                <div><label for="nom">Nom du projet<span class="rouge">*</span> : </label><input type="text" id="nom"
+                        name="nom" require></div>
                 <br>
-                <div><label for="lien">Lien du projet<span class="rouge">*</span> : </label><input type="url" id="lien" name="lien" require></div>
+                <div><label for="lien">Lien du projet<span class="rouge">*</span> : </label><input type="url" id="lien"
+                        name="lien" require></div>
                 <br>
                 <div><label for="themes">Thème du projet : </label><input type="text" id="themes" name="themes"></div>
                 <p>Veuillez séparer les différents thèmes par un ";"</p>
                 <br>
-                <div><label for="picture">Image du projet<span class="rouge">*</span> : </label><input type="file" id="picture" name="picture"
-                        accept="image/png, image/jpeg" require></div>
+                <div><label for="picture">Image du projet<span class="rouge">*</span> : </label><input type="file"
+                        id="picture" name="picture" accept="image/png, image/jpeg" require></div>
                 <br>
                 <div class="boutons"><button class="cancel">Annuler</button><input type="submit" class="confirmNewProjet"
                         value="Créer le projet"></div>

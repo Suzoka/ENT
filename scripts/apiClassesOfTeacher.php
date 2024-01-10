@@ -1,4 +1,5 @@
 <?php
+//API Pour récupérer les classes pour lesquels un professeur peut déposer des notes
 include './database.php';
 include './script.php';
 
