@@ -107,12 +107,13 @@ function technicalPage3(id_module) {
 
 async function displayPage4(id_devoir, nom_devoir) {
     coef = await getCoefDevoir(id_devoir);
-    document.querySelector('.title .newDevoir').remove();
+    try {document.querySelector('.title .newDevoir').remove();} catch (e) {}
     titre.classList.remove(titre.classList[0]);
     fetch('../scripts/apiNotesOfWork.php?classe=' + backButton.getAttribute('id')[4] + "&devoir=" + id_devoir).then(function (response) {
         response.json().then(function (notes) {
             page = 4;
             titre.innerHTML = nom_devoir;
+            console.log('coucou');
             let coefDevoir = document.createElement('p');
             coefDevoir.innerHTML = "Coefficient <input type='number' value='" + coef + "'>";
             document.querySelector('.title').appendChild(coefDevoir);
@@ -199,7 +200,8 @@ document.querySelector('.popup .cancelAll').addEventListener('click', function (
     popup.style.display = 'none';
     document.querySelector('.popup .modifs').innerHTML = '';
     modifs = [];
-    displayPage4(document.querySelector('table').getAttribute('id'));
+    document.querySelector('.title>p').remove();
+    displayPage4(document.querySelector('table').getAttribute('id'), titre.innerHTML);
 });
 
 document.querySelector('.popup .confirm').addEventListener('click', function () {
@@ -212,7 +214,7 @@ document.querySelector('.popup .confirm').addEventListener('click', function () 
         response.json().then(function (result) {
             if (result == 'ok') {
                 document.querySelector('.title>p').remove();
-                displayPage4(document.querySelector('table').getAttribute('id'));
+                displayPage4(document.querySelector('table').getAttribute('id'), titre.innerHTML);
             }
             else {
                 alert("Une erreur est survenue lors de l'enregistrement des modifications.");

@@ -80,7 +80,7 @@ if (isset($_SESSION['login'])) {
                     include './vues/notesEspaceProf.php';
                     break;
                 case 3:
-                    include './vues/notesEspaceAdmin.php';
+                    header('Location: ./accueil');
                     break;
             }
             break;
