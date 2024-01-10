@@ -1,4 +1,5 @@
 <?php
+//API Pour récupérer les devoirs crées par un professeur, qui comptent pour un module donné
 include './database.php';
 include './script.php';
 

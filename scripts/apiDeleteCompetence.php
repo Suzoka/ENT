@@ -1,4 +1,5 @@
 <?php
+//API Pour supprimer une compétence
 include './database.php';
 include './script.php';
 

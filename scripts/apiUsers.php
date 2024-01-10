@@ -1,4 +1,5 @@
 <?php
+//API Pour faire une recherche parmis tous les utilisateurs de l'ENT
 include './database.php';
 include './script.php';
 

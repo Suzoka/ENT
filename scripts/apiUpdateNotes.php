@@ -1,4 +1,5 @@
 <?php
+//API Pour mettre à jour les notes d'un devoir, ou son coefficient
 include './database.php';
 include './script.php';
 

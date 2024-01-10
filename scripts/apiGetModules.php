@@ -1,4 +1,5 @@
 <?php
+//API Pour récupérer tout les modules assignés à une classe
 include './database.php';
 include './script.php';
 

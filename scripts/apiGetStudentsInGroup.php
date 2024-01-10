@@ -1,4 +1,5 @@
 <?php
+//API Pour récupérer tous les étudiants qui font partis d'un groupe
 include './database.php';
 include './script.php';
 

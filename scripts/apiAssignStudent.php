@@ -1,4 +1,5 @@
 <?php
+//API Pour assigner un étudiant à un groupe
 include './database.php';
 include './script.php';
 

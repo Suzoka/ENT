@@ -31,6 +31,7 @@
     </form>
 
     <?php 
+    // Si il y a une erreur, l'afficher
     if (isset($_GET["error"])) {
         switch ($_GET["error"]) {
             case "1":

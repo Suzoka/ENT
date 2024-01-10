@@ -1,4 +1,5 @@
 <?php
+//API Pour récupérer toutes les classes existantes
 include './database.php';
 include './script.php';
 

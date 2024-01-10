@@ -1,4 +1,5 @@
 <?php
+//API Pour supprimer un étudiant d'un groupe
 include './database.php';
 include './script.php';
 

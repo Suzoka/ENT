@@ -1,5 +1,5 @@
 <?php
-
+// Vériication des identifiants et du mot de passe pour les étudiants
 function checkConnectionUsr($login, $mdp)
 {
     global $db;
@@ -20,6 +20,7 @@ function checkConnectionUsr($login, $mdp)
     }
 }
 
+// Vériication des identifiants et du mot de passe pour les professeurs
 function checkConnectionProf($login, $mdp)
 {
     global $db;
@@ -40,6 +41,7 @@ function checkConnectionProf($login, $mdp)
     }
 }
 
+// Vériication des identifiants et du mot de passe pour les administrateurs
 function checkConnectionAdmin($login, $mdp)
 {
     global $db;
@@ -60,12 +62,14 @@ function checkConnectionAdmin($login, $mdp)
     }
 }
 
+//Fonction pour la déconnexion
 function deconection()
 {
     $_SESSION = array();
     session_destroy();
 }
 
+//Fonction pour récupérer l'url de l'image de profil (ou image par défaut si elle n'existe pas)
 function getImage($id)
 {
     if (file_exists("./img/pdp/pdp$id.png")) {
@@ -75,6 +79,7 @@ function getImage($id)
     }
 }
 
+//Fonction pour afficher l'identité d'un utilisateur, avec une casse spécifique
 function getIdentite($id)
 {
     global $db;
@@ -85,6 +90,7 @@ function getIdentite($id)
     return $result["prenom"] . " " . $result["nom"];
 }
 
+//Fonction pour récupérer la ou les classes de l'utilisateur, avec une casse spécifique
 function getClasses($id)
 {
     global $db;
@@ -106,6 +112,7 @@ function getClasses($id)
     }
 }
 
+//Fonction pour envoyer un message
 function sendMessage($from, $to, $message)
 {
     global $db;
@@ -117,6 +124,7 @@ function sendMessage($from, $to, $message)
     return true;
 }
 
+//Fonction pour récupérer la conversation ouverte sur la pae de messagerie
 function getCurrentConversation($id, $to)
 {
     global $db;
@@ -127,6 +135,7 @@ function getCurrentConversation($id, $to)
     return $stmt;
 }
 
+//Fonction pour récupérer la conversation la plus récente
 function getLastConversation($id)
 {
     global $db;
@@ -144,6 +153,7 @@ function getLastConversation($id)
     }
 }
 
+//Fonction pour récupérer toutes les conversations en cours de l'utilisateur
 function getAllConversation($id)
 {
     global $db;
@@ -153,6 +163,7 @@ function getAllConversation($id)
     return $stmt;
 }
 
+//Fonction de recherche d'un utilisateur
 function getUsers($recherche)
 {
     global $db;
@@ -162,6 +173,7 @@ function getUsers($recherche)
     return $stmt;
 }
 
+//Fonction pour récupérer toutes les compétences pour lesquels un étudiant est inscrit
 function getCompetences($id)
 {
     global $db;
@@ -171,6 +183,7 @@ function getCompetences($id)
     return $stmt;
 }
 
+//Fonction pour récupérer la moyenne d'un étudiant pour une compétence donnée
 function getMoyenneComp($id, $student)
 {
     global $db;
@@ -196,6 +209,7 @@ function getMoyenneComp($id, $student)
     return (($moyenne / $diviseur) * 20);
 }
 
+//Fonction pour récupérer la moyenne d'un étudiant pour un module donné
 function getMoyenneMod($id, $student)
 {
     global $db;
@@ -217,6 +231,7 @@ function getMoyenneMod($id, $student)
     }
 }
 
+//Fonction pour récupérer toutes les modules d'une compétence
 function getAllModsOfComp($id)
 {
     global $db;
@@ -226,6 +241,7 @@ function getAllModsOfComp($id)
     return $stmt;
 }
 
+//Fonction pour formatter la note comme souhaité
 function formatNote($note)
 {
     $formatedNote = round($note, 2);
@@ -236,6 +252,7 @@ function formatNote($note)
     }
 }
 
+//Fonction pour récupérer toutes les devoirs d'un module
 function getAllDevoirsOfMod($id, $student)
 {
     global $db;
@@ -246,6 +263,7 @@ function getAllDevoirsOfMod($id, $student)
     return $stmt;
 }
 
+//Fonction pour récupérer le role d'un utilisateur (Pour les vérifications de droits)
 function getRole($id)
 {
     global $db;
@@ -255,6 +273,7 @@ function getRole($id)
     return $stmt;
 }
 
+//Fonction pour récupérer toutes les classes d'un professeur
 function getAllClassOfTeacher($id)
 {
     global $db;
@@ -264,6 +283,7 @@ function getAllClassOfTeacher($id)
     return $stmt;
 }
 
+//Fonction pour récupérer tous les modules d'une classe pour lesquels un professeur est jury
 function getAllModOfClasseWhereTeacherIsJury($id, $classe)
 {
     global $db;
@@ -274,6 +294,7 @@ function getAllModOfClasseWhereTeacherIsJury($id, $classe)
     return $stmt;
 }
 
+//Fonction pour que l'API récupère toutes les devoirs d'un module qui ont été créés un professeur donné
 function apiDevoirOfModForTeacher($id, $module)
 {
     global $db;
@@ -284,6 +305,7 @@ function apiDevoirOfModForTeacher($id, $module)
     return $stmt;
 }
 
+//Fonction pour récupérer toutes les notes d'un devoir
 function getNotesOfWork($devoir, $classe)
 {
     global $db;
@@ -294,6 +316,7 @@ function getNotesOfWork($devoir, $classe)
     return $stmt;
 }
 
+//Fonction pour metrre à jour les notes ou le coefficient d'un devoir
 function updateNotes($devoir, $modifs)
 {
     global $db;
@@ -327,6 +350,7 @@ function updateNotes($devoir, $modifs)
     return true;
 }
 
+//Fonction pour récupérer le coefficient d'un devoir
 function getCoefDevoir($id_devoir)
 {
     global $db;
@@ -336,6 +360,7 @@ function getCoefDevoir($id_devoir)
     return $stmt;
 }
 
+//Fonction pour créer un devoir
 function createDevoir($nouveauDevoir)
 {
     global $db;
@@ -348,6 +373,7 @@ function createDevoir($nouveauDevoir)
     return true;
 }
 
+//Fonction pour récupérer tous les utilisateurs
 function getUser($id)
 {
     global $db;
@@ -357,6 +383,7 @@ function getUser($id)
     return $stmt;
 }
 
+//Fonction pour mettre à jour le profil d'un utilisateur
 function updateProfil($id, $modifs, $files)
 {
     global $db;
@@ -380,6 +407,7 @@ function updateProfil($id, $modifs, $files)
     return true;
 }
 
+//Fonction pour récupérer tous les projets d'un utilisateur
 function getProjets($id)
 {
     global $db;
@@ -389,6 +417,7 @@ function getProjets($id)
     return $stmt;
 }
 
+//Fonction pour récupérer tous les thèmes d'un projet
 function getThemes($id)
 {
     global $db;
@@ -409,6 +438,7 @@ function getThemes($id)
     return $themes;
 }
 
+//Fonction pour créer un projet
 function createProjet($id, $infos, $picture)
 {
     global $db;
@@ -437,6 +467,7 @@ function createProjet($id, $infos, $picture)
     return true;
 }
 
+//Fonction pour qu'un utilisateur puisse réinitialiser son mot de passe
 function resetMdp($id, $oldMdp, $newMdp)
 {
     global $db;
@@ -455,6 +486,7 @@ function resetMdp($id, $oldMdp, $newMdp)
     }
 }
 
+//Fonction pour créer un utilisateur
 function createUser($infos)
 {
     global $db;
@@ -510,6 +542,7 @@ function createUser($infos)
     return true;
 }
 
+//Fonction pour qu'un administrateur puisse réinitialiser le mot de passe d'un utilisateur pour un mot de passe aléatoire
 function resetAdminPassword($id)
 {
     global $db;
@@ -522,6 +555,7 @@ function resetAdminPassword($id)
     return true;
 }
 
+//Fonction pour généer un mot de passe aléatoire
 function generatePassword()
 {
     $mdpPossibilitys = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789?./!$%*+";
@@ -532,6 +566,7 @@ function generatePassword()
     return $mdp;
 }
 
+//Fonction pour supprimer un utilisateur
 function deleteUser($id)
 {
     global $db;
@@ -589,6 +624,7 @@ function deleteUser($id)
     return true;
 }
 
+//Fonction pour récupérer toutes les classes
 function getAllClass()
 {
     global $db;
@@ -597,6 +633,7 @@ function getAllClass()
     return $stmt;
 }
 
+//Fonction pour récupérer toutes les compétences d'une classe donnée
 function getCompOfClass($id)
 {
     global $db;
@@ -606,6 +643,7 @@ function getCompOfClass($id)
     return $stmt;
 }
 
+//Fonction pour supprimer une compétence
 function deleteCompetence($id)
 {
     global $db;
@@ -618,6 +656,7 @@ function deleteCompetence($id)
     return "ok";
 }
 
+//Fonction pour créer une classe
 function createClass($nom)
 {
     global $db;
@@ -627,6 +666,7 @@ function createClass($nom)
     return true;
 }
 
+//Fonction pour créer une compétence
 function createComp($nom)
 {
     global $db;
@@ -637,6 +677,7 @@ function createComp($nom)
     return true;
 }
 
+//Fonction pour récupérer tous les modules d'une classe
 function getAllModOfClass($id)
 {
     global $db;
@@ -646,6 +687,7 @@ function getAllModOfClass($id)
     return $stmt;
 }
 
+//Fonction pour récupérer les informations d'un module
 function getModuleInfo($id)
 {
     global $db;
@@ -655,6 +697,7 @@ function getModuleInfo($id)
     return $stmt;
 }
 
+//Fonction pour mettre à jour les coefficients d'un module
 function updateCoefModule($modifs)
 {
     global $db;
@@ -700,6 +743,7 @@ function updateCoefModule($modifs)
     return true;
 }
 
+//Fonction pour récupérer tous les professeurs qui sont jury d'un module
 function getAllProfsOfMod($id)
 {
     global $db;
@@ -709,14 +753,17 @@ function getAllProfsOfMod($id)
     return $stmt;
 }
 
-function getAllProfs()
+//Fonction pour récupérer tous les professeurs qui ne sont pas jury d'un module
+function getAllProfs($idModule)
 {
     global $db;
-    $stmt = $db->prepare("select * from `utilisateurs` where role=2");
+    $stmt = $db->prepare("SELECT * FROM `utilisateurs` WHERE role = 2 AND id NOT IN (SELECT ext_id_prof FROM `jury` WHERE ext_id_module = :idModule);");
+    $stmt->bindValue(':idModule', $idModule, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt;
 }
 
+//Fonction pour assigner un professeur à un module
 function assignProf($infos)
 {
     global $db;
@@ -727,6 +774,7 @@ function assignProf($infos)
     return true;
 }
 
+//Fonction pour supprimer un professeur d'un module
 function deleteProfOfMod($prof, $module)
 {
     global $db;
@@ -737,6 +785,7 @@ function deleteProfOfMod($prof, $module)
     return true;
 }
 
+//Fonction pour créer un module
 function createMod($infos)
 {
     global $db;
@@ -757,6 +806,7 @@ function createMod($infos)
     return true;
 }
 
+//Fonction pour récupérer tous les groupes d'une classe
 function getGroupesOfClass($id)
 {
     global $db;
@@ -766,6 +816,7 @@ function getGroupesOfClass($id)
     return $stmt;
 }
 
+//Fonction pour supprimer un groupe
 function deleteGroup($id)
 {
     global $db;
@@ -778,6 +829,7 @@ function deleteGroup($id)
     return true;
 }
 
+//Fonction pour créer un groupe
 function createGroup($infos) {
     global $db;
     $stmt = $db->prepare("insert into `groupes` (nom_groupe, ext_id_classe) values (:nom, :classe)");
@@ -787,6 +839,7 @@ function createGroup($infos) {
     return true;
 }
 
+//Fonction pour récupérer tous les étudiants d'un groupe
 function getStudentsOfGroup($id) {
     global $db;
     $stmt = $db->prepare("select * from `utilisateurs` u inner join `promotions` p on u.id = p.ext_id_usr inner join `groupes` g on p.ext_id_groupe = g.id_groupe where g.id_groupe=:id");
@@ -795,6 +848,7 @@ function getStudentsOfGroup($id) {
     return $stmt;
 }
 
+//Fonction pour supprimer un étudiant d'un groupe
 function deleteStudentOfGroup($idStudent, $idGroupe) {
     global $db;
     $stmt = $db->prepare("delete from `promotions` where ext_id_usr=:idStudent && ext_id_groupe=:idGroupe");
@@ -804,14 +858,17 @@ function deleteStudentOfGroup($idStudent, $idGroupe) {
     return true;
 }
 
-function getAllStudents()
+//Fonction pour récupérer tous les étudiants qui ne sont pas dans un groupe
+function getAllStudents($idGroupe)
 {
     global $db;
-    $stmt = $db->prepare("select * from `utilisateurs` where role=1");
+    $stmt = $db->prepare("select * from `utilisateurs` where role=1 && id NOT IN (select ext_id_usr from `promotions` where ext_id_groupe=:idGroupe)");
+    $stmt->bindValue(':idGroupe', $idGroupe, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt;
 }
 
+//Fonction pour assigner un étudiant à un groupe
 function assignStudent($infos)
 {
     global $db;
@@ -822,6 +879,7 @@ function assignStudent($infos)
     return true;
 }
 
+//Fonction pour supprimer un étudiant
 function deleteClass($id)
 {
     global $db;

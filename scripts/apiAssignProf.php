@@ -1,4 +1,5 @@
 <?php
+//API Pour assigner un professeur à un module
 include './database.php';
 include './script.php';
 

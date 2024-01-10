@@ -1,4 +1,5 @@
 <?php
+//API pour télécharger un certificat de scolarité
 session_start();
 if (isset($_SESSION["login"])) {
     $filename = basename("cs".$_SESSION["login"]);

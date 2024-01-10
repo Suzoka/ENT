@@ -1,4 +1,5 @@
 <?php
+//API Pour récupérer toutes les notes enregistrées pour un devoir donné à une classe
 include './database.php';
 include './script.php';
 
