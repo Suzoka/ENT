@@ -359,7 +359,6 @@ function getUser($id)
 
 function updateProfil($id, $modifs, $files)
 {
-    var_dump($files);
     global $db;
     if ($files["image"]["name"] != '' && !empty($files)) {
         if (file_exists("../img/pdp/pdp$id.png")) {
@@ -755,6 +754,125 @@ function createMod($infos)
         $stmt->bindValue(':coef', $coef->coef, PDO::PARAM_INT);
         $stmt->execute();
     }
+    return true;
+}
+
+function getGroupesOfClass($id)
+{
+    global $db;
+    $stmt = $db->prepare("select * from `groupes` where ext_id_classe=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function deleteGroup($id)
+{
+    global $db;
+    $stmt = $db->prepare("delete from `groupes` where id_groupe=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $stmt = $db->prepare("delete from `promotions` where ext_id_groupe=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return true;
+}
+
+function createGroup($infos) {
+    global $db;
+    $stmt = $db->prepare("insert into `groupes` (nom_groupe, ext_id_classe) values (:nom, :classe)");
+    $stmt->bindValue(':nom', $infos->nom, PDO::PARAM_STR);
+    $stmt->bindValue(':classe', $infos->classe, PDO::PARAM_INT);
+    $stmt->execute();
+    return true;
+}
+
+function getStudentsOfGroup($id) {
+    global $db;
+    $stmt = $db->prepare("select * from `utilisateurs` u inner join `promotions` p on u.id = p.ext_id_usr inner join `groupes` g on p.ext_id_groupe = g.id_groupe where g.id_groupe=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt;
+}
+
+function deleteStudentOfGroup($idStudent, $idGroupe) {
+    global $db;
+    $stmt = $db->prepare("delete from `promotions` where ext_id_usr=:idStudent && ext_id_groupe=:idGroupe");
+    $stmt->bindValue(':idStudent', $idStudent, PDO::PARAM_INT);
+    $stmt->bindValue(':idGroupe', $idGroupe, PDO::PARAM_INT);
+    $stmt->execute();
+    return true;
+}
+
+function getAllStudents()
+{
+    global $db;
+    $stmt = $db->prepare("select * from `utilisateurs` where role=1");
+    $stmt->execute();
+    return $stmt;
+}
+
+function assignStudent($infos)
+{
+    global $db;
+    $stmt = $db->prepare("insert into `promotions` (ext_id_usr, ext_id_groupe) values (:idStudent, :idGroupe)");
+    $stmt->bindValue(':idStudent', $infos->idEtudiant, PDO::PARAM_INT);
+    $stmt->bindValue(':idGroupe', $infos->idGroupe, PDO::PARAM_INT);
+    $stmt->execute();
+    return true;
+}
+
+function deleteClass($id)
+{
+    global $db;
+    $stmt = $db->prepare("delete from `classes` where id_classe=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $stmt = $db->prepare("SELECT id_groupe FROM `groupes` WHERE ext_id_classe=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $groupIds = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+    foreach ($groupIds as $groupId) {
+        $stmt = $db->prepare("DELETE FROM `promotions` WHERE ext_id_groupe=:groupId");
+        $stmt->bindValue(':groupId', $groupId, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt = $db->prepare("DELETE FROM `groupes` WHERE id_groupe=:groupId");
+        $stmt->bindValue(':groupId', $groupId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    $stmt = $db->prepare("select id_module from `modules` m inner join `coef_modules` cm on m.id_module = cm.ext_id_module inner join `competences` c on cm.ext_id_competence = c.id_competence where c.ext_id_classe=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $moduleIds = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+    foreach ($moduleIds as $moduleId) {
+        $stmt = $db->prepare("select id_devoir from `devoirs` where ext_id_module=:moduleId");
+        $stmt->bindValue(':moduleId', $moduleId, PDO::PARAM_INT);
+        $stmt->execute();
+        $devoirIds = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+        foreach ($devoirIds as $devoirId) {
+            $stmt = $db->prepare("delete from `notes` where ext_id_devoir=:devoirId");
+            $stmt->bindValue(':devoirId', $devoirId, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt = $db->prepare("delete from `devoirs` where id_devoir=:devoirId");
+            $stmt->bindValue(':devoirId', $devoirId, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+        $stmt = $db->prepare("delete from `jury` where ext_id_module=:moduleId");
+        $stmt->bindValue(':moduleId', $moduleId, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt = $db->prepare("delete from `coef_modules` where ext_id_module=:moduleId");
+        $stmt->bindValue(':moduleId', $moduleId, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt = $db->prepare("delete from `modules` where id_module=:moduleId");
+        $stmt->bindValue(':moduleId', $moduleId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    $stmt = $db->prepare("delete from `competences` where ext_id_classe=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
     return true;
 }
 ?>

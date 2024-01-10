@@ -11,27 +11,22 @@ displayPage1();
 
 function displayPage1() {
     page = 1;
-    titre.innerHTML = "Gestion des classes";
+    titre.innerHTML = "Choix de la classe";
     backButton.style.display = 'none';
     filAriane.innerHTML = '';
-    var newButton = document.createElement('button');
-    newButton.classList.add('add');
-    newButton.innerHTML = "Ajouter une classe";
-    bandeau.appendChild(newButton);
     fetch('../scripts/apiGetAllClass').then(function (response) {
         response.json().then(function (classes) {
             dynamic.innerHTML = '';
             classes.forEach(classe => {
                 dynamic.innerHTML += "<button id=\"" + classe.id_classe + "\">" + classe.nom_classe + "</button>";
             });
-            document.querySelector('.add').addEventListener('click', function () {
-                formulaire("newClass")
-            });
-            document.querySelectorAll('.dynamic button').forEach(button => {
-                button.addEventListener('click', function () {
-                    displayPage2(this.getAttribute('id'));
+            setTimeout(function () {
+                document.querySelectorAll('.dynamic button').forEach(button => {
+                    button.addEventListener('click', function () {
+                        displayPage2(this.getAttribute('id'));
+                    });
                 });
-            });
+            }, 100);
         });
     });
 }
@@ -46,7 +41,7 @@ function displayPage2(id) {
             try { bandeau.removeChild(document.querySelector('.add')) } catch (e) { };
             dynamic.innerHTML = '';
             titre.innerHTML = "Gestion des compétences";
-            var newButton = document.createElement('button');
+            let newButton = document.createElement('button');
             newButton.classList.add('add');
             newButton.innerHTML = "Ajouter une compétence";
             bandeau.appendChild(newButton);
@@ -127,7 +122,7 @@ function displayPage3(module, idClasse) {
                 newDiv.innerHTML = "<h2>Gestion des professeurs sur le module</h2>";
                 document.querySelector('body').appendChild(newDiv);
 
-                var newButton = document.createElement('button');
+                let newButton = document.createElement('button');
                 newButton.classList.add('add');
                 newButton.innerHTML = "Ajouter un professeur";
                 document.querySelector('.professeurs').appendChild(newButton);
@@ -158,7 +153,7 @@ function displayPage3(module, idClasse) {
                 });
                 setTimeout(function () {
                     document.querySelector('button.enregistrer').addEventListener('click', function () {
-                        var modules = [];
+                        let modules = [];
                         document.querySelectorAll('.coef input').forEach(input => {
                             modules.push({ idComp: input.getAttribute('id').replace("coef", ""), coef: input.value });
                         });
@@ -189,43 +184,10 @@ function displayPage3(module, idClasse) {
 function formulaire(type, idFrom, idClasse) {
     popup.style.display = "flex";
     switch (type) {
-        case "newClass":
-            document.querySelector('.popup h2').innerHTML = "Création d'une nouvelle classe";
-            document.querySelector('.formulaire').innerHTML = "<label for='nom'>Nom de la classe<span class=\"rouge\">*</span> : </label><input type='text' name='nom' id='nom' required>";
-            var newButton = document.createElement('button');
-            newButton.classList.add('confirm');
-            newButton.innerHTML = "Confirmer";
-            document.querySelector('.popup .boutons').appendChild(newButton);
-            document.querySelector('.confirm').addEventListener('click', function () {
-                if (document.querySelector('#nom').value == "") {
-                    alert("Veuillez renseigner le nom de la classe.");
-                    return;
-                }
-                var classe = {
-                    nom: document.querySelector('#nom').value
-                };
-                fetch('../scripts/apiCreateClass', {
-                    method: 'POST',
-                    body: JSON.stringify(classe)
-                }).then(function (response) {
-                    response.json().then(function (result) {
-                        if (result == 'ok') {
-                            bandeau.removeChild(document.querySelector('.add'));
-                            document.querySelector('.popup .boutons').removeChild(document.querySelector('.confirm'));
-                            displayPage1();
-                            popup.style.display = "none";
-                        }
-                        else {
-                            alert("Une erreur est survenue lors de la création de la classe.");
-                        }
-                    });
-                });
-            });
-            break;
         case "newComp":
             document.querySelector('.popup h2').innerHTML = "Création d'une nouvelle compétence";
             document.querySelector('.formulaire').innerHTML = "<label for='nom'>Nom de la compétence<span class=\"rouge\">*</span> : </label><input type='text' name='nom' id='nom' required>";
-            var newButton = document.createElement('button');
+            let newButton = document.createElement('button');
             newButton.classList.add('confirm');
             newButton.innerHTML = "Confirmer";
             document.querySelector('.popup .boutons').appendChild(newButton);
@@ -234,7 +196,7 @@ function formulaire(type, idFrom, idClasse) {
                     alert("Veuillez renseigner le nom de la classe.");
                     return;
                 }
-                var competence = {
+                let competence = {
                     nom: document.querySelector('#nom').value, id: idFrom
                 };
                 fetch('../scripts/apiCreateComp', {
@@ -256,7 +218,7 @@ function formulaire(type, idFrom, idClasse) {
         case "newProf":
             document.querySelector('.popup h2').innerHTML = "Ajout d'un professeur";
             document.querySelector('.formulaire').innerHTML = "<label for='identite'>Nom du professeur<span class=\"rouge\">*</span> : </label><input type='search' name='identite' id='identite' list='listeProfs' required>";
-            var newDatalist = document.createElement('datalist');
+            let newDatalist = document.createElement('datalist');
             newDatalist.setAttribute('id', 'listeProfs');
             document.querySelector('.formulaire').appendChild(newDatalist);
             fetch('../scripts/apiGetAllProfs').then(function (response) {
@@ -266,7 +228,7 @@ function formulaire(type, idFrom, idClasse) {
                     });
                 });
             });
-            var newButton = document.createElement('button');
+            newButton = document.createElement('button');
             newButton.classList.add('confirm');
             newButton.innerHTML = "Confirmer";
             document.querySelector('.popup .boutons').appendChild(newButton);
@@ -278,7 +240,7 @@ function formulaire(type, idFrom, idClasse) {
                     alert("Veuillez sélectionner le professeur directement dans la liste.");
                     return;
                 }
-                var prof = {
+                let prof = {
                     idProf: exists.getAttribute('id').replace("choixProf", ""), idMod: idFrom[0].id_module
                 };
                 fetch('../scripts/apiAssignProf', {
@@ -309,7 +271,7 @@ function formulaire(type, idFrom, idClasse) {
                     competences.forEach(competence => {
                         document.querySelector('.formulaire').innerHTML += "<div class='coef'><label for='coef" + competence.id_competence + "'>Coefficient " + competence.nom_competence + " : </label><input type='number' name='coef" + competence.id_competence + "' id='coef" + competence.id_competence + "'></div>";
                     });
-                    var newButton = document.createElement('button');
+                    let newButton = document.createElement('button');
                     newButton.classList.add('confirm');
                     newButton.innerHTML = "Confirmer";
                     document.querySelector('.popup .boutons').appendChild(newButton);
@@ -319,7 +281,7 @@ function formulaire(type, idFrom, idClasse) {
                                 alert("Veuillez renseigner le nom de la classe.");
                                 return;
                             }
-                            var module = {
+                            let module = {
                                 nom: document.querySelector('#nom').value, coefs: []
                             };
                             document.querySelectorAll('.coef input').forEach(input => {
