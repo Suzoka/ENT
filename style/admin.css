@@ -178,3 +178,8 @@ div.groupe:hover, div.groupe:focus, div.classeButton:hover, div.classeButton:foc
     background-color: #1B4965;
     color: white;
 }
+
+.bodyadmin h1 {
+    width: 100%;
+    text-align: center;
+}

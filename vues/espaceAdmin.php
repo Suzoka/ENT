@@ -13,24 +13,25 @@
 <body>
     <?php require './vues/components/header.php'; ?>
     <div class="bodyadmin">
+        <h1>Espace administrateur</h1>
         <a href="./gestionUsers" class="adminlink">
             <div class="adminbtn">
-                <p>gestion des utilisateurs</p>
+                <h2>Gestion des utilisateurs</h2>
             </div>
         </a>
         <a href="./gestionGroupes" class="adminlink">
             <div class="adminbtn">
-                <p>gestion des groupes</p>
+                <h2>Gestion des groupes</h2>
             </div>
         </a>
         <a href="./gestionClasses" class="adminlink">
             <div class="adminbtn">
-                <p>gestion des evaluations</p>
+                <h2>Gestion des evaluations</h2>
             </div>
         </a>
         <a href="./messagerie" class="adminlink">
             <div class="adminbtn">
-                <p>messagerie</p>
+                <h2>Messagerie</h2>
             </div>
         </a>
     </div>

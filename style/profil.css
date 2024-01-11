@@ -249,6 +249,10 @@ textarea {
     gap: 1rem;
 }
 
+#recherche{
+    display: none;
+}
+
 @media screen and (max-width: 940px) {
 
     .profil {
