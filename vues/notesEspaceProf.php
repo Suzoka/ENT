@@ -24,6 +24,7 @@
             <div class="dynamic">
             </div>
         </div>
+        <?php require './vues/components/sidebar.php'; ?>
     </section>
     <div class="popup">
         <h2>Voici les modifications que vous avez effectuées</h2>

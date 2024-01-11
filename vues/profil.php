@@ -105,6 +105,7 @@
             </div>
         </div>
         <?php if (isset($_SESSION["login"])) { ?>
+         <?php require './vues/components/sidebar.php'; ?>
         </section>
     <?php } ?>
 

@@ -157,54 +157,9 @@ form.msg input[type=submit] {
     border: 1px solid #1B4965;
 }
 
-.contacts {
-    overflow-y: scroll;
-    height: 100%;
-    width: 100%;
-    padding: 1.25rem 0.25rem 1.25rem 0;
-}
-
-.contact {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: #FFF;
-    border: 1px solid #1B4965;
-    padding: 0.5rem;
-    border-radius: 1.25rem;
-    text-decoration: none;
-    margin-bottom: 0.5rem;
-}
-
 .current {
     background-color: #ffffffde;
     border: 3px solid #1B4965;
-}
-
-.contact img {
-    width: 2.625rem;
-    height: 2.625rem;
-    border-radius: 150px;
-}
-
-.contact div{
-    display: grid;
-    grid-template-columns: 1fr;
-}
-
-.contact h2 {
-    margin: 0;
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: #1B4965;
-}
-
-.contact p {
-    margin: 0;
-    color: #545454;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .erreur {

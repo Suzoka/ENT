@@ -153,6 +153,10 @@ h2 {
     margin: 10px;
 }
 
+.recherche{
+    display: none;
+}
+
 .newProjet {
     position: absolute;
     top: 0.6rem;
@@ -259,5 +263,4 @@ textarea {
     .zone {
         width: 80%;
     }
-    
 }
