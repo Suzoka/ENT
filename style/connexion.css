@@ -28,10 +28,13 @@ h1 {
 .card {
     background-color: #F1FAFF;
     max-width: 500px;
-    height: 500px;
+    height: 340px;
     border-radius: 40px;
     padding: 25px 38px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .card h2 {
@@ -50,6 +53,10 @@ h2::after {
 .card p {
     font-size: 1.25rem;
     margin-left: 10px;
+}
+.nomcit{
+    text-align: right;
+    margin: 0;
 }
 
 .connexionButton {

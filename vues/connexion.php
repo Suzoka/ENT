@@ -17,20 +17,12 @@
     <div class="flexbox">
         <div class="card">
             <h2>Vous êtes étudiant-e ?</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque placerat, felis eu imperdiet
-                ultrices, sapien dolor placerat nunc, nec laoreet magna enim id ex. Morbi et euismod elit. In at lectus
-                nec tortor hendrerit rutrum in sit amet sapien. Vivamus id erat quis erat elementum blandit et non
-                nulla. Vestibulum id ex. Morbi et euismod elit. In at lectus nec tortor hendrerit rutrum in sit amet
-                sapien. Vivamus id erat quis erat elementum blandit et non nulla. Vestibulum </p>
+            <p>"La science nous dit ce que nous pouvons savoir, mais elle ne nous dit pas ce que nous devons faire."</p><p class="nomcit">- Gustave Eiffel</p>
             <button class="connexionButton displayPopup">Se connecter</button>
         </div>
         <div class="card">
             <h2>Vous êtes professeur-e ?</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque placerat, felis eu imperdiet
-                ultrices, sapien dolor placerat nunc, nec laoreet magna enim id ex. Morbi et euismod elit. In at lectus
-                nec tortor hendrerit rutrum in sit amet sapien. Vivamus id erat quis erat elementum blandit et non
-                nulla. Vestibulum id ex. Morbi et euismod elit. In at lectus nec tortor hendrerit rutrum in sit amet
-                sapien. Vivamus id erat quis erat elementum blandit et non nulla. Vestibulum </p>
+            <p>"L'éducation est l'arme la plus puissante que vous pouvez utiliser pour changer le monde."</p><p class="nomcit">- Nelson Mandela</span></p>
             <button class="connexionButton displayPopup">Se connecter</button>
         </div>
     </div>
