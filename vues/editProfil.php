@@ -37,6 +37,7 @@
                     </div>
                     <input type="submit" value="Enregistrer">
                 </div>
+                <label for="CV">Uploader mon CV</label>
                 <input type="file" name="CV" id="CV" accept="application/pdf">
                 <div class="contenu">
                     <div class="zone moi customScroll">
