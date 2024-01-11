@@ -12,3 +12,6 @@
     margin: 1vw;
     overflow: hidden;
 }
+.recherche{
+    display: none;
+}

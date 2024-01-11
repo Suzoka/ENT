@@ -25,5 +25,4 @@
         <?php require './vues/components/sidebar.php'; ?>
     </section>
 </body>
-
 </html>

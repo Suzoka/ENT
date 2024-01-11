@@ -19,6 +19,7 @@ if (isset($_SESSION['login'])) {
     $identite = getIdentite($_SESSION['login']);
     $classes = getClasses($_SESSION['login']);
     $role = getRole($_SESSION['login'])->fetchColumn();
+    $historique = getAllConversation($_SESSION["login"])->fetchAll(PDO::FETCH_ASSOC);
     switch ($page) {
         case 'accueil':
         default:
@@ -55,7 +56,6 @@ if (isset($_SESSION['login'])) {
                 $classesReceiver = "";
                 $conversation = array();
             }
-            $historique = getAllConversation($_SESSION["login"])->fetchAll(PDO::FETCH_ASSOC);
             include './vues/messagerie.php';
             break;
         case 'sendMessage':

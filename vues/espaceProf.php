@@ -20,11 +20,13 @@
             </div>
             <div class="pnl notes">
                 <h3><a href="./notes">note</a></h3>
-                <div class="classes"> liste des classes</div>
+                <div class="classes">
+                    liste des classes
+
+                </div>
             </div>
         </div>
         <?php require './vues/components/sidebar.php'; ?>
     </section>
 </body>
-
 </html>

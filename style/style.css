@@ -204,7 +204,7 @@ header nav a.logout {
     margin-top: 0;
     position: absolute;
     bottom: 0;
-    text-align: center;
+    /* text-align: center; */
     overflow: scroll;
 }
 .ctct{
