@@ -25,10 +25,12 @@ body {
     padding-right: 1.5rem;
 }
 
-.receiverInfos div {
+.receiverInfos a {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    text-decoration: none;
+    color: white;
 }
 
 .receiverInfos h1,
@@ -89,6 +91,8 @@ body {
     z-index: 4;
     left: -3.75rem;
     top: -0.5rem;
+    border-radius: 300px;
+    object-fit: cover;
 }
 
 .moi {
@@ -139,6 +143,8 @@ form.msg input[type=submit] {
     border-radius: 500rem;
     width: 2.5rem;
     height: 2.5rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0);
 }
 
 .side {
@@ -151,14 +157,10 @@ form.msg input[type=submit] {
     border: 1px solid #1B4965;
 }
 
-
-
 .current {
     background-color: #ffffffde;
     border: 3px solid #1B4965;
 }
-
-
 
 .erreur {
     left: 69%;

@@ -1,4 +1,5 @@
 <?php
+//Copie vierge de la page qui permet la connection à la base de donnée
 $serveur = "localhost";
 $login = "";
 $mdp = "";

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/espaceProf.css">
     <link rel="stylesheet" href="../style/edt-espaceEtudiant.css">
+    <link rel="icon" type="image/png" href="../img/logo-UGE.png">
 </head>
 
 <body>

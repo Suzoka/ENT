@@ -5,9 +5,10 @@ create table if not exists `etudiants` (
     `email` varchar(250) not null unique,
     `prenom` varchar(255) not null,
     `nom` varchar(255) not null,
-    `date_naissance` date not null,
+    `date_naissance` date,
     `numEtud` int unique,
-    `statut` text not null,
+    `statut` text,
+    `description` text,
     `role` int not null
 );
 
@@ -71,4 +72,16 @@ create table if not exists `competences` (
     `id_competence` int primary key not null auto_increment,
     `nom_competence` varchar(255) not null,
     `ext_id_classe` int not null
+);
+
+create table if not exists `projets` (
+    `id_projet` int primary key not null auto_increment,
+    `nom_projet` varchar(255) not null,
+    `ext_id_user` int not null,
+    `lien_projet` varchar(255) not null
+);
+
+create table if not exists `themes` (
+    `ext_id_projet` int not null,
+    `nom_theme` varchar(255) not null
 );

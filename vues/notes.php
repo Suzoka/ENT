@@ -1,4 +1,4 @@
-<!-- //TODO : Afficher les coefficients -->
+<!-- //TODO : Afficher les profs -->
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -9,6 +9,7 @@
     <title>Mes notes</title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/notes.css">
+    <link rel="icon" type="image/png" href="../img/logo-UGE.png">
 </head>
 
 <body>
@@ -17,6 +18,7 @@
         <div class="bulletin customScroll">
             <h1>Mes notes</h1>
             <?php
+            // Afficher les différentes compétences
             foreach ($competences as $comp) { ?>
                 <div class="competence">
                     <div class="title">
@@ -24,11 +26,12 @@
                             <?php echo $comp["nom_competence"]; ?>
                         </h2>
                         <p class="moyenneComp">
-                            <?php echo formatNote(getMoyenneComp($comp["id_competence"], $_SESSION["login"])); ?>
+                            <?php echo getMoyenneComp($comp["id_competence"], $_SESSION["login"]) != "NN" ? formatNote(getMoyenneComp($comp["id_competence"], $_SESSION["login"])) : "NN"; ?>
                         </p>
                     </div>
                     <div class="notes">
                         <?php
+                        // Afficher les modules de la compétence
                         foreach (getAllModsOfComp($comp["id_competence"]) as $mod) { ?>
                             <div class="title">
                                 <button class="developMod" id="<?php echo $comp["id_competence"] . $mod["id_module"] ?>">
@@ -40,11 +43,13 @@
                                     </p>
                                 </button>
                                 <p class="moyenneMod">
-                                    <?php echo formatNote(getMoyenneMod($mod["id_module"], $_SESSION["login"])); ?>
+                                    <?php $moyenneMod = getMoyenneMod($mod["id_module"], $_SESSION["login"]);
+                                    echo $moyenneMod == null ? "NN" : formatNote($moyenneMod); ?>
                                 </p>
                             </div>
                             <div class="devoirs data<?php echo $comp["id_competence"] . $mod["id_module"]; ?>">
                                 <?php
+                                // Afficher les devoirs du module
                                 foreach (getAllDevoirsOfMod($mod["id_module"], $_SESSION["login"])->fetchAll(PDO::FETCH_ASSOC) as $devoir) { ?>
                                     <div class="title noteDevoir">
                                         <div class="devoirInfos">

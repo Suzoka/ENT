@@ -7,6 +7,7 @@
     <title>Gestion des notes</title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/notesEspaceProf.css">
+    <link rel="icon" type="image/png" href="../img/logo-UGE.png">
 </head>
 
 <body>
@@ -39,8 +40,8 @@
     <div class="newDevoirForm">
         <div class="contenuFormulaire">
             <h2>Création d'un nouveau devoir</h2>
-            <div><label for="nom">Nom du devoir : </label><input type="text" id="nom"></div>
-            <div><label for="coef">Coefficient : </label><input type="number" id="coef"></div>
+            <div><label for="nom">Nom du devoir<span class="rouge">*</span> : </label><input type="text" id="nom"></div>
+            <div><label for="coef">Coefficient<span class="rouge">*</span> : </label><input type="number" id="coef"></div>
             <div><button class="cancel">Annuler</button><button class="confirmNewDevoir">Créer le devoir</button></div>
         </div>
     </div>

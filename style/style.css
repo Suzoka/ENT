@@ -131,7 +131,10 @@ header nav a.user div.text p:first-of-type {
 }
 
 header nav a.user img {
-    width: 4.25rem;    
+    width: 4.25rem;
+    height: 4.25rem;  
+    border-radius: 300px;  
+    object-fit: cover;
 }
 
 header nav a.logout {
@@ -179,7 +182,6 @@ header nav a.logout {
     z-index: 999999999;
 }
 
-/* waldi */
 .right{
     display: flex;
     flex-direction: column;
@@ -256,6 +258,10 @@ header nav a.logout {
     text-overflow: ellipsis;
 }
 
+.rouge {
+    color: red;
+}
+
 form.recherche input{
     width: 95%;
     height: 2rem;
@@ -283,6 +289,61 @@ form.recherche::before {
     display: block;
     z-index: 5;
     top: 3px;
-    left: 4%;
+    left: 15px;
     cursor: text;
+}
+
+table {
+    border-spacing: 0 8px;
+    background-color: #1B4965;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 1440px;
+    padding: 0.5rem;
+    padding-top: 0;
+}
+
+table thead tr {
+    position: relative;
+    background-color: #1B4965;
+    color: white;
+}
+
+table tbody th, table tbody td {
+    background-color: white;
+    height: 1rem;
+}
+
+table tbody tr:nth-child(odd) th, table tbody tr:nth-child(odd) td {
+    background-color: #CFEEFF;
+}
+
+table th, table td {
+    padding: 0.5rem 1rem;
+    text-align: left;
+}
+
+tbody tr td:last-child {
+    padding: 0;
+}
+
+tr td:first-child { 
+    border-bottom-left-radius: 7px;
+    border-top-left-radius: 7px;
+}
+tr td:last-child { 
+    border-bottom-right-radius: 7px; 
+    border-top-right-radius: 7px; 
+}
+
+td input {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.075);
+    border-bottom-right-radius: 7px; 
+    border-top-right-radius: 7px; 
+}
+
+input:invalid, textarea:invalid {
+    border: 2px solid red !important;
 }
