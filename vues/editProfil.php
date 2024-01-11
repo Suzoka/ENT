@@ -77,6 +77,7 @@
                     </div>
                 </div>
             </div>
+            <?php require './vues/components/sidebar.php'; ?>
         </section>
     </form>
 </body>
