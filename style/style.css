@@ -194,7 +194,6 @@ header nav a.logout {
 .right {
     display: flex;
     flex-direction: column;
-    /* height: 100vh; */
 }
 
 .racc {
