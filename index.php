@@ -12,11 +12,7 @@ $path = trim($path, '/');
 $segments = explode('/', $path);
 
 //Récupération de la page
-if (!isset($segments[2])) {
-    $page = '';
-} else {
-    $page = $segments[2];
-}
+$page = end($segments);
 
 //Si l'utilisateur est connecté
 if (isset($_SESSION['login'])) {
