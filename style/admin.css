@@ -1,3 +1,7 @@
+body {
+    background-image: unset;
+}
+
 .erreur {
     display: block;
 }
@@ -139,6 +143,38 @@ div.groupe, div.classeButton {
 }
 
 div.groupe:hover, div.groupe:focus, div.classeButton:hover, div.classeButton:focus {
+    background-color: #1B4965;
+    color: white;
+}
+.bodyadmin{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+.adminlink{
+    text-decoration: none;
+}
+
+.adminbtn{
+    text-align: center;
+    border: solid 1px #1B4965;
+    color: #1B4965;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    margin-left: auto;
+    width: 40vw;
+    height: 30vh;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.adminbtn:hover{
     background-color: #1B4965;
     color: white;
 }
