@@ -193,3 +193,7 @@ form [disabled="disabled"] {
     cursor: not-allowed!important;
     background-color: #515151!important;
 }
+
+.contacts {
+    height: 100%;
+}

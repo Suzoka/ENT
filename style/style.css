@@ -230,7 +230,7 @@ header nav a.logout {
 
 .contacts {
     overflow-y: scroll;
-    height: 100%;
+    height: 90%;
     width: 100%;
     padding: 1.25rem 0.25rem 1.25rem 0;
 }
