@@ -5,12 +5,6 @@
     grid-template-rows: 1fr 1fr;
 }
 
-.pnl{
-    border: solid 2px #787878;
-    border-radius: 40px;
-    margin: 1vw;
-    overflow: hidden;
-}
 .recherche{
     display: none;
 }

@@ -367,3 +367,10 @@ input:invalid,
 textarea:invalid {
     border: 2px solid red !important;
 }
+
+.pnl{
+    border: solid 2px #787878;
+    border-radius: 40px;
+    margin: 1vw;
+    overflow: hidden;
+}

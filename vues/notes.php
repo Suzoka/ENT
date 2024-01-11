@@ -71,6 +71,7 @@
                 </div>
             <?php } ?>
         </div>
+        <?php require './vues/components/sidebar.php'; ?>
     </section>
 
     <script src="../scripts/notes.js" defer></script>

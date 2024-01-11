@@ -135,3 +135,15 @@ p.moyenneMod {
 .coef {
     font-style: italic;
 }
+
+.recherche{
+    display: none;
+}
+
+body {
+    background-image: unset;
+}
+
+.grid>div:first-of-type, .grid>div:last-of-type {
+    background-color: unset;
+}
