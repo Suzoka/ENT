@@ -20,10 +20,9 @@
                 <p>vie scolaire</p>
             </div>
             <div class="pnl notes">
-                <h3><a href="./notes">note</a></h3>
+                <h3><a href="./notes">Entrer des notes</a></h3>
                 <div class="classes">
                     liste des classes
-
                 </div>
             </div>
         </div>

@@ -20,7 +20,7 @@
                 <p>vie scolaire</p>
             </div>
             <div class="pnl notes">
-                <a href="./notes">note</a>
+                <a href="./notes">Mes notes</a>
             </div>
         </div>
         <?php require './vues/components/sidebar.php'; ?>

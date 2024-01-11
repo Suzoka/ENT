@@ -218,8 +218,11 @@ header nav a.logout {
     margin-top: 0;
     position: absolute;
     bottom: 0;
-    /* text-align: center; */
     overflow: scroll;
+}
+
+.chat h3 {
+    text-align: center;
 }
 
 .ctct {

@@ -15,3 +15,7 @@
 .recherche{
     display: none;
 }
+
+.pnl.vsclr, .pnl.notes {
+    padding: 10px;
+}
