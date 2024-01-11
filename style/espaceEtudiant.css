@@ -1,6 +1,6 @@
 /* waldi */
 .panel{
-    height: 80vh;
+    height: calc(100vh - 7rem);
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;

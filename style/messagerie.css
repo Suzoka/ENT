@@ -2,6 +2,11 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-image: unset;
+}
+
+.grid>div:first-of-type, .grid>div:last-of-type {
+    background-color: unset;
 }
 
 .flexMessages {
@@ -148,7 +153,7 @@ form.msg input[type=submit] {
 }
 
 .side {
-    background-color: #CFEEFF;
+    background-color: #CFEEFF !important;
     border-radius: 1.875rem;
     padding: 0 0 0 0.75rem;
     overflow: hidden;
